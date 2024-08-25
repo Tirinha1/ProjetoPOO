@@ -11,7 +11,6 @@ import java.time.LocalDateTime;
  * @author Gabriel
  */
 public class ConvidadoIndividual {
-    public class RelacaoFamiliar {
     private int id;
     private Pessoa pessoa;
     private Familia familia;
@@ -76,4 +75,4 @@ public class ConvidadoIndividual {
         return this.dataModificacao;
     }
 }
-}
+
