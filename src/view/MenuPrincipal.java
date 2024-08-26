@@ -3,11 +3,219 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package view;
+
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Gabriel
  */
 public class MenuPrincipal {
+    public static void main(String[] args) {
+        MenuInicio menuInicio = new MenuInicio();
+        int opc;
+        do {
+            opc = menuInicio.exibeMenu();
+            switch (opc) {
+                case 0:
+                    break;
+                case 1:
+                    break;
+                case 2:
+                    break;
+                case -1:
+                    int q = JOptionPane.showConfirmDialog(null, "DESEJA SAIR?", "ATENÇÃO", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+                    System.out.println(q);
+                    if (q == JOptionPane.YES_OPTION) {
+                        JOptionPane.showMessageDialog(null, "Bom casamento e uma ótima festa!", "GW CASAMENTOS AGRADECE", JOptionPane.INFORMATION_MESSAGE);
+                        opc = -2;
+                        break;
+                    }
+            }
+        }while(opc != -2);
+    }
+}
+
+/*
+
+package gestaocasamento;
+
+import javax.swing.JOptionPane;
+
+public class Menu {
+    private String titulo = "Menu";
+    private String[] opcMenu = {"1 - Opção 1", "2 - Opção 2", "3 - Opção 3", "4 - Opção", "5 - Opção", "0 - SAIR"};
+    private int exibeMenu() {
+        //return JOptionPane.showInputDialog(opcMenu);
+        //return JOptionPane.showInputDialog(null, opcMenu, titulo, -1);
+        int opc = JOptionPane.showOptionDialog(null, titulo, titulo, 0, JOptionPane.QUESTION_MESSAGE, null, opcMenu, 0);
+        return opc;
+    }
     
+    public int executaMenu() {
+        int opcao = -1;
+        while (opcao != 0) {
+            opcao = exibeMenu();
+            
+            switch (opcao) {
+
+                case 1:
+                    executaOpção1();
+                    break;
+
+                case 2:
+                    executaOpção2();
+                    break;
+
+                case 3:
+                    executaOpção3();
+                    break;
+
+                case 4:
+                    executaOpção4();
+                    break;
+                    
+                case 5:
+                    executaOpção5();
+                    break;
+
+                case 0:
+                    JOptionPane.showMessageDialog(null, "Adeus");
+                    break;
+
+                default:
+                    JOptionPane.showMessageDialog(null, "Não entendi sua escolha\nVou exibir o menu novamente");
+
+            }
+        }
+        return opcao;
+    }
+
+    private void executaOpção1() {
+        JOptionPane.showMessageDialog(null, "Neste método você insere código para executar a opção");
+    }
+
+    private void executaOpção2() {
+        JOptionPane.showMessageDialog(null, "Neste método você insere código para executar a opção");
+    }
+
+    private void executaOpção3() {
+        JOptionPane.showMessageDialog(null, "Neste método você insere código para executar a opção");
+    }
+    
+    private void executaOpção4() {
+        JOptionPane.showMessageDialog(null, "Neste método você insere código para executar a opção");
+    }
+    
+    private void executaOpção5() {
+        JOptionPane.showMessageDialog(null, "Neste método você insere código para executar a opção");
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+import javax.swing.JOptionPane;
+
+public class Menu {
+
+    //  "variável global" - string definida como campo da classe Menu
+
+    String texto = "1 – Opção 1\n2 – Opção 2\n3 – Opção 3\nS – SAIR";
+
+    // Método que exibe o menu usando JOptionPane.showInputDialog
+
+    public String exibeMenu() {
+
+        return JOptionPane.showInputDialog(null, texto);
+
+    }
+
+    // Método principal que contém o laço que exibe o menu e executa a escolha do usuário repetidamente até que o usuário escolhe sair 
+
+    public void executaMenu() {
+
+        String opcao = "";
+
+        while (!opcao.equalsIgnoreCase("s")) {
+
+            opcao = exibeMenu();
+
+            switch (opcao) {
+
+                case "1":
+
+                    executaOpção1();
+
+                    break;
+
+                case "2":
+
+                    executaOpção2();
+
+                    break;
+
+                case "3":
+
+                    executaOpção3();
+
+                    break;
+
+                case "S":
+
+                case "s":
+
+                    JOptionPane.showMessageDialog(null, "Adeus");
+
+                    break;
+
+                default:
+
+                    JOptionPane.showMessageDialog(null, "Não entendi sua escolha\nVou exibir o menu novamente");
+
+            }
+
+        }
+
+    }
+
+    private void executaOpção1() {
+
+        double raio = Double.parseDouble(JOptionPane.showInputDialog("Digite o raio do circulo"));
+
+        Circulo c = new Circulo(raio);
+
+        JOptionPane.showMessageDialog(null, "A circunferência do círculo com raio " + raio + " é " + c.circunferencia());
+
+    }
+
+    private void executaOpção2() {
+
+        JOptionPane.showMessageDialog(null, "Neste método você insere código para executar a opção");
+
+    }
+
+    private void executaOpção3() {
+
+        JOptionPane.showMessageDialog(null, "Neste método você insere código para executar a opção");
+
+    }
+
+    public static void main(String[] args) {
+
+        Menu m = new Menu();
+
+        m.ExecutaMenu();
+
+    }
 
 }
+ */
