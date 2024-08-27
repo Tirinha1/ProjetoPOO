@@ -31,7 +31,7 @@ public class Pessoa {
         this.nome = nome;
     }
     
-    public String getName(String nome){
+    public String getName(){
         return this.nome;
     }
     
