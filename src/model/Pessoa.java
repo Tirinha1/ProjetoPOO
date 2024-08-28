@@ -20,8 +20,11 @@ public class Pessoa {
     private LocalDateTime dataModificacao;
     private static long idCounter = 0;
     
-    
-    public  Pessoa(String nome, LocalDate nascimento, String telefone){
+    public Pessoa(){
+        this.id = ++idCounter;
+        this.dataCriacao = LocalDateTime.now();
+    }
+    public Pessoa(String nome, LocalDate nascimento, String telefone){
         this.id = ++idCounter;
         this.nome = nome;
         this.nascimento = nascimento;
