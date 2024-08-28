@@ -16,6 +16,10 @@ public class Usuario {
     private LocalDateTime dataModificacao;
     private static long idCounter = 0;
     
+    public Usuario(){
+        this.id = ++idCounter;
+        this.dataCriacao = LocalDateTime.now();
+    }
     public Usuario(Pessoa pessoa, String tipo){
         this.id = ++idCounter;
         this.pessoa = pessoa;

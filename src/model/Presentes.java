@@ -20,6 +20,11 @@ public class Presentes {
     private LocalDateTime dataModificacao;
     private static long idCounter = 0;
     
+    public Presentes(){
+        this.id = ++idCounter;
+        this.dataCriacao = LocalDateTime.now();
+    }
+    
     public Presentes(String nome, String tipo, Pessoa pessoa, double valor){
         this.id = ++idCounter;
         this.nome = nome;
