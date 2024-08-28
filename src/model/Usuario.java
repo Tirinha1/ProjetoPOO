@@ -25,10 +25,11 @@ public class Usuario {
         this.dataCriacao = LocalDateTime.now();
     }
     
-    public void updateUsuario(Pessoa pessoa, String tipo){
+    public Usuario updateUsuario(Pessoa pessoa, String tipo){
         this.pessoa = pessoa;
         this.tipo = tipo;
         this.dataModificacao = LocalDateTime.now();
+        return this;
     }
     
    
@@ -51,22 +52,7 @@ public class Usuario {
     public String getTipo() {
         return this.tipo;
     }
-    public void setLogin(String login) {
-        this.login = login;
-    }
-    
-    public String setLogin() {
-        return this.login;
-    }
-    
-    public void setSenha(String senha) {
-        this.senha = senha;
-    }
-    
-    public String getSenha() {
-        return this.senha;
-    }
-    
+   
     public LocalDateTime getDataCriacao() {
         return this.dataCriacao;
     }
