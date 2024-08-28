@@ -4,6 +4,8 @@
  */
 package view;
 
+import java.text.ParseException;
+import java.time.format.DateTimeParseException;
 import javax.swing.JOptionPane;
 import model.*;
 
@@ -24,15 +26,34 @@ public class MenuPrincipal {
                     break;
                 case 1:
                     break;
-                case 2:
+                case 2: //REGISTRAR
+
                     Pessoa p = new Pessoa();
                     Usuario u = new Usuario();
                     MenuTipo mt = new MenuTipo();
                     FormatarTelefone tel = new FormatarTelefone();
-
+                    boolean telefoneValido = false;
+                    boolean dataValida = false;
+                    //INSERE NOME
                     p.setName(JOptionPane.showInputDialog(null, "Digite seu nome: ", "Nome", JOptionPane.QUESTION_MESSAGE));
-                    p.setTelefone(tel.telefone(JOptionPane.showInputDialog(null, "Digite seu telefone: ", "Telefone", JOptionPane.QUESTION_MESSAGE)));
-                    p.setDate(JOptionPane.showInputDialog(null, "Digite sua data nascimento: ", "Data Nascimento", JOptionPane.QUESTION_MESSAGE));
+                    //INSERE TELEFONE E VALIDA SE TEM 11 DIGITOS
+                    while (!telefoneValido) {
+                        try {
+                            p.setTelefone(tel.telefone(JOptionPane.showInputDialog(null, "Digite seu telefone: ", "Telefone", JOptionPane.QUESTION_MESSAGE)));
+                            telefoneValido = true;
+                        } catch (IllegalArgumentException e) {
+                            JOptionPane.showMessageDialog(null, e.getMessage());
+                        }
+                    }
+                    //TRATAR DATA INVALIDA
+                    while (!dataValida) {
+                        try {
+                            p.setDate(JOptionPane.showInputDialog(null, "Digite sua data nascimento no formato ('DD/MM/AAAA'): ", "Data Nascimento", JOptionPane.QUESTION_MESSAGE));
+                            dataValida = true;
+                        } catch (DateTimeParseException e) {
+                            JOptionPane.showMessageDialog(null, "Formato invalido. Tente digitar a data no formato 'DD/MM/AAAA'");
+                        }
+                    }
                     p.setDataCriacao();
                     p.setDataModificacao();
 

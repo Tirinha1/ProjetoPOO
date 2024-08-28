@@ -4,9 +4,11 @@
  */
 package model;
 
+import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Date;
 import javax.swing.JOptionPane;
 
@@ -39,9 +41,8 @@ public class Pessoa {
         return this.nome;
     }
 
-    public void setDate(String nascimento) {
+    public void setDate(String nascimento) throws DateTimeParseException{
         DateTimeFormatter formatData = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        System.out.println(formatData);
         this.nascimento = LocalDate.parse(nascimento, formatData);
     }
 

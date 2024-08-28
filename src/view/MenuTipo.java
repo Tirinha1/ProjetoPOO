@@ -17,8 +17,4 @@ public class MenuTipo {
         String[] tipo = {"1 - DONO", "2 - ADMINISTRADOR", "3 - CONVIDADO"};
         return JOptionPane.showInputDialog(null, tipo,  titulo, JOptionPane.QUESTION_MESSAGE);
     }
-
-
-
-
 }
