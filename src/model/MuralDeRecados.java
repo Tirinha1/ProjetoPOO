@@ -11,16 +11,27 @@ import java.time.LocalDateTime;
  * @author Gabriel
  */
 public class MuralDeRecados {
-    private int id;
+    private int id = 1;
     private Pessoa pessoa;
     private String comentario;
     private LocalDateTime dataCriacao;
     private LocalDateTime dataModificacao;
     
-    public void setId(int id) {
-        this.id = id;
+    
+    public MuralDeRecados(){
+        dataCriacao = LocalDateTime.now();
     }
     
+    public MuralDeRecados(Pessoa pessoa, String comentario){
+        this.pessoa = pessoa;
+        this.comentario = comentario;
+        this.dataCriacao = LocalDateTime.now();
+    }
+    public MuralDeRecados UpdateMural(String comentario){
+        this.comentario = comentario;
+        this.dataModificacao = LocalDateTime.now();
+        return this;
+    }
     public int getId() {
         return this.id;
     }
@@ -41,16 +52,8 @@ public class MuralDeRecados {
         return this.comentario;
     }
     
-    public void setDataCriacao() {
-        this.dataCriacao = LocalDateTime.now();
-    }
-    
     public LocalDateTime getDataCriacao() {
         return this.dataCriacao;
-    }
-    
-    public void setDataModificacao() {
-        this.dataModificacao = LocalDateTime.now();
     }
     
     public LocalDateTime getDataModificacao() {
