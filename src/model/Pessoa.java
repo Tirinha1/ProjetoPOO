@@ -4,26 +4,39 @@
  */
 package model;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Date;
 
 /**
  *
  * @author Gabriel
  */
 public class Pessoa {
-    private int id;
+    private  long id;
     private String nome;
-    private Date nascimento;
+    private LocalDate nascimento;
     private String telefone;
     private LocalDateTime dataCriacao;
     private LocalDateTime dataModificacao;
+    private static long idCounter = 0;
     
-    public void setId(int id ){
-        this.id = id;
+    
+    public void setPessoa(String nome, LocalDate nascimento, String telefone){
+        this.id = idCounter;
+        this.nome = nome;
+        this.nascimento = nascimento;
+        this.telefone = telefone;
+        this.dataCriacao = LocalDateTime.now();
     }
     
-    public int getId(){
+    public void updatePessoa(String nome, LocalDate nascimento, String telefone){
+        this.nome = nome;
+        this.nascimento = nascimento;
+        this.telefone = telefone;
+        this.dataModificacao = LocalDateTime.now();
+    }
+    
+    public long getId(){
         return this.id;
     }
     
@@ -35,11 +48,11 @@ public class Pessoa {
         return this.nome;
     }
     
-    public void setDate(Date nascimento){
+    public void setDate(LocalDate nascimento){
         this.nascimento = nascimento;
     }
     
-    public Date getDate(){
+    public LocalDate getDate(){
         return this.nascimento;
     }
     
