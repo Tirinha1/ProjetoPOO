@@ -16,7 +16,7 @@ public class Usuario {
     private LocalDateTime dataModificacao;
     private static long idCounter = 0;
     
-    public void Usuario(Pessoa pessoa, String tipo){
+    public Usuario(Pessoa pessoa, String tipo){
         this.id = ++idCounter;
         this.pessoa = pessoa;
         this.tipo = tipo;
