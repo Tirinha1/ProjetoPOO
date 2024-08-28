@@ -11,17 +11,32 @@ import java.time.LocalDateTime;
  * @author Gabriel
  */
 public class Familia {
-    private int id;
+    private long id;
     private String nomeFamilia;
     private String acesso;
     private LocalDateTime dataCriacao;
     private LocalDateTime dataModificacao;
+    private static long idCounter = 0;
     
-    public void setId(int id) {
-        this.id = id;
+    public Familia(){
+        this.id = ++idCounter;
+        this.dataCriacao = LocalDateTime.now();
     }
     
-    public int getId() {
+    public Familia(String nomeFamilia){
+        this.id = ++idCounter;
+        this.nomeFamilia = nomeFamilia;
+        this.acesso = null; // TODO:criar pessoaNoivo e pessoaNoiva para gerar o acesso nome noivo + nome noiva + data nasc + 1234
+        this.dataCriacao = LocalDateTime.now();
+    }
+    
+    public Familia updateFamilia(String nomeFamilia){
+        this.nomeFamilia = nomeFamilia;
+        this.dataModificacao =  LocalDateTime.now();
+        return this;
+    }
+   
+    public long getId() {
         return this.id;
     }
     
