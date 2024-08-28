@@ -35,7 +35,9 @@ public class MenuPrincipal {
                     boolean telefoneValido = false;
                     boolean dataValida = false;
                     //INSERE NOME
-                    p.setName(JOptionPane.showInputDialog(null, "Digite seu nome: ", "Nome", JOptionPane.QUESTION_MESSAGE));
+                    String continuar = JOptionPane.showInputDialog(null, "Digite seu nome: ", "Nome", JOptionPane.QUESTION_MESSAGE);
+      
+                    //p.setName(JOptionPane.showInputDialog(null, "Digite seu nome: ", "Nome", JOptionPane.QUESTION_MESSAGE));
                     //INSERE TELEFONE E VALIDA SE TEM 11 DIGITOS
                     while (!telefoneValido) {
                         try {
@@ -43,6 +45,11 @@ public class MenuPrincipal {
                             telefoneValido = true;
                         } catch (IllegalArgumentException e) {
                             JOptionPane.showMessageDialog(null, e.getMessage());
+                        } catch ( NullPointerException en) {
+                            String q = en.getMessage();
+                            if (Integer.parseInt(q) == JOptionPane.YES_OPTION){
+                               System.exit(0);
+                            }
                         }
                     }
                     //TRATAR DATA INVALIDA
@@ -74,6 +81,7 @@ public class MenuPrincipal {
                     System.out.println(u.getDataCriacao());
                     System.out.println(u.getDataModificacao());
                     break;
+
                 case -1:
                     int q = JOptionPane.showConfirmDialog(null, "DESEJA SAIR?", "ATENÇÃO", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
                     if (q == JOptionPane.YES_OPTION) {
