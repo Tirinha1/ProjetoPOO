@@ -21,8 +21,8 @@ public class Pessoa {
     private static long idCounter = 0;
     
     
-    public void setPessoa(String nome, LocalDate nascimento, String telefone){
-        this.id = idCounter;
+    public  Pessoa(String nome, LocalDate nascimento, String telefone){
+        this.id = ++idCounter;
         this.nome = nome;
         this.nascimento = nascimento;
         this.telefone = telefone;
@@ -40,19 +40,19 @@ public class Pessoa {
         return this.id;
     }
     
-    public void setName(String nome){
+    public void setNome(String nome){
         this.nome = nome;
     }
     
-    public String getName(){
+    public String getNome(){
         return this.nome;
     }
     
-    public void setDate(LocalDate nascimento){
+    public void setNascimento(LocalDate nascimento){
         this.nascimento = nascimento;
     }
     
-    public LocalDate getDate(){
+    public LocalDate getNascimento(){
         return this.nascimento;
     }
     
@@ -64,17 +64,9 @@ public class Pessoa {
         return this.telefone;
     }
     
-    public void setDataCriacao(){
-        this.dataCriacao = LocalDateTime.now();
-    }
-    
     public LocalDateTime getDataCriacao(){
         return this.dataCriacao;
-    }
-    
-    public void setDataModificacao(){
-        this.dataModificacao = LocalDateTime.now();
-    }
+    }  
     
     public LocalDateTime getDataModificacao(){
         return this.dataModificacao;
