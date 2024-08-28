@@ -31,6 +31,5 @@ public class PessoaDAO {
     public Pessoa[] listar() {
         return pessoas;
     }
-
-    // Outros métodos como atualizar e excluir podem ser adicionados aqui
+    
 }
