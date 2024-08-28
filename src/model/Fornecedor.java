@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
  * @author Gabriel
  */
 public class Fornecedor {
-    private int id;
+    private long id;
     private String nome;
     private String cnpj;
     private String telefone;
@@ -20,12 +20,34 @@ public class Fornecedor {
     private boolean estadoPagamento;
     private LocalDateTime dataCriacao;
     private LocalDateTime dataModificacao;
+    private static long idCounter = 0;
     
-    public void setId(int id) {
-        this.id = id;
+    public Fornecedor(){
+        this.id = ++idCounter;
+        this.dataCriacao = LocalDateTime.now();
     }
     
-    public int getId() {
+    public Fornecedor(String nome, String cnpj, String telefone, double valorAPagar, int parcelas, boolean estadoPagamento){
+        this.nome = nome;
+        this.cnpj = cnpj;
+        this.telefone = telefone;
+        this.valorAPagar = valorAPagar;
+        this.parcelas = parcelas;
+        this.estadoPagamento = estadoPagamento;
+        this.dataCriacao = LocalDateTime.now();
+    }
+    public Fornecedor updateFornecedor(String nome, String cnpj, String telefone, double valorAPagar, int parcelas, boolean estadoPagamento){
+        this.nome = nome;
+        this.cnpj = cnpj;
+        this.telefone = telefone;
+        this.valorAPagar = valorAPagar;
+        this.parcelas = parcelas;
+        this.estadoPagamento = estadoPagamento;
+        this.dataModificacao = LocalDateTime.now();
+        return this;
+    }
+    
+    public long getId() {
         return this.id;
     }
     
@@ -77,17 +99,10 @@ public class Fornecedor {
         return this.estadoPagamento;
     }
     
-    public void setDataCriacao() {
-        this.dataCriacao = LocalDateTime.now();
-    }
-    
     public LocalDateTime getDataCriacao() {
         return this.dataCriacao;
     }
     
-    public void setDataModificacao() {
-        this.dataModificacao = LocalDateTime.now();
-    }
     
     public LocalDateTime getDataModificacao() {
         return this.dataModificacao;
