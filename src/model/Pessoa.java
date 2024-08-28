@@ -4,66 +4,72 @@
  */
 package model;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author Gabriel
  */
 public class Pessoa {
+
     private int id;
     private String nome;
-    private Date nascimento;
+    private LocalDate nascimento;
     private String telefone;
     private LocalDateTime dataCriacao;
     private LocalDateTime dataModificacao;
-    
-    public void setId(int id ){
+
+    public void setId(int id) {
         this.id = id;
     }
-    
-    public int getId(){
+
+    public int getId() {
         return this.id;
     }
-    
-    public void setName(String nome){
+
+    public void setName(String nome) {
         this.nome = nome;
     }
-    
-    public String getName(String nome){
+
+    public String getName() {
         return this.nome;
     }
-    
-    public void setDate(Date nascimento){
-        this.nascimento = nascimento;
+
+    public void setDate(String nascimento) {
+        DateTimeFormatter formatData = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        System.out.println(formatData);
+        this.nascimento = LocalDate.parse(nascimento, formatData);
     }
-    
-    public Date getDate(){
+
+    public LocalDate getDate() {
         return this.nascimento;
     }
-    
-    public void setTelefone(String telefone){
+
+    public void setTelefone(String telefone) {
         this.telefone = telefone;
     }
-    
-    public String getTelefone(){
+
+    public String getTelefone() {
         return this.telefone;
     }
-    
-    public void setDataCriacao(){
+
+    public void setDataCriacao() {
         this.dataCriacao = LocalDateTime.now();
     }
-    
-    public LocalDateTime getDataCriacao(){
+
+    public LocalDateTime getDataCriacao() {
         return this.dataCriacao;
     }
-    
-    public void setDataModificacao(){
+
+    public void setDataModificacao() {
         this.dataModificacao = LocalDateTime.now();
     }
-    
-    public LocalDateTime getDataModificacao(){
+
+    public LocalDateTime getDataModificacao() {
         return this.dataModificacao;
     }
 }

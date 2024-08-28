@@ -5,34 +5,63 @@
 package view;
 
 import javax.swing.JOptionPane;
+import model.*;
 
 /**
  *
  * @author Gabriel
  */
 public class MenuPrincipal {
+
     public static void main(String[] args) {
         MenuInicio menuInicio = new MenuInicio();
         int opc;
         do {
             opc = menuInicio.exibeMenu();
+            System.out.println(opc);
             switch (opc) {
                 case 0:
                     break;
                 case 1:
                     break;
                 case 2:
+                    Pessoa p = new Pessoa();
+                    Usuario u = new Usuario();
+                    MenuTipo mt = new MenuTipo();
+                    FormatarTelefone tel = new FormatarTelefone();
+
+                    p.setName(JOptionPane.showInputDialog(null, "Digite seu nome: ", "Nome", JOptionPane.QUESTION_MESSAGE));
+                    p.setTelefone(tel.telefone(JOptionPane.showInputDialog(null, "Digite seu telefone: ", "Telefone", JOptionPane.QUESTION_MESSAGE)));
+                    p.setDate(JOptionPane.showInputDialog(null, "Digite sua data nascimento: ", "Data Nascimento", JOptionPane.QUESTION_MESSAGE));
+                    p.setDataCriacao();
+                    p.setDataModificacao();
+
+                    u.setTipo(mt.ExecMenuTipo());
+                    u.setLogin(JOptionPane.showInputDialog(null, "Digite seu login: ", "Login", JOptionPane.QUESTION_MESSAGE));
+                    u.setSenha(JOptionPane.showInputDialog(null, "Digite sua senha: ", "Senha", JOptionPane.QUESTION_MESSAGE));
+                    u.setDataCriacao(p.getDataCriacao());
+                    u.setDataModificacao(p.getDataModificacao());
+
+                    System.out.println(p.getName());
+                    System.out.println(p.getTelefone());
+                    System.out.println(p.getDate());
+                    System.out.println(p.getDataCriacao());
+                    System.out.println(p.getDataModificacao());
+                    System.out.println(u.getTipo());
+                    System.out.println(u.getLogin());
+                    System.out.println(u.getSenha());
+                    System.out.println(u.getDataCriacao());
+                    System.out.println(u.getDataModificacao());
                     break;
                 case -1:
                     int q = JOptionPane.showConfirmDialog(null, "DESEJA SAIR?", "ATENÇÃO", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
-                    System.out.println(q);
                     if (q == JOptionPane.YES_OPTION) {
                         JOptionPane.showMessageDialog(null, "Bom casamento e uma ótima festa!", "GW CASAMENTOS AGRADECE", JOptionPane.INFORMATION_MESSAGE);
                         opc = -2;
                         break;
                     }
             }
-        }while(opc != -2);
+        } while (opc != -2);
     }
 }
 

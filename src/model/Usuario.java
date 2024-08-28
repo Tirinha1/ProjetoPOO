@@ -10,6 +10,7 @@ public class Usuario {
     private int id;
     private Pessoa pessoa;
     private String tipo;
+    private String login;
     private String senha;
     private LocalDateTime dataCriacao;
     private LocalDateTime dataModificacao;
@@ -37,6 +38,15 @@ public class Usuario {
     public String getTipo() {
         return this.tipo;
     }
+    public void setLogin(String login) {
+        this.login = login;
+    }
+    
+    public String getLogin() {
+        return this.login;
+    }
+    
+    
     
     public void setSenha(String senha) {
         this.senha = senha;
@@ -49,6 +59,9 @@ public class Usuario {
     public void setDataCriacao() {
         this.dataCriacao = LocalDateTime.now();
     }
+    public void setDataCriacao(LocalDateTime dataCriacao) {
+        this.dataCriacao = dataCriacao;
+    }
     
     public LocalDateTime getDataCriacao() {
         return this.dataCriacao;
@@ -56,6 +69,9 @@ public class Usuario {
     
     public void setDataModificacao() {
         this.dataModificacao = LocalDateTime.now();
+    }
+    public void setDataModificacao(LocalDateTime dataModificacao) {
+        this.dataModificacao = dataModificacao;
     }
     
     public LocalDateTime getDataModificacao() {
