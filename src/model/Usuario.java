@@ -16,12 +16,12 @@ public class Usuario {
     private LocalDateTime dataModificacao;
     private static long idCounter = 0;
     
-    public void createUsuario(Pessoa pessoa, String tipo){
+    public void Usuario(Pessoa pessoa, String tipo){
         this.id = ++idCounter;
         this.pessoa = pessoa;
         this.tipo = tipo;
-        this.login = pessoa.getName();
-        this.senha = pessoa.getName() + pessoa.getNascimento();
+        this.login = pessoa.getNome();
+        this.senha = pessoa.getNome() + pessoa.getNascimento();
         this.dataCriacao = LocalDateTime.now();
     }
     
@@ -67,16 +67,8 @@ public class Usuario {
         return this.senha;
     }
     
-    public void setDataCriacao() {
-        this.dataCriacao = LocalDateTime.now();
-    }
-    
     public LocalDateTime getDataCriacao() {
         return this.dataCriacao;
-    }
-    
-    public void setDataModificacao() {
-        this.dataModificacao = LocalDateTime.now();
     }
     
     public LocalDateTime getDataModificacao() {
