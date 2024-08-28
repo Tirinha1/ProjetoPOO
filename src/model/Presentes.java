@@ -11,19 +11,34 @@ import java.time.LocalDateTime;
  * @author Gabriel
  */
 public class Presentes {
-    private int id;
+    private long id;
     private String nome;
     private String tipo;
     private Pessoa pessoa;
     private double valor;
     private LocalDateTime dataCriacao;
     private LocalDateTime dataModificacao;
+    private static long idCounter = 0;
     
-    public void setId(int id) {
-        this.id = id;
+    public Presentes(String nome, String tipo, Pessoa pessoa, double valor){
+        this.id = ++idCounter;
+        this.nome = nome;
+        this.tipo = tipo;
+        this.pessoa = pessoa;
+        this.valor = valor;
+        this.dataCriacao = LocalDateTime.now();
     }
     
-    public int getId() {
+    public Presentes updatePresentes(String nome, String tipo, Pessoa pessoa, double valor){
+        this.nome = nome;
+        this.tipo = tipo;
+        this.pessoa = pessoa;
+        this.valor = valor;
+        this.dataModificacao = LocalDateTime.now();
+        return this;
+    }
+    
+    public long getId() {
         return this.id;
     }
     
@@ -58,17 +73,9 @@ public class Presentes {
     public double getValor() {
         return this.valor;
     }
-    
-    public void setDataCriacao() {
-        this.dataCriacao = LocalDateTime.now();
-    }
-    
+
     public LocalDateTime getDataCriacao() {
         return this.dataCriacao;
-    }
-    
-    public void setDataModificacao() {
-        this.dataModificacao = LocalDateTime.now();
     }
     
     public LocalDateTime getDataModificacao() {
