@@ -7,18 +7,32 @@ package model;
 import java.time.LocalDateTime;
 
 public class Usuario {
-    private int id;
+    private long id;
     private Pessoa pessoa;
     private String tipo;
+    private String login;
     private String senha;
     private LocalDateTime dataCriacao;
     private LocalDateTime dataModificacao;
+    private static long idCounter = 0;
     
-    public void setId(int id) {
-        this.id = id;
+    public void createUsuario(Pessoa pessoa, String tipo){
+        this.id = ++idCounter;
+        this.pessoa = pessoa;
+        this.tipo = tipo;
+        this.login = pessoa.getName();
+        this.senha = pessoa.getName() + pessoa.getNascimento();
+        this.dataCriacao = LocalDateTime.now();
     }
     
-    public int getId() {
+    public void updateUsuario(Pessoa pessoa, String tipo){
+        this.pessoa = pessoa;
+        this.tipo = tipo;
+        this.dataModificacao = LocalDateTime.now();
+    }
+    
+   
+    public long getId() {
         return this.id;
     }
     
@@ -36,6 +50,13 @@ public class Usuario {
     
     public String getTipo() {
         return this.tipo;
+    }
+    public void setLogin(String login) {
+        this.login = login;
+    }
+    
+    public String setLogin() {
+        return this.login;
     }
     
     public void setSenha(String senha) {
