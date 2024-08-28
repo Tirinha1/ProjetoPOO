@@ -28,6 +28,7 @@ public class Fornecedor {
     }
     
     public Fornecedor(String nome, String cnpj, String telefone, double valorAPagar, int parcelas, boolean estadoPagamento){
+        this.id = ++idCounter;
         this.nome = nome;
         this.cnpj = cnpj;
         this.telefone = telefone;

@@ -56,18 +56,10 @@ public class Familia {
         return this.acesso;
     }
     
-    public void setDataCriacao() {
-        this.dataCriacao = LocalDateTime.now();
-    }
-    
     public LocalDateTime getDataCriacao() {
         return this.dataCriacao;
     }
-    
-    public void setDataModificacao() {
-        this.dataModificacao = LocalDateTime.now();
-    }
-    
+
     public LocalDateTime getDataModificacao() {
         return this.dataModificacao;
     }
