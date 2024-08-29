@@ -33,15 +33,21 @@ public class Pessoa {
         return this.id;
     }
 
-    public void setName(String nome) {
-        this.nome = nome;
+    public void setName(String nome) {    
+        if (nome.isBlank()) {
+            throw new IllegalArgumentException("Nome esta vazio, digite novamente.");
+        } else if (nome.isEmpty()) {
+            throw new RuntimeException(Integer.toString(JOptionPane.showConfirmDialog(null, "DESEJA SAIR?", "ATENÇÃO", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE)));
+        } else {
+            this.nome = nome;
+        }
     }
 
     public String getName() {
         return this.nome;
     }
 
-    public void setDate(String nascimento) throws DateTimeParseException{
+    public void setDate(String nascimento) throws DateTimeParseException {
         DateTimeFormatter formatData = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         this.nascimento = LocalDate.parse(nascimento, formatData);
     }

@@ -22,22 +22,35 @@ public class MenuPrincipal {
             opc = menuInicio.exibeMenu();
             System.out.println(opc);
             switch (opc) {
-                case 0:
-                    break;
-                case 1:
-                    break;
-                case 2: //REGISTRAR
-
+                case 0 -> {
+                }
+                case 1 -> {
+                }
+                case 2 -> {
+                    //REGISTRAR
+                    
                     Pessoa p = new Pessoa();
                     Usuario u = new Usuario();
                     MenuTipo mt = new MenuTipo();
                     FormatarTelefone tel = new FormatarTelefone();
+                    boolean nomeValido = false;
                     boolean telefoneValido = false;
                     boolean dataValida = false;
                     //INSERE NOME
-                    String continuar = JOptionPane.showInputDialog(null, "Digite seu nome: ", "Nome", JOptionPane.QUESTION_MESSAGE);
-      
-                    //p.setName(JOptionPane.showInputDialog(null, "Digite seu nome: ", "Nome", JOptionPane.QUESTION_MESSAGE));
+                    while (!nomeValido){
+                        try {
+                            p.setName(JOptionPane.showInputDialog(null, "Digite seu nome: ", "Nome", JOptionPane.QUESTION_MESSAGE));
+                            nomeValido = true;
+                        } catch (IllegalArgumentException iae) {
+                            JOptionPane.showMessageDialog(null, iae.getMessage());
+                        } catch (RuntimeException e) {
+                            if (Integer.parseInt(e.getMessage()) == JOptionPane.YES_OPTION) {
+                                System.exit(0);
+                            }
+                            //System.out.println(e.getMessage());
+                        }
+                        
+                    }
                     //INSERE TELEFONE E VALIDA SE TEM 11 DIGITOS
                     while (!telefoneValido) {
                         try {
@@ -45,10 +58,10 @@ public class MenuPrincipal {
                             telefoneValido = true;
                         } catch (IllegalArgumentException e) {
                             JOptionPane.showMessageDialog(null, e.getMessage());
-                        } catch ( NullPointerException en) {
+                        } catch (NullPointerException en) {
                             String q = en.getMessage();
                             if (Integer.parseInt(q) == JOptionPane.YES_OPTION){
-                               System.exit(0);
+                                System.exit(0);
                             }
                         }
                     }
@@ -80,15 +93,15 @@ public class MenuPrincipal {
                     System.out.println(u.getSenha());
                     System.out.println(u.getDataCriacao());
                     System.out.println(u.getDataModificacao());
-                    break;
+                }
 
-                case -1:
+                case -1 -> {
                     int q = JOptionPane.showConfirmDialog(null, "DESEJA SAIR?", "ATENÇÃO", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
                     if (q == JOptionPane.YES_OPTION) {
                         JOptionPane.showMessageDialog(null, "Bom casamento e uma ótima festa!", "GW CASAMENTOS AGRADECE", JOptionPane.INFORMATION_MESSAGE);
                         opc = -2;
-                        break;
                     }
+                }
             }
         } while (opc != -2);
     }
