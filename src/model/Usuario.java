@@ -20,6 +20,7 @@ public class Usuario {
         this.id = ++idCounter;
         this.dataCriacao = LocalDateTime.now();
     }
+    
     public Usuario(Pessoa pessoa, String tipo){
         this.id = ++idCounter;
         this.pessoa = pessoa;
@@ -36,7 +37,6 @@ public class Usuario {
         return this;
     }
     
-   
     public long getId() {
         return this.id;
     }
