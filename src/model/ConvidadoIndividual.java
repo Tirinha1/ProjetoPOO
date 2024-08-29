@@ -11,19 +11,37 @@ import java.time.LocalDateTime;
  * @author Gabriel
  */
 public class ConvidadoIndividual {
-    private int id;
+    private long id;
     private Pessoa pessoa;
     private Familia familia;
     private String parentesco;
     private boolean confirmado;
     private LocalDateTime dataCriacao;
     private LocalDateTime dataModificacao;
+    private static long idCounter = 0;
     
-    public void setId(int id) {
-        this.id = id;
+    public ConvidadoIndividual(){
+        this.id = ++idCounter;
+        this.dataCriacao = LocalDateTime.now();
     }
     
-    public int getId() {
+    public ConvidadoIndividual(Pessoa pessoa, String parentesco, boolean confirmado){
+        this.id = ++idCounter;
+        this.pessoa = pessoa;
+        this.parentesco = parentesco;
+        this.confirmado = confirmado;
+        this.dataCriacao = LocalDateTime.now();
+    }
+    
+    public ConvidadoIndividual updateConvidadoIndividual(Pessoa pessoa, String parentesco, boolean confirmado){
+        this.pessoa = pessoa;
+        this.parentesco = parentesco;
+        this.confirmado = confirmado;
+        this.dataModificacao = LocalDateTime.now();
+        return this;
+    }
+    
+    public long getId() {
         return this.id;
     }
     

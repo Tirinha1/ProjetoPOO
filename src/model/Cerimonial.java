@@ -11,6 +11,15 @@ package model;
 public class Cerimonial {
     private String nome;
     
+    public Cerimonial(String nome){
+        this.nome = nome;
+    }
+    
+    public Cerimonial updateCerimonial(String nome){
+        this.nome = nome;
+        return this;
+    }
+    
     public void setName(String nome){
         this.nome = nome;
     }

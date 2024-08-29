@@ -30,6 +30,7 @@ public class Pessoa {
         this.nascimento = nascimento;
         this.telefone = telefone;
         this.dataCriacao = LocalDateTime.now();
+        this.dataModificacao = null;
     }
     
     public void updatePessoa(String nome, LocalDate nascimento, String telefone){
