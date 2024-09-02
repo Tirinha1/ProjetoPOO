@@ -6,6 +6,7 @@ package model;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import model.dao.PessoaDAO;
 
 /**
  *
@@ -75,4 +76,10 @@ public class Pessoa {
     public LocalDateTime getDataModificacao(){
         return this.dataModificacao;
     }
+
+    @Override
+    public String toString() {
+        return "Pessoa{" + "id=" + id + ", nome=" + nome + ", nascimento=" + nascimento + ", telefone=" + telefone + ", dataCriacao=" + dataCriacao + ", dataModificacao=" + dataModificacao + '}';
+    }
+    
 }

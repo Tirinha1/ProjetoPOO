@@ -4,7 +4,6 @@
  */
 package model.dao;
 
-import java.time.LocalDate;
 import model.Pessoa;
 
 /**
@@ -64,9 +63,12 @@ public class PessoaDAO {
         System.out.println("Pessoa não encontrada");
     }
     
-    public void getAllPessoa(){
-        for(int i = 0; i < count; i++){
-            System.out.println(pessoas[i].toString());
+    public void getAllPessoa() {
+    for (Pessoa pessoa : pessoas) {
+        if (pessoa != null) {
+            System.out.println(pessoa.toString());
         }
     }
+}
+   
 }
