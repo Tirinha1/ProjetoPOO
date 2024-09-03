@@ -64,11 +64,19 @@ public class PessoaDAO {
     }
     
     public void getAllPessoa() {
-    for (Pessoa pessoa : pessoas) {
-        if (pessoa != null) {
-            System.out.println(pessoa.toString());
+        for (Pessoa pessoa : pessoas) {
+            if (pessoa != null) {
+                System.out.println(pessoa.toString());
+            }
         }
     }
-}
+    
+    /*public Pessoa[] getAllPessoas() {
+        Pessoa[] pessoasAtivas = new Pessoa[count];
+        for (int i = 0; i < count; i++) {
+            pessoasAtivas[i] = pessoas[i];
+        }
+        return pessoasAtivas;
+    } */
    
 }
