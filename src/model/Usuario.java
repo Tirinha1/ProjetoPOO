@@ -64,5 +64,10 @@ public class Usuario {
     public LocalDateTime getDataModificacao() {
         return this.dataModificacao;
     }
+
+    @Override
+    public String toString() {
+        return "Usuario{" + "id=" + id + ", pessoa=" + pessoa + ", tipo=" + tipo + ", login=" + login + ", senha=" + senha + ", dataCriacao=" + dataCriacao + ", dataModificacao=" + dataModificacao + '}';
+    }
 }
 
