@@ -12,18 +12,23 @@ import javax.swing.JOptionPane;
  */
 public class MenuInicio {
 
-    private final String bemVindo = "BEM VINDO A GW CASAMENTOS";
+    private final String bemVindo;
     private final String noivos;
     private final String[] opcMenuI;
-
-
+    private final String titulo;
+    
     public MenuInicio() {
-        this.opcMenuI = new String[]{"LOGIN", "ENTRAR SEM REGISTRO", "REGISTRAR"};
+        this.opcMenuI = new String[]{"1 - LOGIN", "2 - ENTRAR SEM REGISTRO", "3 - REGISTRAR"};
         this.noivos = "VAMOS CASAR EDUARDO & MONICA?";
+        this.bemVindo = "BEM VINDO A GW CASAMENTOS";
+        this.titulo = "GW CASAMENTOS";
+        JOptionPane.showMessageDialog(null, bemVindo);
+        JOptionPane.showMessageDialog(null, noivos);
     }
 
     public int exibeMenu() {
-        int opc = JOptionPane.showOptionDialog(null, noivos, bemVindo, 0, JOptionPane.INFORMATION_MESSAGE, null, opcMenuI, 0);
+        int opc = Integer.parseInt(JOptionPane.showInputDialog(null, opcMenuI, titulo, JOptionPane.QUESTION_MESSAGE));
         return opc;
+        
     }
 }
