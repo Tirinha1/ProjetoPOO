@@ -38,15 +38,10 @@ public class PessoaDAO {
         return null;
     }
 
-    /*public void updatePessoa(Pessoa pessoa) {
-        for (int i = 0; i < count; i++) {
-            if (pessoas[i].getId() == pessoa.getId()) {
-                pessoas[i].updatePessoa(pessoa.getNome(), pessoa.getNascimento(), pessoa.getTelefone());
-                return;
-            }
-        }
+    public void updatePessoa(Pessoa pessoa) {
+       
         System.out.println("Pessoa não encontrada");
-    }*/
+    }
 
     public void deletePessoa(int id) {
         for (int i = 0; i < count; i++) {
@@ -70,13 +65,4 @@ public class PessoaDAO {
             }
         }
     }
-    
-    /*public Pessoa[] getAllPessoas() {
-        Pessoa[] pessoasAtivas = new Pessoa[count];
-        for (int i = 0; i < count; i++) {
-            pessoasAtivas[i] = pessoas[i];
-        }
-        return pessoasAtivas;
-    } */
-   
 }

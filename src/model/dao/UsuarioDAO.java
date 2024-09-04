@@ -28,7 +28,6 @@ public class UsuarioDAO {
             count++;
         } else {
             System.out.println("Capacidade máxima atingida");
-            // Você pode querer lançar uma exceção em vez de imprimir uma mensagem
         }
     }
 
@@ -38,46 +37,52 @@ public class UsuarioDAO {
                 return usuarios[i];
             }
         }
-        return null; // Ou lançar uma exceção se o usuário não for encontrado
+        return null; 
     }
 
     public void updateUsuario(Usuario usuario) {
-    Scanner scanner = new Scanner(System.in);
-    String update = """
-                    O que deseja alterar:
-                    1- Tipo;
-                    2- Login;
-                    3- Senha;""";
-    
-    System.out.println(update);
-    String opc = scanner.nextLine();
-    
-        switch(opc) {
-            case "1":
-                String tipo;
-                String alterarTipo = "Insira o novo tipo de Usuario:";
-                System.out.println(alterarTipo);
-                tipo = scanner.nextLine();
-                usuario.setTipo(tipo);
-                usuario.setDataModificacao();
-                break;
-            case "2":
-                String login;
-                String alterarLogin = "Insira o seu novo Login:";
-                System.out.println(alterarLogin);
-                login = scanner.nextLine();
-                usuario.setLogin(login);
-                break;
-            case "3":
-                String senha;
-                String alterarSenha = "Insira a sua noao Senha:";
-                System.out.println(alterarSenha);
-                senha = scanner.nextLine();
-                usuario.setSenha(senha);
-                break;
-            default:
-                System.out.println("Opção inválida!");
-                break;
+        for (Usuario usuario1 : usuarios) {
+            if (usuario1.getId() == usuario.getId()) {
+                Scanner scanner = new Scanner(System.in);
+                String update = """
+                                O que deseja alterar:
+                                1- Tipo;
+                                2- Login;
+                                3- Senha;""";
+
+                System.out.println(update);
+                String opc = scanner.nextLine();
+                
+                switch(opc) {
+                    case "1":
+                        String tipo;
+                        String alterarTipo = "Insira o novo tipo de Usuario:";
+                        System.out.println(alterarTipo);
+                        tipo = scanner.nextLine();
+                        usuario.setTipo(tipo);
+                        usuario.setDataModificacao();
+                        break;
+                    case "2":
+                        String login;
+                        String alterarLogin = "Insira o seu novo Login:";
+                        System.out.println(alterarLogin);
+                        login = scanner.nextLine();
+                        usuario.setLogin(login);
+                        break;
+                    case "3":
+                        String senha;
+                        String alterarSenha = "Insira a sua noao Senha:";
+                        System.out.println(alterarSenha);
+                        senha = scanner.nextLine();
+                        usuario.setSenha(senha);
+                        break;
+                    default:
+                        System.out.println("Opção inválida!");
+                        break;
+                }
+            } else {
+                System.out.println("Usuario não encontrado");
+            }
         }
     }
 
@@ -102,11 +107,4 @@ public class UsuarioDAO {
             }
         }
     }
-    /*public Usuario[] getAllUsuarios() {
-        Usuario[] usuariosAtivos = new Usuario[count];
-        for (int i = 0; i < count; i++) {
-            usuariosAtivos[i] = usuarios[i];
-        }
-        return usuariosAtivos;
-    } */
 }

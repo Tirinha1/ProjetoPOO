@@ -6,7 +6,6 @@ package model;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import model.dao.PessoaDAO;
 
 /**
  *
@@ -24,21 +23,6 @@ public class Pessoa {
     public Pessoa(){
         this.id = ++idCounter;
         this.dataCriacao = LocalDateTime.now();
-    }
-    public Pessoa(String nome, LocalDate nascimento, String telefone){
-        this.id = ++idCounter;
-        this.nome = nome;
-        this.nascimento = nascimento;
-        this.telefone = telefone;
-        this.dataCriacao = LocalDateTime.now();
-        this.dataModificacao = null;
-    }
-    
-    public void updatePessoa(String nome, LocalDate nascimento, String telefone){
-        this.nome = nome;
-        this.nascimento = nascimento;
-        this.telefone = telefone;
-        this.dataModificacao = LocalDateTime.now();
     }
     
     public long getId(){
@@ -72,6 +56,10 @@ public class Pessoa {
     public LocalDateTime getDataCriacao(){
         return this.dataCriacao;
     }  
+    
+    public void setDataModificacao(){
+        this.dataModificacao = LocalDateTime.now();
+    }
     
     public LocalDateTime getDataModificacao(){
         return this.dataModificacao;
