@@ -9,6 +9,7 @@ package model.dao;
  * @author Gabriel
  */
 
+import java.util.Scanner;
 import model.Usuario;
 
 public class UsuarioDAO {
@@ -40,16 +41,45 @@ public class UsuarioDAO {
         return null; // Ou lançar uma exceção se o usuário não for encontrado
     }
 
-    /*public void updateUsuario(Usuario usuario) {
-        for (int i = 0; i < count; i++) {
-            if (usuarios[i].getId() == usuario.getId()) {
-                usuarios[i].updateUsuario(usuario.getPessoa(), usuario.getTipo());
-                return;
-            }
+    public void updateUsuario(Usuario usuario) {
+    Scanner scanner = new Scanner(System.in);
+    String update = """
+                    O que deseja alterar:
+                    1- Tipo;
+                    2- Login;
+                    3- Senha;""";
+    
+    System.out.println(update);
+    String opc = scanner.nextLine();
+    
+        switch(opc) {
+            case "1":
+                String tipo;
+                String alterarTipo = "Insira o novo tipo de Usuario:";
+                System.out.println(alterarTipo);
+                tipo = scanner.nextLine();
+                usuario.setTipo(tipo);
+                usuario.setDataModificacao();
+                break;
+            case "2":
+                String login;
+                String alterarLogin = "Insira o seu novo Login:";
+                System.out.println(alterarLogin);
+                login = scanner.nextLine();
+                usuario.setLogin(login);
+                break;
+            case "3":
+                String senha;
+                String alterarSenha = "Insira a sua noao Senha:";
+                System.out.println(alterarSenha);
+                senha = scanner.nextLine();
+                usuario.setSenha(senha);
+                break;
+            default:
+                System.out.println("Opção inválida!");
+                break;
         }
-        System.out.println("Usuário não encontrado");
-        // Outra opção seria lançar uma exceção
-    } */
+    }
 
     public void deleteUsuario(long id) {
         for (int i = 0; i < count; i++) {

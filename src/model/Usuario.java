@@ -4,17 +4,21 @@
  */
 package model;
 
-
 public class Usuario extends Pessoa {
     private String tipo;
     private String login;
     private String senha;
     
-    public Usuario(String tipo, String nome, String telefone){
-        super(nome, telefone);
-        this.tipo = tipo;
-        this.login = nome;
-        this.senha = telefone;
+    public Usuario(){
+        super();
+    }
+    
+    public void setLogin(String login) {
+        this.login = login;
+    }
+     
+     public void setSenha(String senha) {
+        this.senha = senha;
     }
     
     public void setTipo(String tipo) {
