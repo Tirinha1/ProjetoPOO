@@ -40,7 +40,7 @@ public class UsuarioDAO {
         return null; // Ou lançar uma exceção se o usuário não for encontrado
     }
 
-    public void updateUsuario(Usuario usuario) {
+    /*public void updateUsuario(Usuario usuario) {
         for (int i = 0; i < count; i++) {
             if (usuarios[i].getId() == usuario.getId()) {
                 usuarios[i].updateUsuario(usuario.getPessoa(), usuario.getTipo());
@@ -49,7 +49,7 @@ public class UsuarioDAO {
         }
         System.out.println("Usuário não encontrado");
         // Outra opção seria lançar uma exceção
-    }
+    } */
 
     public void deleteUsuario(long id) {
         for (int i = 0; i < count; i++) {

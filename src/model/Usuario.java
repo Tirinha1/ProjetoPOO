@@ -4,49 +4,17 @@
  */
 package model;
 
-import java.time.LocalDateTime;
 
-public class Usuario {
-    private long id;
-    private Pessoa pessoa;
+public class Usuario extends Pessoa {
     private String tipo;
     private String login;
     private String senha;
-    private LocalDateTime dataCriacao;
-    private LocalDateTime dataModificacao;
-    private static long idCounter = 0;
     
-    public Usuario(){
-        this.id = ++idCounter;
-        this.dataCriacao = LocalDateTime.now();
-    }
-    
-    public Usuario(Pessoa pessoa, String tipo){
-        this.id = ++idCounter;
-        this.pessoa = pessoa;
+    public Usuario(String tipo, String nome, String telefone){
+        super(nome, telefone);
         this.tipo = tipo;
-        this.login = pessoa.getNome();
-        this.senha = pessoa.getNome() + pessoa.getNascimento();
-        this.dataCriacao = LocalDateTime.now();
-    }
-    
-    public Usuario updateUsuario(Pessoa pessoa, String tipo){
-        this.pessoa = pessoa;
-        this.tipo = tipo;
-        this.dataModificacao = LocalDateTime.now();
-        return this;
-    }
-    
-    public long getId() {
-        return this.id;
-    }
-    
-    public void setPessoa(Pessoa pessoa) {
-        this.pessoa = pessoa;
-    }
-    
-    public Pessoa getPessoa() {
-        return this.pessoa;
+        this.login = nome;
+        this.senha = telefone;
     }
     
     public void setTipo(String tipo) {
@@ -55,19 +23,6 @@ public class Usuario {
     
     public String getTipo() {
         return this.tipo;
-    }
-   
-    public LocalDateTime getDataCriacao() {
-        return this.dataCriacao;
-    }
-    
-    public LocalDateTime getDataModificacao() {
-        return this.dataModificacao;
-    }
-
-    @Override
-    public String toString() {
-        return "Usuario{" + "id=" + id + ", pessoa=" + pessoa + ", tipo=" + tipo + ", login=" + login + ", senha=" + senha + ", dataCriacao=" + dataCriacao + ", dataModificacao=" + dataModificacao + '}';
     }
 }
 

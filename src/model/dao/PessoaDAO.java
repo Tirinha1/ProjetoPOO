@@ -38,7 +38,7 @@ public class PessoaDAO {
         return null;
     }
 
-    public void updatePessoa(Pessoa pessoa) {
+    /*public void updatePessoa(Pessoa pessoa) {
         for (int i = 0; i < count; i++) {
             if (pessoas[i].getId() == pessoa.getId()) {
                 pessoas[i].updatePessoa(pessoa.getNome(), pessoa.getNascimento(), pessoa.getTelefone());
@@ -46,7 +46,7 @@ public class PessoaDAO {
             }
         }
         System.out.println("Pessoa não encontrada");
-    }
+    }*/
 
     public void deletePessoa(int id) {
         for (int i = 0; i < count; i++) {
