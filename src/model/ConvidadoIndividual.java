@@ -25,22 +25,6 @@ public class ConvidadoIndividual {
         this.dataCriacao = LocalDateTime.now();
     }
     
-    public ConvidadoIndividual(Pessoa pessoa, String parentesco, boolean confirmado){
-        this.id = ++idCounter;
-        this.pessoa = pessoa;
-        this.parentesco = parentesco;
-        this.confirmado = confirmado;
-        this.dataCriacao = LocalDateTime.now();
-    }
-    
-    public ConvidadoIndividual updateConvidadoIndividual(Pessoa pessoa, String parentesco, boolean confirmado){
-        this.pessoa = pessoa;
-        this.parentesco = parentesco;
-        this.confirmado = confirmado;
-        this.dataModificacao = LocalDateTime.now();
-        return this;
-    }
-    
     public long getId() {
         return this.id;
     }

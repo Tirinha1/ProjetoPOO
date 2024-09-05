@@ -68,6 +68,7 @@ public class UsuarioDAO {
                         System.out.println(alterarLogin);
                         login = scanner.nextLine();
                         usuario.setLogin(login);
+                        usuario.setDataModificacao();
                         break;
                     case "3":
                         String senha;
@@ -75,6 +76,7 @@ public class UsuarioDAO {
                         System.out.println(alterarSenha);
                         senha = scanner.nextLine();
                         usuario.setSenha(senha);
+                        usuario.setDataModificacao();
                         break;
                     default:
                         System.out.println("Opção inválida!");

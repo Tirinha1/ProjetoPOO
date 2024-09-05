@@ -4,6 +4,9 @@
  */
 package model.dao;
 
+import java.time.LocalDate;
+import java.util.Scanner;
+import java.time.format.DateTimeParseException;
 import model.Pessoa;
 
 /**
@@ -39,8 +42,53 @@ public class PessoaDAO {
     }
 
     public void updatePessoa(Pessoa pessoa) {
-       
-        System.out.println("Pessoa não encontrada");
+       for (Pessoa pessoa1 : pessoas) {
+            if (pessoa1.getId() == pessoa.getId()) {
+                Scanner scanner = new Scanner(System.in);
+                String update = """
+                                O que deseja alterar:
+                                1- Nome;
+                                2- Data de Nascimento;
+                                3- Telefone;""";
+
+                System.out.println(update);
+                String opc = scanner.nextLine();
+                
+                switch(opc) {
+                    case "1":
+                        String nome;
+                        System.out.println("Digite o novo nome:");
+                        nome = scanner.nextLine();
+                        pessoa.setNome(nome);
+                        pessoa.setDataModificacao();
+                        break;
+                    case "2":
+                        LocalDate data;
+                        System.out.println("Digite a nova data (formato: YYYY-MM-DD):");
+                        try {
+                            data = LocalDate.parse(scanner.nextLine());
+                            pessoa.setNascimento(data);
+                            pessoa.setDataModificacao();
+                        } catch(DateTimeParseException e){
+                            System.out.println("Formato invalido");
+                        }
+                        break;
+                    case "3":
+                        String telefone;
+                        System.out.println("Digite o novo telefone");
+                        telefone = scanner.nextLine();
+                        pessoa.setTelefone(telefone);
+                        pessoa.setDataModificacao();
+                        break;
+                    default:
+                        System.out.println("Opção inválida!");
+                        break;
+                }
+            } else {
+                System.out.println("Usuario não encontrado");
+            }
+            System.out.println("Pessoa não encontrada");
+        }
     }
 
     public void deletePessoa(int id) {
