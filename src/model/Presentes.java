@@ -25,24 +25,6 @@ public class Presentes {
         this.dataCriacao = LocalDateTime.now();
     }
     
-    public Presentes(String nome, String tipo, Pessoa pessoa, double valor){
-        this.id = ++idCounter;
-        this.nome = nome;
-        this.tipo = tipo;
-        this.pessoa = pessoa;
-        this.valor = valor;
-        this.dataCriacao = LocalDateTime.now();
-    }
-    
-    public Presentes updatePresentes(String nome, String tipo, Pessoa pessoa, double valor){
-        this.nome = nome;
-        this.tipo = tipo;
-        this.pessoa = pessoa;
-        this.valor = valor;
-        this.dataModificacao = LocalDateTime.now();
-        return this;
-    }
-    
     public long getId() {
         return this.id;
     }
@@ -81,6 +63,10 @@ public class Presentes {
 
     public LocalDateTime getDataCriacao() {
         return this.dataCriacao;
+    }
+    
+    public void setDataModificacao() {
+        this.dataModificacao = LocalDateTime.now();
     }
     
     public LocalDateTime getDataModificacao() {

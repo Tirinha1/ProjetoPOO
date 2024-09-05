@@ -41,8 +41,10 @@ public class UsuarioDAO {
     }
 
     public void updateUsuario(Usuario usuario) {
+        boolean usuarioExiste = false;
         for (Usuario usuario1 : usuarios) {
-            if (usuario1.getId() == usuario.getId()) {
+            if (usuario1 != null && usuario1.getId() == usuario.getId()) {
+                usuarioExiste = true;
                 Scanner scanner = new Scanner(System.in);
                 String update = """
                                 O que deseja alterar:
@@ -82,9 +84,11 @@ public class UsuarioDAO {
                         System.out.println("Opção inválida!");
                         break;
                 }
-            } else {
-                System.out.println("Usuario não encontrado");
-            }
+                break;
+            }   
+        }
+        if(!usuarioExiste){
+            System.out.println("Pessoa não encontrada");
         }
     }
 

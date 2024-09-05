@@ -42,8 +42,10 @@ public class PessoaDAO {
     }
 
     public void updatePessoa(Pessoa pessoa) {
-       for (Pessoa pessoa1 : pessoas) {
-            if (pessoa1.getId() == pessoa.getId()) {
+        boolean pessoaEncontrada = false;
+        for (Pessoa pessoa1 : pessoas) {
+            if (pessoa1 != null && pessoa1.getId() == pessoa.getId()) {
+                pessoaEncontrada = true;
                 Scanner scanner = new Scanner(System.in);
                 String update = """
                                 O que deseja alterar:
@@ -84,10 +86,10 @@ public class PessoaDAO {
                         System.out.println("Opção inválida!");
                         break;
                 }
-            } else {
-                System.out.println("Usuario não encontrado");
             }
-            System.out.println("Pessoa não encontrada");
+            if (!pessoaEncontrada) {
+                System.out.println("Pessoa não encontrada");
+            }
         }
     }
 
