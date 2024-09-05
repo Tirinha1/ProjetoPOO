@@ -86,10 +86,11 @@ public class PessoaDAO {
                         System.out.println("Opção inválida!");
                         break;
                 }
+                break;
             }
-            if (!pessoaEncontrada) {
-                System.out.println("Pessoa não encontrada");
-            }
+        }
+        if (!pessoaEncontrada) {
+            System.out.println("Pessoa não encontrada");
         }
     }
 
@@ -99,12 +100,12 @@ public class PessoaDAO {
                 for (int j = i; j < count - 1; j++) {
                     pessoas[j] = pessoas[j + 1];
                 }
-                pessoas[count - 1] = null;
-                count--;
+                pessoas[count - 1] = null; 
+                count--; 
+                System.out.println("Pessoa removida com sucesso");
                 return;
             }
         }
-        
         System.out.println("Pessoa não encontrada");
     }
     

@@ -27,27 +27,6 @@ public class Fornecedor {
         this.dataCriacao = LocalDateTime.now();
     }
     
-    public Fornecedor(String nome, String cnpj, String telefone, double valorAPagar, int parcelas, boolean estadoPagamento){
-        this.id = ++idCounter;
-        this.nome = nome;
-        this.cnpj = cnpj;
-        this.telefone = telefone;
-        this.valorAPagar = valorAPagar;
-        this.parcelas = parcelas;
-        this.estadoPagamento = estadoPagamento;
-        this.dataCriacao = LocalDateTime.now();
-    }
-    public Fornecedor updateFornecedor(String nome, String cnpj, String telefone, double valorAPagar, int parcelas, boolean estadoPagamento){
-        this.nome = nome;
-        this.cnpj = cnpj;
-        this.telefone = telefone;
-        this.valorAPagar = valorAPagar;
-        this.parcelas = parcelas;
-        this.estadoPagamento = estadoPagamento;
-        this.dataModificacao = LocalDateTime.now();
-        return this;
-    }
-    
     public long getId() {
         return this.id;
     }
