@@ -17,8 +17,11 @@ public class MenuInicio {
             while (true) {
                 String[] opcoes = {"Login", "Entrar sem Registrar", "Registrar", "Sair"};
                 int escolha = JOptionPane.showOptionDialog(null, "Bem-vindo ao Sistema de Gerenciamento de Casamento!", "Menu Principal",
-                        JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, opcoes, opcoes[0]);
-
+                        JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, opcoes, opcoes[2]);
+                if (escolha == opcoes.length-1 || escolha == JOptionPane.CLOSED_OPTION){
+                    escolha = 3;
+                }
+                       
                 switch (escolha) {
                     case 0: // Login
                         menuLogin();
@@ -43,10 +46,11 @@ public class MenuInicio {
         public static void menuLogin() {
             while (true) {
                 String[] perfis = {"Administrador", "Convidado", "Voltar"};
+               
                 int escolhaPerfil = JOptionPane.showOptionDialog(null, "Escolha o perfil de acesso", "Seleção de Perfil",
-                        JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, perfis, perfis[0]);
+                        JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, perfis, perfis[perfis.length-1]);
 
-                if (escolhaPerfil == 2 || escolhaPerfil == JOptionPane.CLOSED_OPTION) {
+                if (escolhaPerfil == perfis.length-1 || escolhaPerfil == JOptionPane.CLOSED_OPTION) {
                     return; // Volta ao menu anterior
                 }
 
