@@ -6,13 +6,14 @@ package model;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import model.dao.Identifiable;
 
 /**
  *
  * @author Gabriel
  */
-public class Pessoa {
-    private  long id;
+public class Pessoa extends Identifiable {
+    private long id;
     private String nome;
     private LocalDate nascimento;
     private String telefone;

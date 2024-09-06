@@ -6,8 +6,8 @@ package model.dao;
 
 /**
  *
- * @author CAUPT - ALUNOS
+ * @author Gabriel
  */
-public class PagamentosDAO {
-    
+public class Identifiable {
+    int id;
 }
