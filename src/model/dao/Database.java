@@ -13,12 +13,16 @@ import java.util.Arrays;
  */
 public class Database<T extends Identifiable>{
     T[] data;
+    int currentID = 0;
     
     public Database(T[] arr){
+        arr = Arrays.copyOf(arr, 0);
         data = arr;
     }
     
     public void create(T datum){
+        this.currentID++;
+        datum.id = this.currentID;
         data = Arrays.copyOf(data, data.length + 1);
         data[data.length - 1] = datum;
     }
@@ -48,9 +52,9 @@ public class Database<T extends Identifiable>{
     
     public T getById(int id){
         T result = null;
-        for (T data1 : data) {
-            if (data1.id == id) {
-                return data1;
+        for (int i = 0; i < data.length; i++) {
+            if (data[i].id == id) {
+                return data[i];
             }
         }
         return result;

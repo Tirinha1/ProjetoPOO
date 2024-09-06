@@ -36,5 +36,11 @@ public class Usuario extends Pessoa {
     public String getTipo() {
         return this.tipo;
     }
+
+    @Override
+    public String toString() {
+        return "Usuario{" + "tipo=" + tipo + ", login=" + login + ", senha=" + senha + super.toString() + '}';
+    }
+    
 }
 
