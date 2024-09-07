@@ -18,10 +18,10 @@ public class MenuInicio {
                 String[] opcoes = {"Login", "Entrar sem Registrar", "Registrar", "Sair"};
                 int escolha = JOptionPane.showOptionDialog(null, "Bem-vindo ao Sistema de Gerenciamento de Casamento!", "Menu Principal",
                         JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, opcoes, opcoes[2]);
-                if (escolha == opcoes.length-1 || escolha == JOptionPane.CLOSED_OPTION){
+                if (escolha == opcoes.length - 1 || escolha == JOptionPane.CLOSED_OPTION) {
                     escolha = 3;
                 }
-                       
+
                 switch (escolha) {
                     case 0: // Login
                         menuLogin();
@@ -46,11 +46,11 @@ public class MenuInicio {
         public static void menuLogin() {
             while (true) {
                 String[] perfis = {"Administrador", "Convidado", "Voltar"};
-               
-                int escolhaPerfil = JOptionPane.showOptionDialog(null, "Escolha o perfil de acesso", "Seleção de Perfil",
-                        JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, perfis, perfis[perfis.length-1]);
 
-                if (escolhaPerfil == perfis.length-1 || escolhaPerfil == JOptionPane.CLOSED_OPTION) {
+                int escolhaPerfil = JOptionPane.showOptionDialog(null, "Escolha o perfil de acesso", "Seleção de Perfil",
+                        JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, perfis, perfis[perfis.length - 1]);
+
+                if (escolhaPerfil == perfis.length - 1 || escolhaPerfil == JOptionPane.CLOSED_OPTION) {
                     return; // Volta ao menu anterior
                 }
 
@@ -109,7 +109,7 @@ public class MenuInicio {
                         menuGerenciarFornecedores();
                         break;
                     case 1:
-                        JOptionPane.showMessageDialog(null, "Gerenciando convidados.");
+                        menuGerenciarConvidados();
                         // Função de gerenciamento de convidados
                         break;
                     case 2:
@@ -157,15 +157,82 @@ public class MenuInicio {
         }
 
         public static void alterarFornecedor() {
-            String nomeFornecedor = JOptionPane.showInputDialog("Digite o nome do fornecedor que deseja alterar:");
-            // Lógica para alterar o fornecedor aqui
-            JOptionPane.showMessageDialog(null, "Fornecedor " + nomeFornecedor + " alterado com sucesso!");
+            String idFornecedor = JOptionPane.showInputDialog("Digite o ID do fornecedor que deseja alterar:");
+            // Lógica para buscar o fornecedor pelo ID7
+            // Suponha que exista uma função buscarFornecedorPorId(id) que retorna o fornecedor
+            /*String fornecedor = buscarFornecedorPorId(idFornecedor); // Exemplo de busca
+            if (fornecedor != null) {
+                // Lógica para alterar o fornecedor
+                JOptionPane.showMessageDialog(null, "Fornecedor com ID " + idFornecedor + " alterado com sucesso!");
+            } else {
+                JOptionPane.showMessageDialog(null, "Fornecedor com ID " + idFornecedor + " não encontrado.");
+            }*/
         }
 
         public static void removerFornecedor() {
-            String nomeFornecedor = JOptionPane.showInputDialog("Digite o nome do fornecedor que deseja remover:");
-            // Lógica para remover o fornecedor aqui
-            JOptionPane.showMessageDialog(null, "Fornecedor " + nomeFornecedor + " removido com sucesso!");
+            String idFornecedor = JOptionPane.showInputDialog("Digite o ID do fornecedor que deseja remover:");
+            // Lógica para buscar o fornecedor pelo ID e removê-lo
+            /*String fornecedor = buscarFornecedorPorId(idFornecedor); // Exemplo de busca
+            if (fornecedor != null) {
+                // Lógica para remover o fornecedor
+                JOptionPane.showMessageDialog(null, "Fornecedor com ID " + idFornecedor + " removido com sucesso!");
+            } else {
+                JOptionPane.showMessageDialog(null, "Fornecedor com ID " + idFornecedor + " não encontrado.");
+            }*/
+        }
+
+        public static void menuGerenciarConvidados() {
+            while (true) {
+                String[] opcoes = {"Incluir Convidado", "Alterar Convidado", "Remover Convidado", "Voltar"};
+                int escolha = JOptionPane.showOptionDialog(null, "Gerenciar Convidados", "Convidados", JOptionPane.DEFAULT_OPTION,
+                        JOptionPane.INFORMATION_MESSAGE, null, opcoes, opcoes[0]);
+
+                switch (escolha) {
+                    case 0:
+                        incluirConvidado();
+                        break;
+                    case 1:
+                        alterarConvidado();
+                        break;
+                    case 2:
+                        removerConvidado();
+                        break;
+                    case 3:
+                        return; // Volta ao menu anterior
+                    default:
+                        JOptionPane.showMessageDialog(null, "Opção inválida.");
+                }
+            }
+        }
+
+        public static void incluirConvidado() {
+            String nomeConvidado = JOptionPane.showInputDialog("Digite o nome do convidado:");
+            // Lógica para incluir o convidado aqui
+            JOptionPane.showMessageDialog(null, "Convidado " + nomeConvidado + " incluído com sucesso!");
+        }
+
+        public static void alterarConvidado() {
+            String idConvidado = JOptionPane.showInputDialog("Digite o ID do convidado que deseja alterar:");
+            // Lógica para buscar e alterar o convidado pelo ID
+            /*String convidado = buscarConvidadoPorId(idConvidado); // Exemplo de busca
+            if (convidado != null) {
+                // Lógica para alterar o convidado
+                JOptionPane.showMessageDialog(null, "Convidado com ID " + idConvidado + " alterado com sucesso!");
+            } else {
+                JOptionPane.showMessageDialog(null, "Convidado com ID " + idConvidado + " não encontrado.");
+            }*/
+        }
+
+        public static void removerConvidado() {
+            String idConvidado = JOptionPane.showInputDialog("Digite o ID do convidado que deseja remover:");
+            // Lógica para buscar e remover o convidado pelo ID
+            /*String convidado = buscarConvidadoPorId(idConvidado); // Exemplo de busca
+            if (convidado != null) {
+                // Lógica para remover o convidado
+                JOptionPane.showMessageDialog(null, "Convidado com ID " + idConvidado + " removido com sucesso!");
+            } else {
+                JOptionPane.showMessageDialog(null, "Convidado com ID " + idConvidado + " não encontrado.");
+            }*/
         }
 
         public static void menuConvidado() {
