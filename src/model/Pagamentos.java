@@ -20,33 +20,13 @@ public class Pagamentos {
     private int parcela;
     private LocalDateTime dataCriacao;
     private LocalDateTime dataModificacao;
-    private static long idCounter = 0;
+    private static long serial = 0;
     
     public Pagamentos(){
-        this.id = ++idCounter;
+        this.id = ++serial;
         this.dataCriacao = LocalDateTime.now();
     }
     
-    public Pagamentos(Pessoa pessoa, String descricao, Fornecedor fornecedor, double valor, int parcela){
-        this.id = ++idCounter;
-        this.pessoa = pessoa;
-        this.descricao = descricao;
-        this.fornecedor = fornecedor;
-        this.valor = valor;
-        this.parcela = parcela;
-        this.dataCriacao = LocalDateTime.now();
-    }
-    
-    public Pagamentos UpdatePagamentos(Pessoa pessoa, String descricao, Fornecedor fornecedor, double valor, int parcela){
-        this.pessoa = pessoa;
-        this.descricao = descricao;
-        this.fornecedor = fornecedor;
-        this.valor = valor;
-        this.parcela = parcela;
-        this.dataModificacao = LocalDateTime.now();
-        return this;
-    }
- 
     public long getId() {
         return this.id;
     }

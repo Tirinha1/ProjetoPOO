@@ -16,24 +16,11 @@ public class Familia {
     private String acesso;
     private LocalDateTime dataCriacao;
     private LocalDateTime dataModificacao;
-    private static long idCounter = 0;
+    private static long serial = 0;
     
     public Familia(){
-        this.id = ++idCounter;
+        this.id = ++serial;
         this.dataCriacao = LocalDateTime.now();
-    }
-    
-    public Familia(String nomeFamilia){
-        this.id = ++idCounter;
-        this.nomeFamilia = nomeFamilia;
-        this.acesso = null; // TODO:criar pessoaNoivo e pessoaNoiva para gerar o acesso nome noivo + nome noiva + data nasc + 1234
-        this.dataCriacao = LocalDateTime.now();
-    }
-    
-    public Familia updateFamilia(String nomeFamilia){
-        this.nomeFamilia = nomeFamilia;
-        this.dataModificacao =  LocalDateTime.now();
-        return this;
     }
    
     public long getId() {

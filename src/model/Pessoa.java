@@ -19,10 +19,10 @@ public class Pessoa extends Identifiable {
     private String telefone;
     private LocalDateTime dataCriacao;
     private LocalDateTime dataModificacao;
-    private static long idCounter = 0;
+    private static long serial = 0;
     
     public Pessoa(){
-        this.id = ++idCounter;
+        this.id = ++serial;
         this.dataCriacao = LocalDateTime.now();
     }
     

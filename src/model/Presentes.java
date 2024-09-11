@@ -18,10 +18,10 @@ public class Presentes {
     private double valor;
     private LocalDateTime dataCriacao;
     private LocalDateTime dataModificacao;
-    private static long idCounter = 0;
+    private static long serial = 0;
     
     public Presentes(){
-        this.id = ++idCounter;
+        this.id = ++serial;
         this.dataCriacao = LocalDateTime.now();
     }
     

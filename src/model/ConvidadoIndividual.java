@@ -18,10 +18,10 @@ public class ConvidadoIndividual {
     private boolean confirmado;
     private LocalDateTime dataCriacao;
     private LocalDateTime dataModificacao;
-    private static long idCounter = 0;
+    private static long serial = 0;
     
     public ConvidadoIndividual(){
-        this.id = ++idCounter;
+        this.id = ++serial;
         this.dataCriacao = LocalDateTime.now();
     }
     

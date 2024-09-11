@@ -20,10 +20,10 @@ public class Fornecedor {
     private boolean estadoPagamento;
     private LocalDateTime dataCriacao;
     private LocalDateTime dataModificacao;
-    private static long idCounter = 0;
+    private static long serial = 0;
     
     public Fornecedor(){
-        this.id = ++idCounter;
+        this.id = ++serial;
         this.dataCriacao = LocalDateTime.now();
     }
     
