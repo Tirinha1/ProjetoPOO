@@ -5,6 +5,7 @@
 package model.dao;
 
 import java.util.Arrays;
+import model.Presentes;
 import model.Usuario;
 
 /**
@@ -28,6 +29,14 @@ public class Identifiable {
         Usuario firstUser = new Usuario();
         Usuario secondUser = new Usuario();
         
+        Presentes[] gifts = new Presentes[0];
+        Database giftsDatabase = new Database(gifts);
+        
+        Presentes firstGift = new Presentes();
+        
+        giftsDatabase.create(firstGift);
+        
+        
         firstUser.setLogin("abc");
         firstUser.setSenha("abc");
         
@@ -39,5 +48,6 @@ public class Identifiable {
         
         System.out.println(usersDatabase.getById(1));
         System.out.println(Arrays.toString(usersDatabase.getAll()));
+        System.out.println(giftsDatabase.getById(1));
     }
 }

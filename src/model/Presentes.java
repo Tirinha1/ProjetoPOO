@@ -5,12 +5,13 @@
 package model;
 
 import java.time.LocalDateTime;
+import model.dao.Identifiable;
 
 /**
  *
  * @author Gabriel
  */
-public class Presentes {
+public class Presentes extends Identifiable {
     private String nome;
     private String tipo;
     private Pessoa pessoa;
@@ -65,4 +66,11 @@ public class Presentes {
     public LocalDateTime getDataModificacao() {
         return this.dataModificacao;
     }
+
+    @Override
+    public String toString() {
+        return "Presentes{"+ "id="+ getID() + ", nome=" + nome + ", tipo=" + tipo + ", pessoa=" + pessoa + ", valor=" + valor + ", dataCriacao=" + dataCriacao + ", dataModificacao=" + dataModificacao + '}';
+    }
+    
+    
 }

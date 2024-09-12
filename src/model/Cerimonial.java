@@ -4,21 +4,14 @@
  */
 package model;
 
+import model.dao.Identifiable;
+
 /**
  *
  * @author Gabriel
  */
-public class Cerimonial {
+public class Cerimonial extends Identifiable{
     private String nome;
-    
-    public Cerimonial(String nome){
-        this.nome = nome;
-    }
-    
-    public Cerimonial updateCerimonial(String nome){
-        this.nome = nome;
-        return this;
-    }
     
     public void setName(String nome){
         this.nome = nome;

@@ -5,28 +5,22 @@
 package model;
 
 import java.time.LocalDateTime;
+import model.dao.Identifiable;
 
 /**
  *
  * @author Gabriel
  */
-public class ConvidadoIndividual {
-    private long id;
+public class ConvidadoIndividual extends Identifiable{
     private Pessoa pessoa;
     private Familia familia;
     private String parentesco;
     private boolean confirmado;
     private LocalDateTime dataCriacao;
     private LocalDateTime dataModificacao;
-    private static long serial = 0;
     
     public ConvidadoIndividual(){
-        this.id = ++serial;
         this.dataCriacao = LocalDateTime.now();
-    }
-    
-    public long getId() {
-        return this.id;
     }
     
     public void setPessoa(Pessoa pessoa) {
