@@ -4,6 +4,7 @@
  */
 package model.dao;
 
+import java.util.Arrays;
 import model.Usuario;
 
 /**
@@ -17,10 +18,18 @@ public class Identifiable {
         Usuario[] users = new Usuario[10];
         Database usersDatabase = new Database(users);
         Usuario firstUser = new Usuario();
+        Usuario secondUser = new Usuario();
         
         firstUser.setLogin("abc");
         firstUser.setSenha("abc");
+        
+        secondUser.setLogin("azc");
+        secondUser.setSenha("azb");
+        
         usersDatabase.create(firstUser);
+        usersDatabase.create(secondUser);
+        
         System.out.println(usersDatabase.getById(1));
+        System.out.println(Arrays.toString(usersDatabase.getAll()));
     }
 }
