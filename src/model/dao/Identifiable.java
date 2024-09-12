@@ -44,16 +44,14 @@ public class Identifiable {
         
         firstUser.setLogin("abc");
         firstUser.setSenha("abc");
-        firstUser.setNascimento(util.formatDate("03-04-2001"));
+        firstUser.setNascimento(util.formatDate("03/04/2001"));
         
         secondUser.setLogin("azc");
         secondUser.setSenha("azb");
         
         usersDatabase.create(firstUser);
         usersDatabase.create(secondUser);
-        
- 
-        
+
         System.out.println(usersDatabase.getById(1));
         System.out.println(Arrays.toString(usersDatabase.getAll()));
         System.out.println(giftsDatabase.getById(1));
