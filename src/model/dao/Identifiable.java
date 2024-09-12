@@ -12,7 +12,15 @@ import model.Usuario;
  * @author Gabriel
  */
 public class Identifiable {
-    int id;
+    private int id;
+    
+    public int getID(){
+        return this.id;
+    }
+    
+    public void setID(int id){
+        this.id = id;
+    }
 
     public static void main(String[] args) {
         Usuario[] users = new Usuario[10];

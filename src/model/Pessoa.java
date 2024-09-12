@@ -13,21 +13,14 @@ import model.dao.Identifiable;
  * @author Gabriel
  */
 public class Pessoa extends Identifiable {
-    private long id;
     private String nome;
     private LocalDate nascimento;
     private String telefone;
     private LocalDateTime dataCriacao;
     private LocalDateTime dataModificacao;
-    private static long serial = 0;
     
     public Pessoa(){
-        this.id = ++serial;
         this.dataCriacao = LocalDateTime.now();
-    }
-    
-    public long getId(){
-        return this.id;
     }
     
     public void setNome(String nome){
@@ -68,7 +61,7 @@ public class Pessoa extends Identifiable {
 
     @Override
     public String toString() {
-        return " Pessoa{" + "id=" + id + ", nome=" + nome + ", nascimento=" + nascimento + ", telefone=" + telefone + ", dataCriacao=" + dataCriacao + ", dataModificacao=" + dataModificacao + '}';
+        return " Pessoa{" + "id=" + getID() + ", nome=" + nome + ", nascimento=" + nascimento + ", telefone=" + telefone + ", dataCriacao=" + dataCriacao + ", dataModificacao=" + dataModificacao + '}';
     }
     
 }

@@ -6,12 +6,12 @@ package model;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import model.dao.Identifiable;
 /**
  *
  * @author Gabriel
  */
-public class Pagamentos {
-    private long id;
+public class Pagamentos extends Identifiable{
     private LocalDate data;
     private Pessoa pessoa;
     private String descricao;
@@ -20,15 +20,9 @@ public class Pagamentos {
     private int parcela;
     private LocalDateTime dataCriacao;
     private LocalDateTime dataModificacao;
-    private static long serial = 0;
     
     public Pagamentos(){
-        this.id = ++serial;
         this.dataCriacao = LocalDateTime.now();
-    }
-    
-    public long getId() {
-        return this.id;
     }
     
     public void setData(LocalDate data) {

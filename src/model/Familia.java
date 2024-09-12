@@ -5,26 +5,20 @@
 package model;
 
 import java.time.LocalDateTime;
+import model.dao.Identifiable;
 
 /**
  *
  * @author Gabriel
  */
-public class Familia {
-    private long id;
+public class Familia extends Identifiable{
     private String nomeFamilia;
     private String acesso;
     private LocalDateTime dataCriacao;
     private LocalDateTime dataModificacao;
-    private static long serial = 0;
     
     public Familia(){
-        this.id = ++serial;
         this.dataCriacao = LocalDateTime.now();
-    }
-   
-    public long getId() {
-        return this.id;
     }
     
     public void setNomeFamilia(String nomeFamilia) {

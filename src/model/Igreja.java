@@ -4,11 +4,13 @@
  */
 package model;
 
+import model.dao.Identifiable;
+
 /**
  *
  * @author Gabriel
  */
-public class Igreja {
+public class Igreja extends Identifiable{
     private String nome;
     
     public void setName(String nome){

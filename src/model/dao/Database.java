@@ -22,7 +22,7 @@ public class Database<T extends Identifiable>{
     
     public void create(T datum){
         this.currentID++;
-        datum.id = this.currentID;
+        datum.setID(currentID);
         data = Arrays.copyOf(data, data.length + 1);
         data[data.length - 1] = datum;
     }
@@ -32,7 +32,7 @@ public class Database<T extends Identifiable>{
         int deletePosition = -1;
         
         for(int i = 0; i < data.length; i++){
-            if(data[i].id == id){
+            if(data[i].getID() == id){
                 deletePosition = i;
             }
         }
@@ -53,7 +53,7 @@ public class Database<T extends Identifiable>{
     public T getById(int id){
         T result = null;
         for (int i = 0; i < data.length; i++) {
-            if (data[i].id == id) {
+            if (data[i].getID() == id) {
                 return data[i];
             }
         }
@@ -66,7 +66,7 @@ public class Database<T extends Identifiable>{
     
     public void update(T datum){
         for(int i = 0; i < data.length; i++){
-            if(datum.id == data[i].id){
+            if(datum.getID() == data[i].getID()){
                 data[i] = datum;
             }
         }

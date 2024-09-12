@@ -6,13 +6,13 @@ package model;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import model.dao.Identifiable;
 
 /**
  *
  * @author Gabriel
  */
-public class Evento {
-    private int id;
+public class Evento extends Identifiable{
     private LocalDate data;
     private Cerimonial cerimonial;
     private Igreja igreja;
@@ -23,35 +23,7 @@ public class Evento {
     private LocalDateTime dataModificacao;
     
     public Evento(){
-        this.id = 1;
         this.dataCriacao = LocalDateTime.now();
-    }
-    
-    public Evento(LocalDate data, Cerimonial cerimonial, Igreja igreja, Cartorio cartorio, Pessoa pessoaNoiva, Pessoa pessoaNoivo){
-        this.id = 1;
-        this.data = data;
-        this.cerimonial = cerimonial;
-        this.igreja = igreja;
-        this.cartorio = cartorio;
-        this.pessoaNoiva = pessoaNoiva;
-        this.pessoaNoivo = pessoaNoivo;
-        this.dataCriacao = LocalDateTime.now();
-    }
-    
-    public Evento updateEvento(LocalDate data, Cerimonial cerimonial, Igreja igreja, Cartorio cartorio, Pessoa pessoaNoiva, Pessoa pessoaNoivo){
-        this.data = data;
-        this.cerimonial = cerimonial;
-        this.igreja = igreja;
-        this.cartorio = cartorio;
-        this.pessoaNoiva = pessoaNoiva;
-        this.pessoaNoivo = pessoaNoivo;
-        this.dataModificacao = LocalDateTime.now();
-        
-        return this;
-    }
-    
-    public int getId() {
-        return this.id;
     }
     
     public void setData(LocalDate data) {

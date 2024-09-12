@@ -11,22 +11,15 @@ import java.time.LocalDateTime;
  * @author Gabriel
  */
 public class Presentes {
-    private long id;
     private String nome;
     private String tipo;
     private Pessoa pessoa;
     private double valor;
     private LocalDateTime dataCriacao;
     private LocalDateTime dataModificacao;
-    private static long serial = 0;
     
     public Presentes(){
-        this.id = ++serial;
         this.dataCriacao = LocalDateTime.now();
-    }
-    
-    public long getId() {
-        return this.id;
     }
     
     public void setNome(String nome) {

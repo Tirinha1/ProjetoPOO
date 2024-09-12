@@ -11,7 +11,6 @@ import java.time.LocalDateTime;
  * @author Gabriel
  */
 public class MuralDeRecados {
-    private int id = 1;
     private Pessoa pessoa;
     private String comentario;
     private LocalDateTime dataCriacao;
@@ -31,9 +30,6 @@ public class MuralDeRecados {
         this.comentario = comentario;
         this.dataModificacao = LocalDateTime.now();
         return this;
-    }
-    public int getId() {
-        return this.id;
     }
     
     public void setPessoa(Pessoa pessoa) {
