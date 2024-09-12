@@ -24,6 +24,7 @@ public class Identifiable {
     }
 
     public static void main(String[] args) {
+        Utils util = new Utils();
         Usuario[] users = new Usuario[10];
         Database usersDatabase = new Database(users);
         Usuario firstUser = new Usuario();
@@ -33,12 +34,17 @@ public class Identifiable {
         Database giftsDatabase = new Database(gifts);
         
         Presentes firstGift = new Presentes();
+        Presentes secondGift = new Presentes();
         
         giftsDatabase.create(firstGift);
+        giftsDatabase.create(secondGift);
         
+        firstGift.setPessoa(firstUser);
+        secondGift.setPessoa(secondUser);
         
         firstUser.setLogin("abc");
         firstUser.setSenha("abc");
+        firstUser.setNascimento(util.formatDate("03-04-2001"));
         
         secondUser.setLogin("azc");
         secondUser.setSenha("azb");
@@ -46,8 +52,11 @@ public class Identifiable {
         usersDatabase.create(firstUser);
         usersDatabase.create(secondUser);
         
+ 
+        
         System.out.println(usersDatabase.getById(1));
         System.out.println(Arrays.toString(usersDatabase.getAll()));
         System.out.println(giftsDatabase.getById(1));
+        System.out.println(Arrays.toString(giftsDatabase.getAll()));
     }
 }
