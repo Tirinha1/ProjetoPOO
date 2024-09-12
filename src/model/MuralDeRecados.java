@@ -5,12 +5,13 @@
 package model;
 
 import java.time.LocalDateTime;
+import model.dao.Identifiable;
 
 /**
  *
  * @author Gabriel
  */
-public class MuralDeRecados {
+public class MuralDeRecados extends Identifiable{
     private Pessoa pessoa;
     private String comentario;
     private LocalDateTime dataCriacao;
@@ -19,17 +20,6 @@ public class MuralDeRecados {
     
     public MuralDeRecados(){
         dataCriacao = LocalDateTime.now();
-    }
-    
-    public MuralDeRecados(Pessoa pessoa, String comentario){
-        this.pessoa = pessoa;
-        this.comentario = comentario;
-        this.dataCriacao = LocalDateTime.now();
-    }
-    public MuralDeRecados UpdateMural(String comentario){
-        this.comentario = comentario;
-        this.dataModificacao = LocalDateTime.now();
-        return this;
     }
     
     public void setPessoa(Pessoa pessoa) {
