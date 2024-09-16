@@ -4,11 +4,13 @@
  */
 package model;
 
+import model.dao.Identifiable;
+
 /**
  *
  * @author Gabriel
  */
-public class Cartorio {
+public class Cartorio extends Identifiable{
     private String nome;
     
     public void setName(String nome){

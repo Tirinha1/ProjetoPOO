@@ -5,13 +5,13 @@
 package model;
 
 import java.time.LocalDateTime;
+import model.dao.Identifiable;
 
 /**
  *
  * @author Gabriel
  */
-public class Fornecedor {
-    private int id;
+public class Fornecedor extends Identifiable{
     private String nome;
     private String cnpj;
     private String telefone;
@@ -21,12 +21,8 @@ public class Fornecedor {
     private LocalDateTime dataCriacao;
     private LocalDateTime dataModificacao;
     
-    public void setId(int id) {
-        this.id = id;
-    }
-    
-    public int getId() {
-        return this.id;
+    public Fornecedor(){
+        this.dataCriacao = LocalDateTime.now();
     }
     
     public void setNome(String nome) {
@@ -77,17 +73,10 @@ public class Fornecedor {
         return this.estadoPagamento;
     }
     
-    public void setDataCriacao() {
-        this.dataCriacao = LocalDateTime.now();
-    }
-    
     public LocalDateTime getDataCriacao() {
         return this.dataCriacao;
     }
     
-    public void setDataModificacao() {
-        this.dataModificacao = LocalDateTime.now();
-    }
     
     public LocalDateTime getDataModificacao() {
         return this.dataModificacao;

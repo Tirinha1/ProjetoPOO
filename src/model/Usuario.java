@@ -4,30 +4,29 @@
  */
 package model;
 
-import java.time.LocalDateTime;
-
-public class Usuario {
-    private int id;
-    private Pessoa pessoa;
+public class Usuario extends Pessoa {
     private String tipo;
+    private String login;
     private String senha;
-    private LocalDateTime dataCriacao;
-    private LocalDateTime dataModificacao;
     
-    public void setId(int id) {
-        this.id = id;
+    public Usuario(){
+        super();
     }
     
-    public int getId() {
-        return this.id;
+    public void setLogin(String login) {
+        this.login = login;
     }
     
-    public void setPessoa(Pessoa pessoa) {
-        this.pessoa = pessoa;
+    public String getLogin() {
+        return this.login;
     }
-    
-    public Pessoa getPessoa() {
-        return this.pessoa;
+     
+     public void setSenha(String senha) {
+        this.senha = senha;
+    }
+     
+     public String getSenha() {
+        return this.senha;
     }
     
     public void setTipo(String tipo) {
@@ -37,29 +36,11 @@ public class Usuario {
     public String getTipo() {
         return this.tipo;
     }
-    
-    public void setSenha(String senha) {
-        this.senha = senha;
+
+    @Override
+    public String toString() {
+        return "Usuario{" + "tipo=" + tipo + ", login=" + login + ", senha=" + senha + super.toString() + '}';
     }
     
-    public String getSenha() {
-        return this.senha;
-    }
-    
-    public void setDataCriacao() {
-        this.dataCriacao = LocalDateTime.now();
-    }
-    
-    public LocalDateTime getDataCriacao() {
-        return this.dataCriacao;
-    }
-    
-    public void setDataModificacao() {
-        this.dataModificacao = LocalDateTime.now();
-    }
-    
-    public LocalDateTime getDataModificacao() {
-        return this.dataModificacao;
-    }
 }
 

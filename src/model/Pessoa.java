@@ -4,42 +4,38 @@
  */
 package model;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Date;
+import model.dao.Identifiable;
 
 /**
  *
  * @author Gabriel
  */
-public class Pessoa {
-    private int id;
+public class Pessoa extends Identifiable {
     private String nome;
-    private Date nascimento;
+    private LocalDate nascimento;
     private String telefone;
     private LocalDateTime dataCriacao;
     private LocalDateTime dataModificacao;
     
-    public void setId(int id ){
-        this.id = id;
+    public Pessoa(){
+        this.dataCriacao = LocalDateTime.now();
     }
     
-    public int getId(){
-        return this.id;
-    }
-    
-    public void setName(String nome){
+    public void setNome(String nome){
         this.nome = nome;
     }
     
-    public String getName(){
+    public String getNome(){
         return this.nome;
     }
     
-    public void setDate(Date nascimento){
+    public void setNascimento(LocalDate nascimento){
         this.nascimento = nascimento;
     }
     
-    public Date getDate(){
+    public LocalDate getNascimento(){
         return this.nascimento;
     }
     
@@ -51,13 +47,9 @@ public class Pessoa {
         return this.telefone;
     }
     
-    public void setDataCriacao(){
-        this.dataCriacao = LocalDateTime.now();
-    }
-    
     public LocalDateTime getDataCriacao(){
         return this.dataCriacao;
-    }
+    }  
     
     public void setDataModificacao(){
         this.dataModificacao = LocalDateTime.now();
@@ -66,4 +58,10 @@ public class Pessoa {
     public LocalDateTime getDataModificacao(){
         return this.dataModificacao;
     }
+
+    @Override
+    public String toString() {
+        return " Pessoa{" + "id=" + getID() + ", nome=" + nome + ", nascimento=" + nascimento + ", telefone=" + telefone + ", dataCriacao=" + dataCriacao + ", dataModificacao=" + dataModificacao + '}';
+    }
+    
 }

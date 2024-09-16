@@ -4,16 +4,15 @@
  */
 package model;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Date;
-
+import model.dao.Identifiable;
 /**
  *
  * @author Gabriel
  */
-public class Pagamentos {
-    private int id;
-    private Date data;
+public class Pagamentos extends Identifiable{
+    private LocalDate data;
     private Pessoa pessoa;
     private String descricao;
     private Fornecedor fornecedor;
@@ -22,19 +21,15 @@ public class Pagamentos {
     private LocalDateTime dataCriacao;
     private LocalDateTime dataModificacao;
     
-    public void setId(int id) {
-        this.id = id;
+    public Pagamentos(){
+        this.dataCriacao = LocalDateTime.now();
     }
     
-    public int getId() {
-        return this.id;
-    }
-    
-    public void setData(Date data) {
+    public void setData(LocalDate data) {
         this.data = data;
     }
     
-    public Date getData() {
+    public LocalDate getData() {
         return this.data;
     }
     
@@ -78,17 +73,11 @@ public class Pagamentos {
         return this.parcela;
     }
     
-    public void setDataCriacao() {
-        this.dataCriacao = LocalDateTime.now();
-    }
     
     public LocalDateTime getDataCriacao() {
         return this.dataCriacao;
     }
     
-    public void setDataModificacao() {
-        this.dataModificacao = LocalDateTime.now();
-    }
     
     public LocalDateTime getDataModificacao() {
         return this.dataModificacao;
