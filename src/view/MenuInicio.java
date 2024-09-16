@@ -9,10 +9,6 @@ public class MenuInicio {
 
         static Calendar calendario = Calendar.getInstance(); // Inicializando o calendário com a data atual
 
-        public static void main(String[] args) {
-            menuInicial();
-        }
-
         public static void menuInicial() {
             while (true) {
                 String[] opcoes = {"Login", "Entrar sem Registrar", "Registrar", "Sair"};
