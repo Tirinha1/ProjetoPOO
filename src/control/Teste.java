@@ -14,6 +14,6 @@ public class Teste {
     public static void main(String[] args) {
         MenuInicio menuInicio = new MenuInicio();
         MenuInicio.GerenciamentoCasamento gerenciamento = menuInicio.new GerenciamentoCasamento(); // Instanciando a classe interna
-        gerenciamento.menuInicial(); // Chamando o menu inicial
+        MenuInicio.GerenciamentoCasamento.menuInicial(); // Chamando o menu inicial
     }
 }
