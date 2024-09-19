@@ -4,38 +4,64 @@
  */
 package model;
 
-public class Usuario extends Pessoa {
+import java.time.LocalDateTime;
+
+public class Usuario {
     private String tipo;
     private String login;
     private String senha;
-    
-    public Usuario(){
-        super();
+    private Pessoa pessoa;
+    private LocalDateTime dataCriacao;
+    private LocalDateTime dataModificacao;
+
+    public String getTipo() {
+        return tipo;
     }
-    
-    public void setLogin(String login) {
-        this.login = login;
-    }
-    
-    public String getLogin() {
-        return this.login;
-    }
-     
-     public void setSenha(String senha) {
-        this.senha = senha;
-    }
-     
-     public String getSenha() {
-        return this.senha;
-    }
-    
+
     public void setTipo(String tipo) {
         this.tipo = tipo;
     }
-    
-    public String getTipo() {
-        return this.tipo;
+
+    public String getLogin() {
+        return login;
     }
+
+    public void setLogin(String login) {
+        this.login = login;
+    }
+
+    public String getSenha() {
+        return senha;
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
+    }
+
+    public Pessoa getPessoa() {
+        return pessoa;
+    }
+
+    public void setPessoa(Pessoa pessoa) {
+        this.pessoa = pessoa;
+    }
+
+    public LocalDateTime getDataCriacao() {
+        return dataCriacao;
+    }
+
+    public void setDataCriacao() {
+        this.dataCriacao = LocalDateTime.now();
+    }
+
+    public LocalDateTime getDataModificacao() {
+        return dataModificacao;
+    }
+
+    public void setDataModificacao(LocalDateTime dataModificacao) {
+        this.dataModificacao = LocalDateTime.now();
+    }
+
 
     @Override
     public String toString() {
