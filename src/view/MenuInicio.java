@@ -14,6 +14,41 @@ public class MenuInicio {
         return escolha;
     }
 
+    public int menuLogin() {
+        String[] perfis = {"Administrador", "Convidado", "Voltar"};
+
+        int escolhaPerfil = JOptionPane.showOptionDialog(null, "Escolha o perfil de acesso", "Seleção de Perfil",
+                JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, perfis, perfis[perfis.length - 1]);
+        
+        if(escolhaPerfil > 0){
+             String perfil = perfis[escolhaPerfil];
+        }
+        // Armazena o perfil selecionado (Administrador ou Convidado)
+
+        return escolhaPerfil;
+    }
+
+    public void menuNaoLogado() {
+        while (true) {
+            String[] opcoes = {"Presentes", "Recados", "Voltar"};
+            int escolha = JOptionPane.showOptionDialog(null, "Menu Não Logado", "Menu", JOptionPane.DEFAULT_OPTION,
+                    JOptionPane.INFORMATION_MESSAGE, null, opcoes, opcoes[0]);
+
+            switch (escolha) {
+                case 0:
+                    menuPresentesNaoLogado();
+                    break;
+                case 1:
+                    menuRecadosNaoLogado();
+                    break;
+                case 2:
+                    return; // Volta ao menu anterior
+                default:
+                    JOptionPane.showMessageDialog(null, "Opção inválida.");
+            }
+        }
+    }
+
 // Menu de Presentes para Não Logado
     public void menuPresentesNaoLogado() {
         String[] opcoes = {"Dar Presente", "Ver Presentes", "Voltar"};
@@ -71,32 +106,13 @@ public class MenuInicio {
         // Lógica para armazenar o recado
     }
 
-    public void menuAdministrador() {
-        while (true) {
-            String[] opcoes = {"Gerenciar Fornecedores", "Gerenciar Convidados", "Gerenciar Pagamentos", "Gerenciar Calendário", "Voltar"};
-            int escolha = JOptionPane.showOptionDialog(null, "Menu Administrador", "Administração", JOptionPane.DEFAULT_OPTION,
-                    JOptionPane.INFORMATION_MESSAGE, null, opcoes, opcoes[0]);
+    public int menuAdministrador() {
 
-            switch (escolha) {
-                case 0:
-                    menuGerenciarFornecedores();
-                    break;
-                case 1:
-                    menuGerenciarConvidados();
-                    // Função de gerenciamento de convidados
-                    break;
-                case 2:
-                    menuGerenciarPagamentos();
-                    break;
-                case 3:
-                    menuGerenciarCalendario();
-                    break;
-                case 4:
-                    return; // Volta ao menu anterior
-                default:
-                    JOptionPane.showMessageDialog(null, "Opção inválida.");
-            }
-        }
+        String[] opcoes = {"Gerenciar Fornecedores", "Gerenciar Convidados", "Gerenciar Pagamentos", "Gerenciar Calendário", "Voltar"};
+        int escolha = JOptionPane.showOptionDialog(null, "Menu Administrador", "Administração", JOptionPane.DEFAULT_OPTION,
+                JOptionPane.INFORMATION_MESSAGE, null, opcoes, opcoes[0]);
+
+        return escolha;
     }
 
     public void menuGerenciarFornecedores() {
