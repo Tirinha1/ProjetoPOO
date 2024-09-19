@@ -7,7 +7,7 @@ public class MenuInicio {
 
     static Calendar calendario = Calendar.getInstance(); // Inicializando o calendário com a data atual
 
-    public static int menuInicial() {
+    public int menuInicial() {
         String[] opcoes = {"Login", "Entrar sem Registrar", "Registrar", "Sair"};
         int escolha = JOptionPane.showOptionDialog(null, "Bem-vindo ao Sistema de Gerenciamento de Casamento!", "Menu Principal",
                 JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, opcoes, opcoes[2]);
@@ -15,7 +15,7 @@ public class MenuInicio {
     }
 
 // Menu de Presentes para Não Logado
-    public static void menuPresentesNaoLogado() {
+    public void menuPresentesNaoLogado() {
         String[] opcoes = {"Dar Presente", "Ver Presentes", "Voltar"};
         int escolha = JOptionPane.showOptionDialog(null, "Menu Presentes", "Presentes", JOptionPane.DEFAULT_OPTION,
                 JOptionPane.INFORMATION_MESSAGE, null, opcoes, opcoes[0]);
@@ -37,7 +37,7 @@ public class MenuInicio {
     }
 
 // Menu de Recados para Não Logado
-    public static void menuRecadosNaoLogado() {
+    public void menuRecadosNaoLogado() {
         String[] opcoes = {"Ver Recados", "Deixar Recado", "Voltar"};
         int escolha = JOptionPane.showOptionDialog(null, "Menu Recados", "Recados", JOptionPane.DEFAULT_OPTION,
                 JOptionPane.INFORMATION_MESSAGE, null, opcoes, opcoes[0]);
@@ -58,7 +58,7 @@ public class MenuInicio {
     }
 
 // Deixar Recado no Menu Não Logado
-    public static void deixarRecadoNaoLogado() {
+    public void deixarRecadoNaoLogado() {
         String nome = JOptionPane.showInputDialog("Digite seu nome:");
         String recado = JOptionPane.showInputDialog(null, "Digite seu recado (até 4000 caracteres):",
                 "Deixar Recado", JOptionPane.PLAIN_MESSAGE);
@@ -71,7 +71,7 @@ public class MenuInicio {
         // Lógica para armazenar o recado
     }
 
-    public static void menuAdministrador() {
+    public void menuAdministrador() {
         while (true) {
             String[] opcoes = {"Gerenciar Fornecedores", "Gerenciar Convidados", "Gerenciar Pagamentos", "Gerenciar Calendário", "Voltar"};
             int escolha = JOptionPane.showOptionDialog(null, "Menu Administrador", "Administração", JOptionPane.DEFAULT_OPTION,
@@ -99,7 +99,7 @@ public class MenuInicio {
         }
     }
 
-    public static void menuGerenciarFornecedores() {
+    public void menuGerenciarFornecedores() {
         while (true) {
             String[] opcoes = {"Incluir Fornecedor", "Alterar Fornecedor", "Remover Fornecedor", "Voltar"};
             int escolha = JOptionPane.showOptionDialog(null, "Gerenciar Fornecedores", "Fornecedores", JOptionPane.DEFAULT_OPTION,
@@ -123,13 +123,13 @@ public class MenuInicio {
         }
     }
 
-    public static void incluirFornecedor() {
+    public void incluirFornecedor() {
         String nomeFornecedor = JOptionPane.showInputDialog("Digite o nome do fornecedor:");
         // Lógica para incluir o fornecedor aqui
         JOptionPane.showMessageDialog(null, "Fornecedor " + nomeFornecedor + " incluído com sucesso!");
     }
 
-    public static void alterarFornecedor() {
+    public void alterarFornecedor() {
         String idFornecedor = JOptionPane.showInputDialog("Digite o ID do fornecedor que deseja alterar:");
         // Lógica para buscar o fornecedor pelo ID7
         // Suponha que exista uma função buscarFornecedorPorId(id) que retorna o fornecedor
@@ -142,7 +142,7 @@ public class MenuInicio {
             }*/
     }
 
-    public static void removerFornecedor() {
+    public void removerFornecedor() {
         String idFornecedor = JOptionPane.showInputDialog("Digite o ID do fornecedor que deseja remover:");
         // Lógica para buscar o fornecedor pelo ID e removê-lo
         /*String fornecedor = buscarFornecedorPorId(idFornecedor); // Exemplo de busca
@@ -154,7 +154,7 @@ public class MenuInicio {
             }*/
     }
 
-    public static void menuGerenciarConvidados() {
+    public void menuGerenciarConvidados() {
         while (true) {
             String[] opcoes = {"Incluir Convidado", "Alterar Convidado", "Remover Convidado", "Voltar"};
             int escolha = JOptionPane.showOptionDialog(null, "Gerenciar Convidados", "Convidados", JOptionPane.DEFAULT_OPTION,
@@ -178,13 +178,13 @@ public class MenuInicio {
         }
     }
 
-    public static void incluirConvidado() {
+    public void incluirConvidado() {
         String nomeConvidado = JOptionPane.showInputDialog("Digite o nome do convidado:");
         // Lógica para incluir o convidado aqui
         JOptionPane.showMessageDialog(null, "Convidado " + nomeConvidado + " incluído com sucesso!");
     }
 
-    public static void alterarConvidado() {
+    public void alterarConvidado() {
         String idConvidado = JOptionPane.showInputDialog("Digite o ID do convidado que deseja alterar:");
         // Lógica para buscar e alterar o convidado pelo ID
         /*String convidado = buscarConvidadoPorId(idConvidado); // Exemplo de busca
@@ -196,7 +196,7 @@ public class MenuInicio {
             }*/
     }
 
-    public static void removerConvidado() {
+    public void removerConvidado() {
         String idConvidado = JOptionPane.showInputDialog("Digite o ID do convidado que deseja remover:");
         // Lógica para buscar e remover o convidado pelo ID
         /*String convidado = buscarConvidadoPorId(idConvidado); // Exemplo de busca
@@ -208,7 +208,7 @@ public class MenuInicio {
             }*/
     }
 
-    public static void menuGerenciarPagamentos() {
+    public void menuGerenciarPagamentos() {
         while (true) {
             String[] opcoes = {"Pagamento à Vista", "Pagamento Agendado", "Verificar Pagamentos Agendados", "Voltar"};
             int escolha = JOptionPane.showOptionDialog(null, "Menu de Pagamentos", "Pagamentos", JOptionPane.DEFAULT_OPTION,
@@ -232,7 +232,7 @@ public class MenuInicio {
         }
     }
 
-    public static void pagamentoAVista() {
+    public void pagamentoAVista() {
         String idFornecedor = JOptionPane.showInputDialog("Digite o ID do fornecedor:");
         String valorPagamento = JOptionPane.showInputDialog("Digite o valor do pagamento:");
         String dataPagamento = JOptionPane.showInputDialog("Digite a data do pagamento (dd/mm/yyyy):");
@@ -242,7 +242,7 @@ public class MenuInicio {
                 + "\nValor: R$ " + valorPagamento + "\nData: " + dataPagamento);
     }
 
-    public static void agendarPagamento() {
+    public void agendarPagamento() {
         String idFornecedor = JOptionPane.showInputDialog("Digite o ID do fornecedor:");
         String valorPagamento = JOptionPane.showInputDialog("Digite o valor do pagamento:");
         String dataVencimento = JOptionPane.showInputDialog("Digite a data de vencimento do pagamento (dd/mm/yyyy):");
@@ -252,7 +252,7 @@ public class MenuInicio {
                 + "\nValor: R$ " + valorPagamento + "\nData de Vencimento: " + dataVencimento);
     }
 
-    public static void verificarPagamentosAgendados() {
+    public void verificarPagamentosAgendados() {
         Calendar hoje = Calendar.getInstance();
         if (calendario.get(Calendar.DAY_OF_YEAR) == hoje.get(Calendar.DAY_OF_YEAR)
                 && calendario.get(Calendar.YEAR) == hoje.get(Calendar.YEAR)) {
@@ -263,7 +263,7 @@ public class MenuInicio {
         }
     }
 
-    public static void menuGerenciarCalendario() {
+    public void menuGerenciarCalendario() {
         while (true) {
             String[] opcoes = {"Adicionar Evento", "Visualizar Calendário", "Voltar"};
             int escolha = JOptionPane.showOptionDialog(null, "Gerenciamento de Calendário", "Calendário", JOptionPane.DEFAULT_OPTION,
@@ -286,7 +286,7 @@ public class MenuInicio {
 
     // Lista para armazenar eventos
     //static List<String> eventos = new ArrayList<>();
-    public static void adicionarEvento() {
+    public void adicionarEvento() {
         String dataEvento = JOptionPane.showInputDialog("Digite a data do evento (dd/mm/yyyy):");
         String descricaoEvento = JOptionPane.showInputDialog(null, "Digite a descrição do evento (até 4000 caracteres):",
                 "Adicionar Evento", JOptionPane.PLAIN_MESSAGE);
@@ -303,7 +303,7 @@ public class MenuInicio {
         JOptionPane.showMessageDialog(null, "Evento adicionado com sucesso!\n" + evento);
     }
 
-    public static void visualizarCalendario() {
+    public void visualizarCalendario() {
         StringBuilder calendarioCompleto = new StringBuilder("Calendário Completo:\n");
 
         // Adiciona os eventos anotados
@@ -333,7 +333,7 @@ public class MenuInicio {
         JOptionPane.showMessageDialog(null, calendarioCompleto.toString(), "Visualizar Calendário", JOptionPane.INFORMATION_MESSAGE);
     }
 
-    public static void menuConvidado() {
+    public void menuConvidado() {
         while (true) {
             String[] opcoes = {"Presentes", "Recados", "Confirmar Presença", "Voltar"};
             int escolha = JOptionPane.showOptionDialog(null, "Menu Convidado", "Convidado", JOptionPane.DEFAULT_OPTION,
@@ -358,7 +358,7 @@ public class MenuInicio {
     }
 
 // Menu de Presentes para Convidado
-    public static void menuPresentesConvidado() {
+    public void menuPresentesConvidado() {
         String[] opcoes = {"Dar Presente", "Ver Presentes", "Voltar"};
         int escolha = JOptionPane.showOptionDialog(null, "Menu Presentes", "Presentes", JOptionPane.DEFAULT_OPTION,
                 JOptionPane.INFORMATION_MESSAGE, null, opcoes, opcoes[0]);
@@ -380,7 +380,7 @@ public class MenuInicio {
     }
 
 // Menu de Recados para Convidado
-    public static void menuRecadosConvidado() {
+    public void menuRecadosConvidado() {
         String[] opcoes = {"Ver Recados", "Deixar Recado", "Voltar"};
         int escolha = JOptionPane.showOptionDialog(null, "Menu Recados", "Recados", JOptionPane.DEFAULT_OPTION,
                 JOptionPane.INFORMATION_MESSAGE, null, opcoes, opcoes[0]);
@@ -401,7 +401,7 @@ public class MenuInicio {
     }
 
 // Deixar Recado no Menu Logado
-    public static void deixarRecadoLogado() {
+    public void deixarRecadoLogado() {
         String idConvidado = JOptionPane.showInputDialog("Digite o ID do convidado:");
         String recado = JOptionPane.showInputDialog(null, "Digite seu recado (até 4000 caracteres):",
                 "Deixar Recado", JOptionPane.PLAIN_MESSAGE);
@@ -415,7 +415,7 @@ public class MenuInicio {
     }
 
     // Método de Confirmar Presença
-    public static void confirmarPresenca() {
+    public void confirmarPresenca() {
         String idConvidado = JOptionPane.showInputDialog("Digite o ID do convidado:");
 
         if (idConvidado != null && !idConvidado.isEmpty()) {
