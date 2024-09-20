@@ -19,9 +19,9 @@ public class MenuInicio {
 
         int escolhaPerfil = JOptionPane.showOptionDialog(null, "Escolha o perfil de acesso", "Seleção de Perfil",
                 JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, perfis, perfis[perfis.length - 1]);
-        
-        if(escolhaPerfil > 0){
-             String perfil = perfis[escolhaPerfil];
+
+        if (escolhaPerfil > 0) {
+            String perfil = perfis[escolhaPerfil];
         }
         // Armazena o perfil selecionado (Administrador ou Convidado)
 
@@ -349,28 +349,13 @@ public class MenuInicio {
         JOptionPane.showMessageDialog(null, calendarioCompleto.toString(), "Visualizar Calendário", JOptionPane.INFORMATION_MESSAGE);
     }
 
-    public void menuConvidado() {
-        while (true) {
-            String[] opcoes = {"Presentes", "Recados", "Confirmar Presença", "Voltar"};
-            int escolha = JOptionPane.showOptionDialog(null, "Menu Convidado", "Convidado", JOptionPane.DEFAULT_OPTION,
-                    JOptionPane.INFORMATION_MESSAGE, null, opcoes, opcoes[0]);
+    public int menuConvidado() {
 
-            switch (escolha) {
-                case 0:
-                    menuPresentesConvidado();
-                    break;
-                case 1:
-                    menuRecadosConvidado();
-                    break;
-                case 2:
-                    confirmarPresenca();
-                    break;
-                case 3:
-                    return; // Volta ao menu anterior
-                default:
-                    JOptionPane.showMessageDialog(null, "Opção inválida.");
-            }
-        }
+        String[] opcoes = {"Presentes", "Recados", "Confirmar Presença", "Voltar"};
+        int escolha = JOptionPane.showOptionDialog(null, "Menu Convidado", "Convidado", JOptionPane.DEFAULT_OPTION,
+                JOptionPane.INFORMATION_MESSAGE, null, opcoes, opcoes[0]);
+        
+        return escolha;
     }
 
 // Menu de Presentes para Convidado

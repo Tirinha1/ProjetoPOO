@@ -49,19 +49,19 @@ public class Teste {
     }
 
     public void perfilLogin(int escolhaPerfil) {
-        if(escolhaPerfil == 2 || escolhaPerfil == -1){
+        if (escolhaPerfil == 2 || escolhaPerfil == -1) {
             ok = false;
             return;
         }
         String login = JOptionPane.showInputDialog("Digite seu login:");
-        if(login == null){
+        if (login == null) {
             return;
         }
         String senha = JOptionPane.showInputDialog("Digite sua senha:");
-        if(senha == null){
+        if (senha == null) {
             return;
         }
-        
+
         while (true) {
             if (escolhaPerfil == 0) {
                 if ("admin".equals(login) && "admin".equals(senha)) {
@@ -74,7 +74,9 @@ public class Teste {
                 }
             } else if (escolhaPerfil == 1) {
                 if ("convidado".equals(login) && "convidado".equals(senha)) {
-                    menuInicio.menuConvidado();
+                    int escolhaConvidado = menuInicio.menuConvidado();
+                    perfilConvidado(escolhaConvidado);
+                    return;
                 } else {
                     JOptionPane.showMessageDialog(null, "Login ou senha inválidos para Convidado.");
                     return;
@@ -88,23 +90,48 @@ public class Teste {
             return; // Volta ao menu anterior
         }
         while (true) {
-
             switch (escolhaAdm) {
                 case 0:
-                    menuInicio.menuGerenciarFornecedores();
+                    //TODO: Criar menu para gerenciar pessoas
                     break;
                 case 1:
+                    //TODO: Criar menu para gerenciar Usuarios
+                    break;
+                case 2:
+                    menuInicio.menuGerenciarFornecedores();
+                    break;
+                case 3:
                     menuInicio.menuGerenciarConvidados();
                     // Função de gerenciamento de convidados
                     break;
-                case 2:
+                case 4:
                     menuInicio.menuGerenciarPagamentos();
                     break;
-                case 3:
+                case 5:
                     menuInicio.menuGerenciarCalendario();
                     break;
             }
+        }
+    }
 
+    public void perfilConvidado(int escolhaConvidado) {
+        if (escolhaConvidado == 3 || escolhaConvidado == -1) {
+            return;
+        }
+        while (true) {
+            switch (escolhaConvidado) {
+                case 0:
+                    menuInicio.menuPresentesConvidado();
+                    break;
+                case 1:
+                    menuInicio.menuRecadosConvidado();
+                    break;
+                case 2:
+                    menuInicio.confirmarPresenca();
+                    break;
+                case 3:
+                    return; // Volta ao menu anterior
+            }
         }
     }
 }
