@@ -48,6 +48,24 @@ public class MenuInicio {
             }
         }
     }
+    
+    public int menuPessoas(){
+        String[] opcoes = {"Incluir Pessoas", "Alterar Pessoa", "Remover Pessoa", "Visualizar Pessoa", "Visualizar Todas Pessoas", "Voltar"};
+        
+        int escolha = JOptionPane.showOptionDialog(null, "Menu Pessoa", "Menu", JOptionPane.DEFAULT_OPTION, 
+                JOptionPane.INFORMATION_MESSAGE, null, opcoes, opcoes[0]);
+        
+        return escolha;
+    }
+    
+    public int menuUsuario(){
+        String[] opcoes = {"Incluir Usuario", "Alterar Usuario", "Remover Usuario", "Visualizar Usuario", "Visualizar Todos Usuarios", "Voltar"};
+        
+        int escolha = JOptionPane.showOptionDialog(null, "Menu Usuario", "Menu", JOptionPane.DEFAULT_OPTION, 
+                JOptionPane.INFORMATION_MESSAGE, null, opcoes, opcoes[0]);
+        
+        return escolha;
+    }
 
 // Menu de Presentes para Não Logado
     public void menuPresentesNaoLogado() {
@@ -108,7 +126,7 @@ public class MenuInicio {
 
     public int menuAdministrador() {
 
-        String[] opcoes = {"Gerenciar Fornecedores", "Gerenciar Convidados", "Gerenciar Pagamentos", "Gerenciar Calendário", "Voltar"};
+        String[] opcoes = {"Gerenciar Pessoas", "Gerenciar Usuarios","Gerenciar Fornecedores", "Gerenciar Convidados", "Gerenciar Pagamentos", "Gerenciar Calendário", "Voltar"};
         int escolha = JOptionPane.showOptionDialog(null, "Menu Administrador", "Administração", JOptionPane.DEFAULT_OPTION,
                 JOptionPane.INFORMATION_MESSAGE, null, opcoes, opcoes[0]);
 

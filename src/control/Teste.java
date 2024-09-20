@@ -4,7 +4,11 @@
  */
 package control;
 
+import java.time.LocalDate;
 import javax.swing.JOptionPane;
+import model.Pessoa;
+import model.dao.Database;
+import model.dao.Utils;
 import view.MenuInicio;
 
 /**
@@ -16,6 +20,9 @@ public class Teste {
     boolean ok = true;
     int escolha;
     MenuInicio menuInicio = new MenuInicio();
+    Pessoa[] pessoas = new Pessoa[0];
+    Database pessoasDatabase = new Database(pessoas);
+    Utils utils = new Utils();
 
     public void main(String[] args) {
 
@@ -86,23 +93,24 @@ public class Teste {
     }
 
     public void perfilAdm(int escolhaAdm) {
-        if (escolhaAdm == 4 || escolhaAdm == -1) {
-            return; // Volta ao menu anterior
+        if (escolhaAdm == 6 || escolhaAdm == -1) {
+            return;
         }
         while (true) {
             switch (escolhaAdm) {
                 case 0:
-                    //TODO: Criar menu para gerenciar pessoas
+                    int escolhaPessoa = menuInicio.menuPessoas();
+                    perfilPessoa(escolhaPessoa);
+                    System.out.println("teste");
                     break;
                 case 1:
-                    //TODO: Criar menu para gerenciar Usuarios
+                    menuInicio.menuUsuario();
                     break;
                 case 2:
                     menuInicio.menuGerenciarFornecedores();
                     break;
                 case 3:
                     menuInicio.menuGerenciarConvidados();
-                    // Função de gerenciamento de convidados
                     break;
                 case 4:
                     menuInicio.menuGerenciarPagamentos();
@@ -129,9 +137,37 @@ public class Teste {
                 case 2:
                     menuInicio.confirmarPresenca();
                     break;
-                case 3:
-                    return; // Volta ao menu anterior
             }
         }
+    }
+
+    public void perfilPessoa(int escolhaPessoa) {
+        if (escolhaPessoa == 6|| escolhaPessoa == -1) {
+            return;
+        }
+        
+        switch (escolhaPessoa) {
+            case 0: // incluir
+                Pessoa pessoa = new Pessoa();
+                String nome = JOptionPane.showInputDialog("Digite seu nome:");
+                pessoa.setNome(nome);
+                String telefone = JOptionPane.showInputDialog("Digite seu telefone:");
+                pessoa.setTelefone(telefone);
+                String nascimento = JOptionPane.showInputDialog("Digite o seu nascimento:");
+                pessoa.setNascimento(utils.formatDate(nascimento));
+                pessoasDatabase.create(pessoa);
+                break;
+            case 1: // alterar
+
+                break;
+            case 2: // remover
+
+                break;
+            case 3: // visualizar
+                break;
+            case 4: // visualizar todos
+                break;
+        }   
+
     }
 }
