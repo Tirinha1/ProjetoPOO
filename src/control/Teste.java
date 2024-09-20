@@ -17,6 +17,7 @@ import view.MenuInicio;
  */
 public class Teste {
 
+    boolean admOk = true;
     boolean ok = true;
     int escolha;
     MenuInicio menuInicio = new MenuInicio();
@@ -70,38 +71,41 @@ public class Teste {
         }
 
         while (true) {
-            if (escolhaPerfil == 0) {
-                if ("admin".equals(login) && "admin".equals(senha)) {
-                    int escolhaAdm = menuInicio.menuAdministrador();
-                    perfilAdm(escolhaAdm);
-                    return;
-                } else {
-                    JOptionPane.showMessageDialog(null, "Login ou senha inválidos para Administrador.");
-                    return;
-                }
-            } else if (escolhaPerfil == 1) {
-                if ("convidado".equals(login) && "convidado".equals(senha)) {
-                    int escolhaConvidado = menuInicio.menuConvidado();
-                    perfilConvidado(escolhaConvidado);
-                    return;
-                } else {
-                    JOptionPane.showMessageDialog(null, "Login ou senha inválidos para Convidado.");
-                    return;
-                }
+            switch (escolhaPerfil) {
+                case 0:
+                    if ("admin".equals(login) && "admin".equals(senha)) {
+                        int escolhaAdm = menuInicio.menuAdministrador();
+                        perfilAdm(escolhaAdm);
+                        admOk = true;
+                        return;
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Login ou senha inválidos para Administrador.");
+                    }
+                    break;
+                case 1:
+                    if ("convidado".equals(login) && "convidado".equals(senha)) {
+                        int escolhaConvidado = menuInicio.menuConvidado();
+                        perfilConvidado(escolhaConvidado);
+                        return;
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Login ou senha inválidos para Convidado.");
+                    }
+                    break;
             }
         }
     }
+    
 
     public void perfilAdm(int escolhaAdm) {
         if (escolhaAdm == 6 || escolhaAdm == -1) {
             return;
         }
-        while (true) {
+        while (admOk) {
             switch (escolhaAdm) {
                 case 0:
                     int escolhaPessoa = menuInicio.menuPessoas();
                     perfilPessoa(escolhaPessoa);
-                    System.out.println("teste");
+                    System.out.println(escolhaPessoa);
                     break;
                 case 1:
                     menuInicio.menuUsuario();
@@ -142,10 +146,11 @@ public class Teste {
     }
 
     public void perfilPessoa(int escolhaPessoa) {
-        if (escolhaPessoa == 6|| escolhaPessoa == -1) {
+        if (escolhaPessoa == 5 || escolhaPessoa == -1) {
+            admOk = false;
             return;
         }
-        
+
         switch (escolhaPessoa) {
             case 0: // incluir
                 Pessoa pessoa = new Pessoa();
@@ -167,7 +172,7 @@ public class Teste {
                 break;
             case 4: // visualizar todos
                 break;
-        }   
+        }
 
     }
 }
