@@ -5,8 +5,9 @@
 package model;
 
 import java.time.LocalDateTime;
+import model.dao.Identifiable;
 
-public class Usuario {
+public class Usuario extends Identifiable{
     private String tipo;
     private String login;
     private String senha;
@@ -58,7 +59,7 @@ public class Usuario {
         return dataModificacao;
     }
 
-    public void setDataModificacao(LocalDateTime dataModificacao) {
+    public void setDataModificacao() {
         this.dataModificacao = LocalDateTime.now();
     }
 

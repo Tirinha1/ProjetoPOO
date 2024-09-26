@@ -22,7 +22,6 @@ public class Utils {
         } catch(Exception e){
             System.out.println("ERROR: " + e.getMessage());
         }
-        System.out.println(data);
         return this.data;
     }
 }
