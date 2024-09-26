@@ -22,7 +22,8 @@ public class Teste {
     int escolha;
     MenuInicio menuInicio = new MenuInicio();
     Pessoa[] pessoas = new Pessoa[0];
-    Database pessoasDatabase = new Database(pessoas);
+    //Database pessoasDatabase = new Database(pessoas);
+    Database<Pessoa> pessoasDatabase = new Database<>(new Pessoa[0]);
     Utils utils = new Utils();
 
     public void main(String[] args) {
@@ -94,7 +95,6 @@ public class Teste {
             }
         }
     }
-    
 
     public void perfilAdm(int escolhaAdm) {
         if (escolhaAdm == 6 || escolhaAdm == -1) {
@@ -105,7 +105,6 @@ public class Teste {
                 case 0:
                     int escolhaPessoa = menuInicio.menuPessoas();
                     perfilPessoa(escolhaPessoa);
-                    System.out.println(escolhaPessoa);
                     break;
                 case 1:
                     menuInicio.menuUsuario();
@@ -126,6 +125,84 @@ public class Teste {
         }
     }
 
+    public void perfilPessoa(int escolhaPessoa) {
+        if (escolhaPessoa == 5 || escolhaPessoa == -1) {
+            admOk = false;
+            return;
+        }
+
+        switch (escolhaPessoa) {
+            case 0: // incluir
+                Pessoa pessoa = new Pessoa();
+                String nome = JOptionPane.showInputDialog("Digite seu nome:");
+                pessoa.setNome(nome);
+                String telefone = JOptionPane.showInputDialog("Digite seu telefone:");
+                pessoa.setTelefone(telefone);
+                String nascimento = JOptionPane.showInputDialog("Digite o seu nascimento (dd/MM/yyyy):");
+                pessoa.setNascimento(utils.formatDate(nascimento));
+                pessoasDatabase.create(pessoa);
+                JOptionPane.showMessageDialog(null, "Pessoa incluída com sucesso!");
+                break;
+
+            case 1: // alterar
+                int idAlterar = Integer.parseInt(JOptionPane.showInputDialog("Digite o ID da pessoa que deseja alterar:"));
+                Pessoa pessoaAlterar = pessoasDatabase.getById(idAlterar); // Agora retorna Pessoa
+                if (pessoaAlterar != null) {
+                    String novoNome = JOptionPane.showInputDialog("Digite o novo nome:", pessoaAlterar.getNome());
+                    pessoaAlterar.setNome(novoNome);
+                    String novoTelefone = JOptionPane.showInputDialog("Digite o novo telefone:", pessoaAlterar.getTelefone());
+                    pessoaAlterar.setTelefone(novoTelefone);
+                    String novoNascimento = JOptionPane.showInputDialog("Digite a nova data de nascimento (dd/MM/yyyy):", pessoaAlterar.getNascimento().toString());
+                    pessoaAlterar.setNascimento(utils.formatDate(novoNascimento));
+                    pessoaAlterar.setDataModificacao();
+                    pessoasDatabase.update(pessoaAlterar);
+                    JOptionPane.showMessageDialog(null, "Pessoa alterada com sucesso!");
+                } else {
+                    JOptionPane.showMessageDialog(null, "Pessoa com ID " + idAlterar + " não encontrada.");
+                }
+                break;
+
+            case 2: // remover
+                int idRemover = Integer.parseInt(JOptionPane.showInputDialog("Digite o ID da pessoa que deseja remover:"));
+                pessoasDatabase.delete(idRemover);
+                JOptionPane.showMessageDialog(null, "Pessoa removida com sucesso!");
+                break;
+
+            case 3: // visualizar
+                int idVisualizar = Integer.parseInt(JOptionPane.showInputDialog("Digite o ID da pessoa que deseja visualizar:"));
+                Pessoa pessoaVisualizar = pessoasDatabase.getById(idVisualizar); // Agora retorna Pessoa
+                if (pessoaVisualizar != null) {
+                    JOptionPane.showMessageDialog(null, pessoaVisualizar.toString());
+                } else {
+                    JOptionPane.showMessageDialog(null, "Pessoa com ID " + idVisualizar + " não encontrada.");
+                }
+                break;
+
+            case 4: // visualizar todos
+                Pessoa[] todasPessoas = pessoasDatabase.getAll(); // Agora retorna array de Pessoa
+                if (todasPessoas.length > 0) {
+                    String strPessoa = "";
+                    for (Pessoa p : todasPessoas) {
+                        strPessoa += (p.toString()+"\n");
+                    }
+                    JOptionPane.showMessageDialog(null, strPessoa);
+                    /*StringBuilder builder = new StringBuilder();
+                    for (Pessoa p : todasPessoas) {
+                        builder.append(p.toString()).append("\n");
+                    }
+                    JOptionPane.showMessageDialog(null, builder.toString());*/
+                } else {
+                    JOptionPane.showMessageDialog(null, "Nenhuma pessoa cadastrada.");
+                }
+                break;
+
+            default:
+                JOptionPane.showMessageDialog(null, "Opção inválida.");
+                break;
+        }
+
+    }
+
     public void perfilConvidado(int escolhaConvidado) {
         if (escolhaConvidado == 3 || escolhaConvidado == -1) {
             return;
@@ -143,36 +220,5 @@ public class Teste {
                     break;
             }
         }
-    }
-
-    public void perfilPessoa(int escolhaPessoa) {
-        if (escolhaPessoa == 5 || escolhaPessoa == -1) {
-            admOk = false;
-            return;
-        }
-
-        switch (escolhaPessoa) {
-            case 0: // incluir
-                Pessoa pessoa = new Pessoa();
-                String nome = JOptionPane.showInputDialog("Digite seu nome:");
-                pessoa.setNome(nome);
-                String telefone = JOptionPane.showInputDialog("Digite seu telefone:");
-                pessoa.setTelefone(telefone);
-                String nascimento = JOptionPane.showInputDialog("Digite o seu nascimento:");
-                pessoa.setNascimento(utils.formatDate(nascimento));
-                pessoasDatabase.create(pessoa);
-                break;
-            case 1: // alterar
-
-                break;
-            case 2: // remover
-
-                break;
-            case 3: // visualizar
-                break;
-            case 4: // visualizar todos
-                break;
-        }
-
     }
 }

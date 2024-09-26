@@ -11,6 +11,7 @@ public class MenuInicio {
         String[] opcoes = {"Login", "Entrar sem Registrar", "Registrar", "Sair"};
         int escolha = JOptionPane.showOptionDialog(null, "Bem-vindo ao Sistema de Gerenciamento de Casamento!", "Menu Principal",
                 JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, opcoes, opcoes[2]);
+        System.out.println(escolha);
         return escolha;
     }
 
