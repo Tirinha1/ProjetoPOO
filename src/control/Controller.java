@@ -14,13 +14,13 @@ import model.dao.Utils;
 import view.MenuInicio;
 
 /**
- *
+ *ctrl+j e ctrl+alt+shift+j
  * @author Gabriel
  */
 public class Controller {
 
     boolean admOk = true;
-    boolean ok = true;
+    boolean openMenuLogin = true;
     int escolha;
     MenuInicio menuInicio = new MenuInicio();
     Pessoa[] pessoas = new Pessoa[0];
@@ -34,15 +34,15 @@ public class Controller {
     public void main(String[] args) {
 
         while (true) {
-            ok = true;
+            openMenuLogin = true;
             escolha = menuInicio.menuInicial(); // Chamando o menu inicial
-            if (escolha == 3 || escolha == JOptionPane.CLOSED_OPTION) {
+            if (escolha == 3 || escolha == -1) {
                 escolha = 3;
             }
 
             switch (escolha) {
                 case 0: // Login
-                    while (ok) {
+                    while (openMenuLogin) {
                         int escolhaPerfil = menuInicio.menuLogin();
                         perfilLogin(escolhaPerfil);
                     }
@@ -64,7 +64,7 @@ public class Controller {
 
     public void perfilLogin(int escolhaPerfil) {
         if (escolhaPerfil == 2 || escolhaPerfil == -1) {
-            ok = false;
+            openMenuLogin = false;
             return;
         }
         String loginSenha;
@@ -175,7 +175,7 @@ public class Controller {
             case 1: // alterar
                 // ID da pessoa a ser alterada
                 String idAlterar = JOptionPane.showInputDialog("Digite o ID da pessoa que deseja alterar:");
-                if ( !ValidaInput.string(idAlterar) || !idAlterar.matches("^\\d+$") ) { // Verifica se contem somente numero na string
+                if (!ValidaInput.string(idAlterar) || !idAlterar.matches("^\\d+$")) { // Verifica se contem somente numero na string
                     return;
                 }
                 Pessoa pessoaAlterar = pessoasDatabase.getById(Integer.parseInt(idAlterar));
@@ -211,13 +211,21 @@ public class Controller {
 
             case 2: // remover
                 // Confirmação de remoção
-                int idRemover = Integer.parseInt(JOptionPane.showInputDialog("Digite o ID da pessoa que deseja remover:"));
-                int confirmacao = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja remover a pessoa com ID " + idRemover + "?", "Confirmação", JOptionPane.YES_NO_OPTION);
-                if (confirmacao == JOptionPane.YES_OPTION) {
-                    pessoasDatabase.delete(idRemover);
-                    JOptionPane.showMessageDialog(null, "Pessoa removida com sucesso!");
+                String idRemover = JOptionPane.showInputDialog("Digite o ID da pessoa que deseja remover:");
+                if (!ValidaInput.string(idRemover) || !idRemover.matches("^\\d+$")) {
+                    return;
+                }
+                Pessoa pessoaRemover = pessoasDatabase.getById(Integer.parseInt(idRemover));
+                if (pessoaRemover != null) {
+                    int confirmacao = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja remover a pessoa com ID " + idRemover + "?", "Confirmação", JOptionPane.YES_NO_OPTION);
+                    if (confirmacao == JOptionPane.YES_OPTION) {
+                        pessoasDatabase.delete(Integer.parseInt(idRemover));
+                        JOptionPane.showMessageDialog(null, "Pessoa removida com sucesso!");
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Remoção cancelada.");
+                    }
                 } else {
-                    JOptionPane.showMessageDialog(null, "Remoção cancelada.");
+                    JOptionPane.showMessageDialog(null, "Pessoa com ID " + idRemover + " não encontrada.");
                 }
                 return;
 
@@ -243,11 +251,6 @@ public class Controller {
                 } else {
                     JOptionPane.showMessageDialog(null, "Nenhuma pessoa cadastrada.");
                 }
-                return;
-
-            default:
-                JOptionPane.showMessageDialog(null, "Opção inválida.");
-                break;
         }
     }
 
