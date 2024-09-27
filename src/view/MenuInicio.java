@@ -19,12 +19,6 @@ public class MenuInicio {
 
         int escolhaPerfil = JOptionPane.showOptionDialog(null, "Escolha o perfil de acesso", "Seleção de Perfil",
                 JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, perfis, perfis[perfis.length - 1]);
-        /*
-        if (escolhaPerfil > 0) {
-            String perfil = perfis[escolhaPerfil];
-        }*/
-        // Armazena o perfil selecionado (Administrador ou Convidado)
-
         return escolhaPerfil;
     }
 
@@ -34,7 +28,6 @@ public class MenuInicio {
         String[] opcoes = {"Gerenciar Pessoas", "Gerenciar Usuarios", "Gerenciar Fornecedores", "Gerenciar Convidados", "Gerenciar Pagamentos", "Gerenciar Calendário", "Voltar"};
         int escolha = JOptionPane.showOptionDialog(null, "Menu Administrador", "Administração", JOptionPane.DEFAULT_OPTION,
                 JOptionPane.INFORMATION_MESSAGE, null, opcoes, opcoes[0]);
-
         return escolha;
     }
 

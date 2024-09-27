@@ -20,13 +20,11 @@ import view.MenuInicio;
  */
 public class Controller {
 
-    boolean admOk = true;
-    boolean openMenuLogin = true;
+    boolean controlForm = true; //Variavel para controle de Form;
     int escolha;
     MenuInicio menuInicio = new MenuInicio();
     Pessoa[] pessoas = new Pessoa[0];
     Usuario[] usuarios = new Usuario[0];
-    //Database pessoasDatabase = new Database(pessoas);
     Database<Pessoa> pessoasDatabase = new Database<>(new Pessoa[0]);
     Database<Usuario> usuariosDatabase = new Database<>(new Usuario[0]);
     Utils utils = new Utils();
@@ -35,7 +33,6 @@ public class Controller {
     public void main(String[] args) {
 
         while (true) {
-            openMenuLogin = true;
             escolha = menuInicio.menuInicial(); // Chamando o menu inicial
             if (escolha == 3 || escolha == -1) {
                 escolha = 3;
@@ -43,10 +40,11 @@ public class Controller {
 
             switch (escolha) {
                 case 0: // Login
-                    while (openMenuLogin) {
+                    while (controlForm) {
                         int escolhaPerfil = menuInicio.menuLogin();
                         perfilLogin(escolhaPerfil);
                     }
+                    controlForm = true;
                     break;
                 case 1: // Entrar sem Registrar
                     menuInicio.menuNaoLogado();
@@ -65,7 +63,7 @@ public class Controller {
 
     public void perfilLogin(int escolhaPerfil) {
         if (escolhaPerfil == 2 || escolhaPerfil == -1) {
-            openMenuLogin = false;
+            controlForm = false;
             return;
         }
         String loginSenha;
@@ -87,11 +85,11 @@ public class Controller {
             switch (escolhaPerfil) {
                 case 0:
                     if ("admin".equals(login) && "admin".equals(senha)) {
-                        while (admOk) {
+                        while (controlForm) {
                             int escolhaAdm = menuInicio.menuAdministrador();
                             perfilAdm(escolhaAdm);
                         }
-                        admOk = true;
+                        controlForm = true;
                         return;
                     } else {
                         JOptionPane.showMessageDialog(null, "Login ou senha inválidos para Administrador.");
@@ -112,17 +110,17 @@ public class Controller {
 
     public void perfilAdm(int escolhaAdm) {
         if (escolhaAdm == 6 || escolhaAdm == -1) {
-            admOk = false;
+            controlForm = false;
             return;
         }
-        while (admOk) {
+        while (controlForm) {
             switch (escolhaAdm) {
                 case 0:
-                    while (admOk) {
+                    while (controlForm) {
                         int escolhaPessoa = menuInicio.menuPessoas();
                         perfilPessoa(escolhaPessoa);
                     }
-                    admOk = true;
+                    controlForm = true;
                     return;
                 case 1:
                     int escolhaUsuario = menuInicio.menuUsuario();
@@ -146,7 +144,7 @@ public class Controller {
 
     public void perfilPessoa(int escolhaPessoa) {
         if (escolhaPessoa == 5 || escolhaPessoa == -1) {
-            admOk = false;
+            controlForm = false;
             return;
         }
 
@@ -238,8 +236,11 @@ public class Controller {
 
             case 3: // visualizar
                 // Visualizar pessoa pelo ID
-                int idVisualizar = Integer.parseInt(JOptionPane.showInputDialog("Digite o ID da pessoa que deseja visualizar:"));
-                Pessoa pessoaVisualizar = pessoasDatabase.getById(idVisualizar);
+                String idVisualizar = JOptionPane.showInputDialog("Digite o ID da pessoa que deseja visualizar:");
+                if (!ValidaInput.string(idVisualizar) || !idVisualizar.matches("^\\d+$")) {
+                    return;
+                }
+                Pessoa pessoaVisualizar = pessoasDatabase.getById(Integer.parseInt(idVisualizar));
                 if (pessoaVisualizar != null) {
                     JOptionPane.showMessageDialog(null, pessoaVisualizar.toString());
                 } else {
@@ -250,11 +251,11 @@ public class Controller {
             case 4: // visualizar todos
                 Pessoa[] todasPessoas = pessoasDatabase.getAll();
                 if (todasPessoas.length > 0) {
-                    StringBuilder strPessoa = new StringBuilder();
+                    String strPessoa = "";
                     for (Pessoa p : todasPessoas) {
-                        strPessoa.append(p.toString()).append("\n");
+                        strPessoa += p.toString() + "\n";
                     }
-                    JOptionPane.showMessageDialog(null, strPessoa.toString());
+                    JOptionPane.showMessageDialog(null, strPessoa);
                 } else {
                     JOptionPane.showMessageDialog(null, "Nenhuma pessoa cadastrada.");
                 }
@@ -263,7 +264,7 @@ public class Controller {
 
     public void perfilUsuario(int escolhaUsuario) {
         if (escolhaUsuario == 5 || escolhaUsuario == -1) {
-            admOk = false;
+            controlForm = false;
             return;
         }
 
