@@ -14,7 +14,8 @@ import model.dao.Utils;
 import view.MenuInicio;
 
 /**
- *ctrl+j e ctrl+alt+shift+j
+ * ctrl+j e ctrl+alt+shift+j
+ *
  * @author Gabriel
  */
 public class Controller {
@@ -86,8 +87,10 @@ public class Controller {
             switch (escolhaPerfil) {
                 case 0:
                     if ("admin".equals(login) && "admin".equals(senha)) {
-                        int escolhaAdm = menuInicio.menuAdministrador();
-                        perfilAdm(escolhaAdm);
+                        while (admOk) {
+                            int escolhaAdm = menuInicio.menuAdministrador();
+                            perfilAdm(escolhaAdm);
+                        }
                         admOk = true;
                         return;
                     } else {
@@ -109,14 +112,18 @@ public class Controller {
 
     public void perfilAdm(int escolhaAdm) {
         if (escolhaAdm == 6 || escolhaAdm == -1) {
+            admOk = false;
             return;
         }
         while (admOk) {
             switch (escolhaAdm) {
                 case 0:
-                    int escolhaPessoa = menuInicio.menuPessoas();
-                    perfilPessoa(escolhaPessoa);
-                    break;
+                    while (admOk) {
+                        int escolhaPessoa = menuInicio.menuPessoas();
+                        perfilPessoa(escolhaPessoa);
+                    }
+                    admOk = true;
+                    return;
                 case 1:
                     int escolhaUsuario = menuInicio.menuUsuario();
                     perfilUsuario(escolhaUsuario);

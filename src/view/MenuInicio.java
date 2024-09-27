@@ -41,7 +41,7 @@ public class MenuInicio {
     public int menuPessoas() {
         String[] opcoes = {"Incluir Pessoas", "Alterar Pessoa", "Remover Pessoa", "Visualizar Pessoa", "Visualizar Todas Pessoas", "Voltar"};
 
-        int escolha = JOptionPane.showOptionDialog(null, "Menu Pessoa", "Menu", JOptionPane.DEFAULT_OPTION,
+        int escolha = JOptionPane.showOptionDialog(null, "Menu Pessoas", "Menu", JOptionPane.DEFAULT_OPTION,
                 JOptionPane.INFORMATION_MESSAGE, null, opcoes, opcoes[0]);
 
         return escolha;
