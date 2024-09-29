@@ -3,11 +3,6 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package model.dao;
-
-import java.util.Arrays;
-import model.Presentes;
-import model.Usuario;
-
 /**
  *
  * @author Gabriel
@@ -22,4 +17,5 @@ public class Identifiable {
     public void setID(int id){
         this.id = id;
     }
+    
 }

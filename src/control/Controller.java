@@ -23,6 +23,9 @@ public class Controller {
     boolean controlForm = true; //Variavel para controle de Form;
     int escolha;
     MenuInicio menuInicio = new MenuInicio();
+
+    Pessoa pessoa;
+    Usuario usuario;
     Pessoa[] pessoas = new Pessoa[0];
     Usuario[] usuarios = new Usuario[0];
     Database<Pessoa> pessoasDatabase = new Database<>(new Pessoa[0]);
@@ -45,18 +48,18 @@ public class Controller {
                         perfilLogin(escolhaPerfil);
                     }
                     controlForm = true;
-                    break;
+                    return;
                 case 1: // Entrar sem Registrar
                     menuInicio.menuNaoLogado();
-                    break;
+                    return;
                 case 2: // Registrar
                     JOptionPane.showMessageDialog(null, "Funcionalidade de Registro.");
                     // Função de registro aqui
-                    break;
+                    return;
                 case 3: // Sair
                     JOptionPane.showMessageDialog(null, "Saindo do sistema.");
                     System.exit(0); // Finaliza o programa
-                    break;
+                    return;
             }
         }
     }
@@ -94,7 +97,7 @@ public class Controller {
                     } else {
                         JOptionPane.showMessageDialog(null, "Login ou senha inválidos para Administrador.");
                     }
-                    break;
+                    return;
                 case 1:
                     if ("convidado".equals(login) && "convidado".equals(senha)) {
                         int escolhaConvidado = menuInicio.menuConvidado();
@@ -103,7 +106,7 @@ public class Controller {
                     } else {
                         JOptionPane.showMessageDialog(null, "Login ou senha inválidos para Convidado.");
                     }
-                    break;
+                    return;
             }
         }
     }
@@ -123,21 +126,28 @@ public class Controller {
                     controlForm = true;
                     return;
                 case 1:
-                    int escolhaUsuario = menuInicio.menuUsuario();
-                    perfilUsuario(escolhaUsuario);
-                    break;
+                    while (controlForm) {
+                        int escolhaUsuario = menuInicio.menuUsuario();
+                        perfilUsuario(escolhaUsuario);
+                    }
+                    controlForm = true;
+                    return;
                 case 2:
-                    menuInicio.menuGerenciarFornecedores();
-                    break;
+                    while (controlForm) {
+                        int escolhaUsuario = menuInicio.menuGerenciarFornecedores();
+                        perfilGerenciarFornecedor(escolhaUsuario);
+                    }
+                    controlForm = true;
+                    return;
                 case 3:
                     menuInicio.menuGerenciarConvidados();
-                    break;
+                    return;
                 case 4:
                     menuInicio.menuGerenciarPagamentos();
-                    break;
+                    return;
                 case 5:
                     menuInicio.menuGerenciarCalendario();
-                    break;
+                    return;
             }
         }
     }
@@ -150,7 +160,7 @@ public class Controller {
 
         switch (escolhaPessoa) {
             case 0: // incluir
-                Pessoa pessoa = new Pessoa();
+                pessoa = new Pessoa();
 
                 // Validação de nome
                 String nome = JOptionPane.showInputDialog("Digite seu nome:", gerador.gerarNome());
@@ -183,31 +193,31 @@ public class Controller {
                 if (!ValidaInput.string(idAlterar) || !idAlterar.matches("^\\d+$")) { // Verifica se contem somente numero na string
                     return;
                 }
-                Pessoa pessoaAlterar = pessoasDatabase.getById(Integer.parseInt(idAlterar));
-                if (pessoaAlterar != null) {
+                pessoa = pessoasDatabase.getById(Integer.parseInt(idAlterar));
+                if (pessoa != null) {
                     // Alterar nome
-                    String novoNome = JOptionPane.showInputDialog("Digite o novo nome:", pessoaAlterar.getNome());
+                    String novoNome = JOptionPane.showInputDialog("Digite o novo nome:", pessoa.getNome());
                     if (!ValidaInput.string(novoNome)) {
                         return; // Volta ao menu se cancelar ou fechar
                     }
-                    pessoaAlterar.setNome(novoNome);
+                    pessoa.setNome(novoNome);
 
                     // Alterar telefone
-                    String novoTelefone = JOptionPane.showInputDialog("Digite o novo telefone:", pessoaAlterar.getTelefone());
+                    String novoTelefone = JOptionPane.showInputDialog("Digite o novo telefone:", pessoa.getTelefone());
                     if (!ValidaInput.string(novoTelefone)) {
                         return; // Volta ao menu se cancelar ou fechar
                     }
-                    pessoaAlterar.setTelefone(novoTelefone);
+                    pessoa.setTelefone(novoTelefone);
 
                     // Alterar data de nascimento
-                    String novoNascimento = JOptionPane.showInputDialog("Digite a nova data de nascimento (dd/MM/yyyy):", pessoaAlterar.getNascimento().toString());
+                    String novoNascimento = JOptionPane.showInputDialog("Digite a nova data de nascimento (dd/MM/yyyy):", pessoa.getNascimento().toString());
                     if (!ValidaInput.string(novoNascimento)) {
                         return; // Volta ao menu se cancelar ou fechar
                     }
-                    pessoaAlterar.setNascimento(utils.formatDate(novoNascimento));
+                    pessoa.setNascimento(utils.formatDate(novoNascimento));
 
-                    pessoaAlterar.setDataModificacao();
-                    pessoasDatabase.update(pessoaAlterar);
+                    pessoa.setDataModificacao();
+                    pessoasDatabase.update(pessoa);
                     JOptionPane.showMessageDialog(null, "Pessoa alterada com sucesso!");
                 } else {
                     JOptionPane.showMessageDialog(null, "Pessoa com ID " + idAlterar + " não encontrada.");
@@ -220,8 +230,12 @@ public class Controller {
                 if (!ValidaInput.string(idRemover) || !idRemover.matches("^\\d+$")) {
                     return;
                 }
-                Pessoa pessoaRemover = pessoasDatabase.getById(Integer.parseInt(idRemover));
-                if (pessoaRemover != null) {
+                pessoa = pessoasDatabase.getById(Integer.parseInt(idRemover));
+                usuario = usuariosDatabase.getById(Integer.parseInt(idRemover));
+                if (usuario != null){
+                    JOptionPane.showMessageDialog(null, "Existe usuário vinculado a este ID. Por favor delete o usuário");
+                    return;
+                }else if (pessoa != null) {
                     int confirmacao = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja remover a pessoa com ID " + idRemover + "?", "Confirmação", JOptionPane.YES_NO_OPTION);
                     if (confirmacao == JOptionPane.YES_OPTION) {
                         pessoasDatabase.delete(Integer.parseInt(idRemover));
@@ -240,16 +254,17 @@ public class Controller {
                 if (!ValidaInput.string(idVisualizar) || !idVisualizar.matches("^\\d+$")) {
                     return;
                 }
-                Pessoa pessoaVisualizar = pessoasDatabase.getById(Integer.parseInt(idVisualizar));
-                if (pessoaVisualizar != null) {
-                    JOptionPane.showMessageDialog(null, pessoaVisualizar.toString());
+                pessoa = pessoasDatabase.getById(Integer.parseInt(idVisualizar));
+                if (pessoa != null) {
+                    JOptionPane.showMessageDialog(null, pessoa.toString());
                 } else {
                     JOptionPane.showMessageDialog(null, "Pessoa com ID " + idVisualizar + " não encontrada.");
                 }
                 return;
 
             case 4: // visualizar todos
-                Pessoa[] todasPessoas = pessoasDatabase.getAll();
+                Pessoa[] todasPessoas;
+                todasPessoas = pessoasDatabase.getAll();
                 if (todasPessoas.length > 0) {
                     String strPessoa = "";
                     for (Pessoa p : todasPessoas) {
@@ -267,88 +282,169 @@ public class Controller {
             controlForm = false;
             return;
         }
-
+        //System.out.println(pessoa + " | " + usuario);
         switch (escolhaUsuario) {
-            case 0: // incluir
-                Usuario usuario = new Usuario();
 
-                // Selecionar pessoa associada ao usuário
-                int pessoaId = Integer.parseInt(JOptionPane.showInputDialog("Digite o ID da pessoa associada ao usuário:"));
-                Pessoa pessoaAssociada = pessoasDatabase.getById(pessoaId);
-                if (pessoaAssociada == null) {
+            case 0: // incluir
+                usuario = new Usuario();
+                String pessoaId = JOptionPane.showInputDialog("Digite o ID da pessoa para criar usuário:");
+                if (!ValidaInput.string(pessoaId) || !pessoaId.matches("^\\d+$")) { // Verifica se contem somente numero na string
+                    return;
+                }
+                pessoa = pessoasDatabase.getById(Integer.parseInt(pessoaId));
+                if (pessoa == null) {
                     JOptionPane.showMessageDialog(null, "Pessoa com ID " + pessoaId + " não encontrada.");
                     return;
                 }
-                usuario.setPessoa(pessoaAssociada);
+                if (usuariosDatabase.getById(Integer.parseInt(pessoaId)) != null) {
+                    JOptionPane.showMessageDialog(null, "Pessoa com ID " + pessoaId + " já tem usuário vinculado.");
+                    return;
+                }
 
+                usuario.setPessoa(pessoa);
                 String login = JOptionPane.showInputDialog("Digite o login do usuário:");
+                if (!ValidaInput.string(login)) {
+                    return; // Volta ao menu se cancelar ou fechar
+                }
                 usuario.setLogin(login);
 
                 String senha = JOptionPane.showInputDialog("Digite a senha do usuário:");
+                if (!ValidaInput.string(senha)) {
+                    return; // Volta ao menu se cancelar ou fechar
+                }
                 usuario.setSenha(senha);
 
                 String tipo = JOptionPane.showInputDialog("Digite o tipo do usuário (Admin/Convidado):", "Convidado");
+                if (!ValidaInput.string(tipo)) {
+                    return; // Volta ao menu se cancelar ou fechar
+                }
                 usuario.setTipo(tipo);
-
                 usuario.setDataCriacao();
+
                 // Criar usuário no banco de dados
-                usuariosDatabase.create(usuario);  // supondo que haja um Database<Usuario> usuariosDatabase similar ao de Pessoa
+                usuariosDatabase.create(usuario);
+
                 JOptionPane.showMessageDialog(null, "Usuário incluído com sucesso!");
-                break;
+                return;
 
             case 1: // alterar
-                int idAlterar = Integer.parseInt(JOptionPane.showInputDialog("Digite o ID do usuário que deseja alterar:"));
-                Usuario usuarioAlterar = usuariosDatabase.getById(idAlterar);
-                if (usuarioAlterar != null) {
-                    String novoLogin = JOptionPane.showInputDialog("Digite o novo login:", usuarioAlterar.getLogin());
-                    usuarioAlterar.setLogin(novoLogin);
+                String idAlterar = JOptionPane.showInputDialog("Digite o ID do usuário:");
+                if (!ValidaInput.string(idAlterar) || !idAlterar.matches("^\\d+$")) { // Verifica se contem somente numero na string
+                    return;
+                }
+                usuario = usuariosDatabase.getById(Integer.parseInt(idAlterar));
+                if (usuario != null) {
+                    String novoLogin = JOptionPane.showInputDialog("Digite o novo login:", usuario.getLogin());
+                    if (!ValidaInput.string(novoLogin)) {
+                        return;
+                    }
+                    usuario.setLogin(novoLogin);
 
-                    String novaSenha = JOptionPane.showInputDialog("Digite a nova senha:", usuarioAlterar.getSenha());
-                    usuarioAlterar.setSenha(novaSenha);
+                    String novaSenha = JOptionPane.showInputDialog("Digite a nova senha:", usuario.getSenha());
+                    if (!ValidaInput.string(novaSenha)) {
+                        return;
+                    }
+                    usuario.setSenha(novaSenha);
 
-                    String novoTipo = JOptionPane.showInputDialog("Digite o novo tipo de usuário (Admin/Convidado):", usuarioAlterar.getTipo());
-                    usuarioAlterar.setTipo(novoTipo);
+                    String novoTipo = JOptionPane.showInputDialog("Digite o novo tipo de usuário (Admin/Convidado):", usuario.getTipo());
+                    if (!ValidaInput.string(novoTipo)) {
+                        return;
+                    }
+                    usuario.setTipo(novoTipo);
+                    usuario.setDataModificacao();
 
-                    usuarioAlterar.setDataModificacao();
-                    usuariosDatabase.update(usuarioAlterar);
+                    //Atualizar registro no banco de dados
+                    usuariosDatabase.update(usuario);
                     JOptionPane.showMessageDialog(null, "Usuário alterado com sucesso!");
                 } else {
                     JOptionPane.showMessageDialog(null, "Usuário com ID " + idAlterar + " não encontrado.");
                 }
-                break;
+                return;
 
             case 2: // remover
-                int idRemover = Integer.parseInt(JOptionPane.showInputDialog("Digite o ID do usuário que deseja remover:"));
-                usuariosDatabase.delete(idRemover);
-                JOptionPane.showMessageDialog(null, "Usuário removido com sucesso!");
-                break;
+                String idRemover = JOptionPane.showInputDialog("Digite o ID do usuário:");
+                if (!ValidaInput.string(idRemover) || !idRemover.matches("^\\d+$")) { // Verifica se contem somente numero na string
+                    return;
+                }
+                usuario = usuariosDatabase.getById(Integer.parseInt(idRemover));
+                if (usuario != null) {
+                    int confirmacao = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja remover o usuário com ID " + idRemover + "?", "Confirmação", JOptionPane.YES_NO_OPTION);
+                    if (confirmacao == JOptionPane.YES_OPTION) {
+                        usuariosDatabase.delete(Integer.parseInt(idRemover));
+                        JOptionPane.showMessageDialog(null, "Usuário removido com sucesso!");
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Remoção cancelada.");
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(null, "Usuário com ID " + idRemover + " não encontrada.");
+                }
+                return;
 
             case 3: // visualizar
-                int idVisualizar = Integer.parseInt(JOptionPane.showInputDialog("Digite o ID do usuário que deseja visualizar:"));
-                Usuario usuarioVisualizar = usuariosDatabase.getById(idVisualizar);
-                if (usuarioVisualizar != null) {
-                    JOptionPane.showMessageDialog(null, usuarioVisualizar.toString());
+                // Visualizar pessoa pelo ID
+                String idVisualizar = JOptionPane.showInputDialog("Digite o ID do usuário que deseja visualizar:");
+                if (!ValidaInput.string(idVisualizar) || !idVisualizar.matches("^\\d+$")) {
+                    return;
+                }
+                usuario = usuariosDatabase.getById(Integer.parseInt(idVisualizar));
+                if (usuario != null) {
+                    JOptionPane.showMessageDialog(null, usuario.toString());
                 } else {
                     JOptionPane.showMessageDialog(null, "Usuário com ID " + idVisualizar + " não encontrado.");
                 }
-                break;
+                return;
 
             case 4: // visualizar todos
-                Usuario[] todosUsuarios = usuariosDatabase.getAll();
+                Usuario[] todosUsuarios; 
+                todosUsuarios = usuariosDatabase.getAll();
                 if (todosUsuarios.length > 0) {
-                    StringBuilder builder = new StringBuilder();
+                    String strUsuario = "";
                     for (Usuario u : todosUsuarios) {
-                        builder.append(u.toString()).append("\n");
+                        strUsuario += u.toString() + "\n";
                     }
-                    JOptionPane.showMessageDialog(null, builder.toString());
+                    JOptionPane.showMessageDialog(null, strUsuario);
                 } else {
                     JOptionPane.showMessageDialog(null, "Nenhum usuário cadastrado.");
                 }
-                break;
+        }
+    }
 
+    public void perfilGerenciarFornecedor(int escolhaFornecedor) {
+
+        switch (escolha) {
+            case 0: //incluir
+                String nomeFornecedor = JOptionPane.showInputDialog("Digite o nome do fornecedor:");
+                // Lógica para incluir o fornecedor aqui
+                JOptionPane.showMessageDialog(null, "Fornecedor " + nomeFornecedor + " incluído com sucesso!");
+                return;
+            case 1: //alterar
+                String idAlterar = JOptionPane.showInputDialog("Digite o ID do fornecedor que deseja alterar:");
+                // Lógica para buscar o fornecedor pelo ID7
+                // Suponha que exista uma função buscarFornecedorPorId(id) que retorna o fornecedor
+                /*String fornecedor = buscarFornecedorPorId(idFornecedor); // Exemplo de busca
+                if (fornecedor != null) {
+                // Lógica para alterar o fornecedor
+                JOptionPane.showMessageDialog(null, "Fornecedor com ID " + idFornecedor + " alterado com sucesso!");
+                } else {
+                JOptionPane.showMessageDialog(null, "Fornecedor com ID " + idFornecedor + " não encontrado.");
+                }*/
+
+                return;
+            case 2: //remover
+                String idRemover = JOptionPane.showInputDialog("Digite o ID do fornecedor que deseja remover:");
+                // Lógica para buscar o fornecedor pelo ID e removê-lo
+                /*String fornecedor = buscarFornecedorPorId(idFornecedor); // Exemplo de busca
+                if (fornecedor != null) {
+                // Lógica para remover o fornecedor
+                JOptionPane.showMessageDialog(null, "Fornecedor com ID " + idFornecedor + " removido com sucesso!");
+                } else {
+                JOptionPane.showMessageDialog(null, "Fornecedor com ID " + idFornecedor + " não encontrado.");
+                }*/
+                return;
+            case 3: //visualizar fornecedores
+                return; // Volta ao menu anterior
             default:
                 JOptionPane.showMessageDialog(null, "Opção inválida.");
-                break;
         }
     }
 
@@ -360,13 +456,13 @@ public class Controller {
             switch (escolhaConvidado) {
                 case 0:
                     menuInicio.menuPresentesConvidado();
-                    break;
+                    return;
                 case 1:
                     menuInicio.menuRecadosConvidado();
-                    break;
+                    return;
                 case 2:
                     menuInicio.confirmarPresenca();
-                    break;
+                    return;
             }
         }
     }

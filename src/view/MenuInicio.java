@@ -16,15 +16,13 @@ public class MenuInicio {
 
     public int menuLogin() {
         String[] perfis = {"Administrador", "Convidado", "Voltar"};
-
         int escolhaPerfil = JOptionPane.showOptionDialog(null, "Escolha o perfil de acesso", "Seleção de Perfil",
                 JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, perfis, perfis[perfis.length - 1]);
         return escolhaPerfil;
     }
 
- //INICIO MENU ADMINISTRADOR
+    //INICIO MENU ADMINISTRADOR
     public int menuAdministrador() {
-
         String[] opcoes = {"Gerenciar Pessoas", "Gerenciar Usuarios", "Gerenciar Fornecedores", "Gerenciar Convidados", "Gerenciar Pagamentos", "Gerenciar Calendário", "Voltar"};
         int escolha = JOptionPane.showOptionDialog(null, "Menu Administrador", "Administração", JOptionPane.DEFAULT_OPTION,
                 JOptionPane.INFORMATION_MESSAGE, null, opcoes, opcoes[0]);
@@ -33,75 +31,23 @@ public class MenuInicio {
 
     public int menuPessoas() {
         String[] opcoes = {"Incluir Pessoas", "Alterar Pessoa", "Remover Pessoa", "Visualizar Pessoa", "Visualizar Todas Pessoas", "Voltar"};
-
         int escolha = JOptionPane.showOptionDialog(null, "Menu Pessoas", "Menu", JOptionPane.DEFAULT_OPTION,
                 JOptionPane.INFORMATION_MESSAGE, null, opcoes, opcoes[0]);
-
         return escolha;
     }
 
     public int menuUsuario() {
         String[] opcoes = {"Incluir Usuario", "Alterar Usuario", "Remover Usuario", "Visualizar Usuario", "Visualizar Todos Usuarios", "Voltar"};
-
         int escolha = JOptionPane.showOptionDialog(null, "Menu Usuario", "Menu", JOptionPane.DEFAULT_OPTION,
                 JOptionPane.INFORMATION_MESSAGE, null, opcoes, opcoes[0]);
-
         return escolha;
     }
 
-    public void menuGerenciarFornecedores() {
-        while (true) {
-            String[] opcoes = {"Incluir Fornecedor", "Alterar Fornecedor", "Remover Fornecedor", "Voltar"};
-            int escolha = JOptionPane.showOptionDialog(null, "Gerenciar Fornecedores", "Fornecedores", JOptionPane.DEFAULT_OPTION,
-                    JOptionPane.INFORMATION_MESSAGE, null, opcoes, opcoes[0]);
-
-            switch (escolha) {
-                case 0:
-                    incluirFornecedor();
-                    break;
-                case 1:
-                    alterarFornecedor();
-                    break;
-                case 2:
-                    removerFornecedor();
-                    break;
-                case 3:
-                    return; // Volta ao menu anterior
-                default:
-                    JOptionPane.showMessageDialog(null, "Opção inválida.");
-            }
-        }
-    }
-
-    public void incluirFornecedor() {
-        String nomeFornecedor = JOptionPane.showInputDialog("Digite o nome do fornecedor:");
-        // Lógica para incluir o fornecedor aqui
-        JOptionPane.showMessageDialog(null, "Fornecedor " + nomeFornecedor + " incluído com sucesso!");
-    }
-
-    public void alterarFornecedor() {
-        String idFornecedor = JOptionPane.showInputDialog("Digite o ID do fornecedor que deseja alterar:");
-        // Lógica para buscar o fornecedor pelo ID7
-        // Suponha que exista uma função buscarFornecedorPorId(id) que retorna o fornecedor
-        /*String fornecedor = buscarFornecedorPorId(idFornecedor); // Exemplo de busca
-            if (fornecedor != null) {
-                // Lógica para alterar o fornecedor
-                JOptionPane.showMessageDialog(null, "Fornecedor com ID " + idFornecedor + " alterado com sucesso!");
-            } else {
-                JOptionPane.showMessageDialog(null, "Fornecedor com ID " + idFornecedor + " não encontrado.");
-            }*/
-    }
-
-    public void removerFornecedor() {
-        String idFornecedor = JOptionPane.showInputDialog("Digite o ID do fornecedor que deseja remover:");
-        // Lógica para buscar o fornecedor pelo ID e removê-lo
-        /*String fornecedor = buscarFornecedorPorId(idFornecedor); // Exemplo de busca
-            if (fornecedor != null) {
-                // Lógica para remover o fornecedor
-                JOptionPane.showMessageDialog(null, "Fornecedor com ID " + idFornecedor + " removido com sucesso!");
-            } else {
-                JOptionPane.showMessageDialog(null, "Fornecedor com ID " + idFornecedor + " não encontrado.");
-            }*/
+    public int menuGerenciarFornecedores() {
+        String[] opcoes = {"Incluir Fornecedor", "Alterar Fornecedor", "Remover Fornecedor", "Voltar"};
+        int escolha = JOptionPane.showOptionDialog(null, "Gerenciar Fornecedores", "Fornecedores", JOptionPane.DEFAULT_OPTION,
+                JOptionPane.INFORMATION_MESSAGE, null, opcoes, opcoes[0]);
+        return escolha;
     }
 
     public void menuGerenciarConvidados() {

@@ -66,7 +66,7 @@ public class Usuario extends Identifiable{
 
     @Override
     public String toString() {
-        return "Usuario{" + "tipo=" + tipo + ", login=" + login + ", senha=" + senha + super.toString() + '}';
+        return "Usuario{" + "tipo=" + tipo + ", login=" + login + ", senha=" + senha + ", dataCriacao=" + dataCriacao + ", dataModificacao=" + dataModificacao + "\n" +  pessoa.toString() + '}';
     }
     
 }
