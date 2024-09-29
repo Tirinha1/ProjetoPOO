@@ -9,6 +9,7 @@ import java.time.LocalDate;
 import javax.swing.JOptionPane;
 import model.Pessoa;
 import model.Usuario;
+import model.Fornecedor;
 import model.dao.Database;
 import model.dao.Utils;
 import view.MenuInicio;
@@ -26,10 +27,13 @@ public class Controller {
 
     Pessoa pessoa;
     Usuario usuario;
-    Pessoa[] pessoas = new Pessoa[0];
-    Usuario[] usuarios = new Usuario[0];
+    Fornecedor fornecedor;
+    Pessoa[] todasPessoas;
+    Usuario[] todosUsuarios;
+    Fornecedor[] todosFornecedores;
     Database<Pessoa> pessoasDatabase = new Database<>(new Pessoa[0]);
     Database<Usuario> usuariosDatabase = new Database<>(new Usuario[0]);
+    Database<Fornecedor> fornecedoresDatabase = new Database<>(new Fornecedor[0]);
     Utils utils = new Utils();
     Gerador gerador = new Gerador();
 
@@ -232,10 +236,10 @@ public class Controller {
                 }
                 pessoa = pessoasDatabase.getById(Integer.parseInt(idRemover));
                 usuario = usuariosDatabase.getById(Integer.parseInt(idRemover));
-                if (usuario != null){
+                if (usuario != null) {
                     JOptionPane.showMessageDialog(null, "Existe usuário vinculado a este ID. Por favor delete o usuário");
                     return;
-                }else if (pessoa != null) {
+                } else if (pessoa != null) {
                     int confirmacao = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja remover a pessoa com ID " + idRemover + "?", "Confirmação", JOptionPane.YES_NO_OPTION);
                     if (confirmacao == JOptionPane.YES_OPTION) {
                         pessoasDatabase.delete(Integer.parseInt(idRemover));
@@ -263,7 +267,6 @@ public class Controller {
                 return;
 
             case 4: // visualizar todos
-                Pessoa[] todasPessoas;
                 todasPessoas = pessoasDatabase.getAll();
                 if (todasPessoas.length > 0) {
                     String strPessoa = "";
@@ -319,7 +322,6 @@ public class Controller {
                     return; // Volta ao menu se cancelar ou fechar
                 }
                 usuario.setTipo(tipo);
-                usuario.setDataCriacao();
 
                 // Criar usuário no banco de dados
                 usuariosDatabase.create(usuario);
@@ -394,8 +396,7 @@ public class Controller {
                 }
                 return;
 
-            case 4: // visualizar todos
-                Usuario[] todosUsuarios; 
+            case 4: // visualizar todos 
                 todosUsuarios = usuariosDatabase.getAll();
                 if (todosUsuarios.length > 0) {
                     String strUsuario = "";
@@ -410,13 +411,55 @@ public class Controller {
     }
 
     public void perfilGerenciarFornecedor(int escolhaFornecedor) {
+        if (escolhaFornecedor == 3 || escolhaFornecedor == -1) {
+            controlForm = false;
+            return;
+        }
+        switch (escolhaFornecedor) {
 
-        switch (escolha) {
             case 0: //incluir
-                String nomeFornecedor = JOptionPane.showInputDialog("Digite o nome do fornecedor:");
-                // Lógica para incluir o fornecedor aqui
-                JOptionPane.showMessageDialog(null, "Fornecedor " + nomeFornecedor + " incluído com sucesso!");
+
+                fornecedor = new Fornecedor();
+                String fornecedorId = JOptionPane.showInputDialog("Digite o ID da pessoa para criar fornecedor:");
+                if (!ValidaInput.string(fornecedorId) || !fornecedorId.matches("^\\d+$")) { // Verifica se contem somente numero na string
+                    return;
+                }
+                pessoa = pessoasDatabase.getById(Integer.parseInt(fornecedorId));
+                if (pessoa == null) {
+                    JOptionPane.showMessageDialog(null, "Pessoa com ID " + fornecedorId + " não encontrada.");
+                    return;
+                }
+                if (fornecedoresDatabase.getById(Integer.parseInt(fornecedorId)) != null) {
+                    JOptionPane.showMessageDialog(null, "Pessoa com ID " + fornecedorId + " já tem fornecedor vinculado.");
+                    return;
+                }
+
+                fornecedor.setPessoa(pessoa);
+                
+                String razaoSocial = JOptionPane.showInputDialog("Digite a Razão Social ou Nome Fantasia do fornecedor:");
+                if (!ValidaInput.string(razaoSocial)) {
+                    return; // Volta ao menu se cancelar ou fechar
+                }
+                fornecedor.setRazaoSocial(razaoSocial);
+
+                String cnpj = JOptionPane.showInputDialog("Digite o CNPJ/CPF do fornecedor (Somente números | 0 - se nao tem.):");
+                if (!ValidaInput.string(cnpj) || !cnpj.matches("^\\d+$")) {
+                    return; // Volta ao menu se cancelar ou fechar
+                }
+                fornecedor.setCpfCnpj(cnpj);
+
+                String telefone = JOptionPane.showInputDialog("Digite o telefone empresarial do fornecedor:");
+                if (!ValidaInput.string(telefone)) {
+                    return; // Volta ao menu se cancelar ou fechar
+                }
+                fornecedor.setTelefone(telefone);
+
+                // Criar usuário no banco de dados
+                fornecedoresDatabase.create(fornecedor);
+
+                JOptionPane.showMessageDialog(null, "Fornecedros incluído com sucesso!");
                 return;
+
             case 1: //alterar
                 String idAlterar = JOptionPane.showInputDialog("Digite o ID do fornecedor que deseja alterar:");
                 // Lógica para buscar o fornecedor pelo ID7
@@ -443,8 +486,6 @@ public class Controller {
                 return;
             case 3: //visualizar fornecedores
                 return; // Volta ao menu anterior
-            default:
-                JOptionPane.showMessageDialog(null, "Opção inválida.");
         }
     }
 

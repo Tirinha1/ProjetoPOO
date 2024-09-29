@@ -12,9 +12,10 @@ import model.dao.Identifiable;
  * @author Gabriel
  */
 public class Fornecedor extends Identifiable{
-    private String nome;
-    private String cnpj;
+    private String razaoSocial;
+    private String cpfCnpj;
     private String telefone;
+    private Pessoa pessoa;
     private double valorAPagar;
     private int parcelas;
     private boolean estadoPagamento;
@@ -25,20 +26,20 @@ public class Fornecedor extends Identifiable{
         this.dataCriacao = LocalDateTime.now();
     }
     
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setRazaoSocial(String razaoSocial) {
+        this.razaoSocial = razaoSocial;
     }
     
-    public String getNome() {
-        return this.nome;
+    public String getRazaoSocial() {
+        return this.razaoSocial;
     }
     
-    public void setCnpj(String cnpj) {
-        this.cnpj = cnpj;
+    public void setCpfCnpj(String cpfCnpj) {
+        this.cpfCnpj = cpfCnpj;
     }
     
-    public String getCnpj() {
-        return this.cnpj;
+    public String getcpfCnpj() {
+        return this.cpfCnpj;
     }
     
     public void setTelefone(String telefone) {
@@ -48,6 +49,15 @@ public class Fornecedor extends Identifiable{
     public String getTelefone() {
         return this.telefone;
     }
+    
+        public Pessoa getPessoa() {
+        return pessoa;
+    }
+
+    public void setPessoa(Pessoa pessoa) {
+        this.pessoa = pessoa;
+    }
+
     
     public void setValorAPagar(double valorAPagar) {
         this.valorAPagar = valorAPagar;

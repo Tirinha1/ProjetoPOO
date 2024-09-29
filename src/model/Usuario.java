@@ -14,6 +14,11 @@ public class Usuario extends Identifiable{
     private Pessoa pessoa;
     private LocalDateTime dataCriacao;
     private LocalDateTime dataModificacao;
+    
+    
+  public Usuario(){
+      this.dataCriacao = LocalDateTime.now();
+  };
 
     public String getTipo() {
         return tipo;
@@ -49,10 +54,6 @@ public class Usuario extends Identifiable{
 
     public LocalDateTime getDataCriacao() {
         return dataCriacao;
-    }
-
-    public void setDataCriacao() {
-        this.dataCriacao = LocalDateTime.now();
     }
 
     public LocalDateTime getDataModificacao() {
