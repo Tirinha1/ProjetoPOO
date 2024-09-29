@@ -236,8 +236,12 @@ public class Controller {
                 }
                 pessoa = pessoasDatabase.getById(Integer.parseInt(idRemover));
                 usuario = usuariosDatabase.getById(Integer.parseInt(idRemover));
+                fornecedor = fornecedoresDatabase.getById(Integer.parseInt(idRemover));
                 if (usuario != null) {
                     JOptionPane.showMessageDialog(null, "Existe usuário vinculado a este ID. Por favor delete o usuário");
+                    return;
+                } else if (fornecedor != null) {
+                    JOptionPane.showMessageDialog(null, "Existe fornecedor vinculado a este ID. Por favor delete o fornecedor");
                     return;
                 } else if (pessoa != null) {
                     int confirmacao = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja remover a pessoa com ID " + idRemover + "?", "Confirmação", JOptionPane.YES_NO_OPTION);
@@ -411,7 +415,7 @@ public class Controller {
     }
 
     public void perfilGerenciarFornecedor(int escolhaFornecedor) {
-        if (escolhaFornecedor == 3 || escolhaFornecedor == -1) {
+        if (escolhaFornecedor == 5 || escolhaFornecedor == -1) {
             controlForm = false;
             return;
         }
@@ -435,7 +439,7 @@ public class Controller {
                 }
 
                 fornecedor.setPessoa(pessoa);
-                
+
                 String razaoSocial = JOptionPane.showInputDialog("Digite a Razão Social ou Nome Fantasia do fornecedor:");
                 if (!ValidaInput.string(razaoSocial)) {
                     return; // Volta ao menu se cancelar ou fechar
@@ -461,31 +465,85 @@ public class Controller {
                 return;
 
             case 1: //alterar
-                String idAlterar = JOptionPane.showInputDialog("Digite o ID do fornecedor que deseja alterar:");
-                // Lógica para buscar o fornecedor pelo ID7
-                // Suponha que exista uma função buscarFornecedorPorId(id) que retorna o fornecedor
-                /*String fornecedor = buscarFornecedorPorId(idFornecedor); // Exemplo de busca
-                if (fornecedor != null) {
-                // Lógica para alterar o fornecedor
-                JOptionPane.showMessageDialog(null, "Fornecedor com ID " + idFornecedor + " alterado com sucesso!");
-                } else {
-                JOptionPane.showMessageDialog(null, "Fornecedor com ID " + idFornecedor + " não encontrado.");
-                }*/
 
-                return;
-            case 2: //remover
-                String idRemover = JOptionPane.showInputDialog("Digite o ID do fornecedor que deseja remover:");
-                // Lógica para buscar o fornecedor pelo ID e removê-lo
-                /*String fornecedor = buscarFornecedorPorId(idFornecedor); // Exemplo de busca
+                String idAlterar = JOptionPane.showInputDialog("Digite o ID do fornecedor:");
+                if (!ValidaInput.string(idAlterar) || !idAlterar.matches("^\\d+$")) { // Verifica se contem somente numero na string
+                    return;
+                }
+                fornecedor = fornecedoresDatabase.getById(Integer.parseInt(idAlterar));
                 if (fornecedor != null) {
-                // Lógica para remover o fornecedor
-                JOptionPane.showMessageDialog(null, "Fornecedor com ID " + idFornecedor + " removido com sucesso!");
+                    String novaRazaoSocial = JOptionPane.showInputDialog("Digite a Razão Social ou Nome Fantasia do fornecedor:", fornecedor.getRazaoSocial());
+                    if (!ValidaInput.string(novaRazaoSocial)) {
+                        return; // Volta ao menu se cancelar ou fechar
+                    }
+                    fornecedor.setRazaoSocial(novaRazaoSocial);
+
+                    String novoCpfCnpj = JOptionPane.showInputDialog("Digite o CNPJ/CPF do fornecedor (Somente números | 0 - se nao tem.):", fornecedor.getcpfCnpj());
+                    if (!ValidaInput.string(novoCpfCnpj) || !novoCpfCnpj.matches("^\\d+$")) {
+                        return; // Volta ao menu se cancelar ou fechar
+                    }
+                    fornecedor.setCpfCnpj(novoCpfCnpj);
+
+                    String novoTelefone = JOptionPane.showInputDialog("Digite o telefone empresarial do fornecedor:", fornecedor.getTelefone());
+                    if (!ValidaInput.string(novoTelefone)) {
+                        return; // Volta ao menu se cancelar ou fechar
+                    }
+                    fornecedor.setTelefone(novoTelefone);
+
+                    fornecedor.setDataModificacao();
+
+                    //Atualizar registro no banco de dados
+                    usuariosDatabase.update(usuario);
+                    JOptionPane.showMessageDialog(null, "Fornecedor alterado com sucesso!");
                 } else {
-                JOptionPane.showMessageDialog(null, "Fornecedor com ID " + idFornecedor + " não encontrado.");
-                }*/
+                    JOptionPane.showMessageDialog(null, "Fornecedor com ID " + idAlterar + " não encontrado.");
+                }
                 return;
-            case 3: //visualizar fornecedores
-                return; // Volta ao menu anterior
+
+            case 2: // remover
+                String idRemover = JOptionPane.showInputDialog("Digite o ID do fornecedor:");
+                if (!ValidaInput.string(idRemover) || !idRemover.matches("^\\d+$")) { // Verifica se contem somente numero na string
+                    return;
+                }
+                fornecedor = fornecedoresDatabase.getById(Integer.parseInt(idRemover));
+                if (fornecedor != null) {
+                    int confirmacao = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja remover o usuário com ID " + idRemover + "?", "Confirmação", JOptionPane.YES_NO_OPTION);
+                    if (confirmacao == JOptionPane.YES_OPTION) {
+                        fornecedoresDatabase.delete(Integer.parseInt(idRemover));
+                        JOptionPane.showMessageDialog(null, "Fornecedor removido com sucesso!");
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Remoção cancelada.");
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(null, "Fornecedor com ID " + idRemover + " não encontrada.");
+                }
+                return;
+
+            case 3: // visualizar
+                // Visualizar pessoa pelo ID
+                String idVisualizar = JOptionPane.showInputDialog("Digite o ID do fornecedor que deseja visualizar:");
+                if (!ValidaInput.string(idVisualizar) || !idVisualizar.matches("^\\d+$")) {
+                    return;
+                }
+                fornecedor = fornecedoresDatabase.getById(Integer.parseInt(idVisualizar));
+                if (fornecedor != null) {
+                    JOptionPane.showMessageDialog(null, fornecedor.toString());
+                } else {
+                    JOptionPane.showMessageDialog(null, "Usuário com ID " + idVisualizar + " não encontrado.");
+                }
+                return;
+
+            case 4: // visualizar todos 
+                todosFornecedores = fornecedoresDatabase.getAll();
+                if (todosFornecedores.length > 0) {
+                    String strFornecedores = "";
+                    for (Fornecedor f : todosFornecedores) {
+                        strFornecedores += f.toString() + "\n";
+                    }
+                    JOptionPane.showMessageDialog(null, strFornecedores);
+                } else {
+                    JOptionPane.showMessageDialog(null, "Nenhum usuário cadastrado.");
+                }
         }
     }
 

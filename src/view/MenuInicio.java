@@ -44,7 +44,7 @@ public class MenuInicio {
     }
 
     public int menuGerenciarFornecedores() {
-        String[] opcoes = {"Incluir Fornecedor", "Alterar Fornecedor", "Remover Fornecedor", "Voltar"};
+        String[] opcoes = {"Incluir Fornecedor", "Alterar Fornecedor", "Remover Fornecedor", "Visualizar Fornecedor", "Visualizar Todos Fornecedores", "Voltar"};
         int escolha = JOptionPane.showOptionDialog(null, "Gerenciar Fornecedores", "Fornecedores", JOptionPane.DEFAULT_OPTION,
                 JOptionPane.INFORMATION_MESSAGE, null, opcoes, opcoes[0]);
         return escolha;
