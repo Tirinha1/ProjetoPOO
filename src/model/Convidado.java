@@ -11,7 +11,7 @@ import model.dao.Identifiable;
  *
  * @author Gabriel
  */
-public class ConvidadoIndividual extends Identifiable{
+public class Convidado extends Identifiable{
     private Pessoa pessoa;
     private Familia familia;
     private String parentesco;
@@ -19,7 +19,7 @@ public class ConvidadoIndividual extends Identifiable{
     private LocalDateTime dataCriacao;
     private LocalDateTime dataModificacao;
     
-    public ConvidadoIndividual(){
+    public Convidado(){
         this.dataCriacao = LocalDateTime.now();
     }
     
@@ -38,6 +38,7 @@ public class ConvidadoIndividual extends Identifiable{
     public Familia getFamilia() {
         return this.familia;
     }
+    
     
     public void setParentesco(String parentesco) {
         this.parentesco = parentesco;
@@ -70,5 +71,15 @@ public class ConvidadoIndividual extends Identifiable{
     public LocalDateTime getDataModificacao() {
         return this.dataModificacao;
     }
+
+    @Override
+    public String toString() {
+        return "Convidado{" + "pessoa=" + pessoa.toString() + "\n"
+                + ", parentesco=" + parentesco + ", confirmado=" + confirmado + ", dataCriacao=" + dataCriacao + ", dataModificacao=" + dataModificacao + "\n"
+                + familia.toString() + '}';
+    }
+    
+    
 }
+
 

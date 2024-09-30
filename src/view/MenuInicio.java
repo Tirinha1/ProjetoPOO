@@ -31,14 +31,14 @@ public class MenuInicio {
 
     public int menuPessoas() {
         String[] opcoes = {"Incluir Pessoas", "Alterar Pessoa", "Remover Pessoa", "Visualizar Pessoa", "Visualizar Todas Pessoas", "Voltar"};
-        int escolha = JOptionPane.showOptionDialog(null, "Menu Pessoas", "Menu", JOptionPane.DEFAULT_OPTION,
+        int escolha = JOptionPane.showOptionDialog(null, "Menu Pessoas", "Pessoas", JOptionPane.DEFAULT_OPTION,
                 JOptionPane.INFORMATION_MESSAGE, null, opcoes, opcoes[0]);
         return escolha;
     }
 
     public int menuUsuario() {
         String[] opcoes = {"Incluir Usuario", "Alterar Usuario", "Remover Usuario", "Visualizar Usuario", "Visualizar Todos Usuarios", "Voltar"};
-        int escolha = JOptionPane.showOptionDialog(null, "Menu Usuario", "Menu", JOptionPane.DEFAULT_OPTION,
+        int escolha = JOptionPane.showOptionDialog(null, "Menu Usuario", "Usuários", JOptionPane.DEFAULT_OPTION,
                 JOptionPane.INFORMATION_MESSAGE, null, opcoes, opcoes[0]);
         return escolha;
     }
@@ -50,58 +50,11 @@ public class MenuInicio {
         return escolha;
     }
 
-    public void menuGerenciarConvidados() {
-        while (true) {
-            String[] opcoes = {"Incluir Convidado", "Alterar Convidado", "Remover Convidado", "Voltar"};
-            int escolha = JOptionPane.showOptionDialog(null, "Gerenciar Convidados", "Convidados", JOptionPane.DEFAULT_OPTION,
-                    JOptionPane.INFORMATION_MESSAGE, null, opcoes, opcoes[0]);
-
-            switch (escolha) {
-                case 0:
-                    incluirConvidado();
-                    break;
-                case 1:
-                    alterarConvidado();
-                    break;
-                case 2:
-                    removerConvidado();
-                    break;
-                case 3:
-                    return; // Volta ao menu anterior
-                default:
-                    JOptionPane.showMessageDialog(null, "Opção inválida.");
-            }
-        }
-    }
-
-    public void incluirConvidado() {
-        String nomeConvidado = JOptionPane.showInputDialog("Digite o nome do convidado:");
-        // Lógica para incluir o convidado aqui
-        JOptionPane.showMessageDialog(null, "Convidado " + nomeConvidado + " incluído com sucesso!");
-    }
-
-    public void alterarConvidado() {
-        String idConvidado = JOptionPane.showInputDialog("Digite o ID do convidado que deseja alterar:");
-        // Lógica para buscar e alterar o convidado pelo ID
-        /*String convidado = buscarConvidadoPorId(idConvidado); // Exemplo de busca
-            if (convidado != null) {
-                // Lógica para alterar o convidado
-                JOptionPane.showMessageDialog(null, "Convidado com ID " + idConvidado + " alterado com sucesso!");
-            } else {
-                JOptionPane.showMessageDialog(null, "Convidado com ID " + idConvidado + " não encontrado.");
-            }*/
-    }
-
-    public void removerConvidado() {
-        String idConvidado = JOptionPane.showInputDialog("Digite o ID do convidado que deseja remover:");
-        // Lógica para buscar e remover o convidado pelo ID
-        /*String convidado = buscarConvidadoPorId(idConvidado); // Exemplo de busca
-            if (convidado != null) {
-                // Lógica para remover o convidado
-                JOptionPane.showMessageDialog(null, "Convidado com ID " + idConvidado + " removido com sucesso!");
-            } else {
-                JOptionPane.showMessageDialog(null, "Convidado com ID " + idConvidado + " não encontrado.");
-            }*/
+    public int menuGerenciarConvidados() {
+        String[] opcoes = {"Incluir Convite Individual", "Incluir Convite Família", "Remover Convite ID", "Remover Convite Familia", "Visualizar Convite", "Visualizar Todos Convites", "Voltar"};
+        int escolha = JOptionPane.showOptionDialog(null, "Gerenciar Convidados", "Convidados", JOptionPane.DEFAULT_OPTION,
+                JOptionPane.INFORMATION_MESSAGE, null, opcoes, opcoes[0]);
+        return escolha;
     }
 
     public void menuGerenciarPagamentos() {

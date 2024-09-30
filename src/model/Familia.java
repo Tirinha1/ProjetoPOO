@@ -44,4 +44,11 @@ public class Familia extends Identifiable{
     public LocalDateTime getDataModificacao() {
         return this.dataModificacao;
     }
+
+    @Override
+    public String toString() {
+        return "Familia{" + "nomeFamilia=" + nomeFamilia + ", acesso=" + acesso + ", dataCriacao=" + dataCriacao + ", dataModificacao=" + dataModificacao + '}';
+    }
+    
+    
 }

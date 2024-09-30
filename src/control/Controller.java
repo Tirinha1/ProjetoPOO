@@ -10,6 +10,8 @@ import javax.swing.JOptionPane;
 import model.Pessoa;
 import model.Usuario;
 import model.Fornecedor;
+import model.Convidado;
+import model.Familia;
 import model.dao.Database;
 import model.dao.Utils;
 import view.MenuInicio;
@@ -28,12 +30,15 @@ public class Controller {
     Pessoa pessoa;
     Usuario usuario;
     Fornecedor fornecedor;
+    Convidado convidado;
+    Familia familia;
     Pessoa[] todasPessoas;
     Usuario[] todosUsuarios;
     Fornecedor[] todosFornecedores;
     Database<Pessoa> pessoasDatabase = new Database<>(new Pessoa[0]);
     Database<Usuario> usuariosDatabase = new Database<>(new Usuario[0]);
     Database<Fornecedor> fornecedoresDatabase = new Database<>(new Fornecedor[0]);
+    Database<Convidado> convidadosDatabase = new Database<>(new Convidado[0]);
     Utils utils = new Utils();
     Gerador gerador = new Gerador();
 
@@ -138,13 +143,18 @@ public class Controller {
                     return;
                 case 2:
                     while (controlForm) {
-                        int escolhaUsuario = menuInicio.menuGerenciarFornecedores();
-                        perfilGerenciarFornecedor(escolhaUsuario);
+                        int escolhaFornecedor = menuInicio.menuGerenciarFornecedores();
+                        perfilGerenciarFornecedor(escolhaFornecedor);
                     }
                     controlForm = true;
                     return;
                 case 3:
-                    menuInicio.menuGerenciarConvidados();
+                    while (controlForm) {
+                        int escolhaConvidado = menuInicio.menuGerenciarConvidados();
+                        perfilGerenciarConvidado(escolhaConvidado);
+
+                    }
+                    controlForm = true;
                     return;
                 case 4:
                     menuInicio.menuGerenciarPagamentos();
@@ -289,7 +299,6 @@ public class Controller {
             controlForm = false;
             return;
         }
-        //System.out.println(pessoa + " | " + usuario);
         switch (escolhaUsuario) {
 
             case 0: // incluir
@@ -543,6 +552,122 @@ public class Controller {
                     JOptionPane.showMessageDialog(null, strFornecedores);
                 } else {
                     JOptionPane.showMessageDialog(null, "Nenhum usuário cadastrado.");
+                }
+        }
+    }
+
+    public void perfilGerenciarConvidado(int escolhaConvite) {
+        if (escolhaConvite == 6 || escolhaConvite == -1) {
+            controlForm = false;
+            return;
+        }
+
+        switch (escolhaConvite) {
+            case 0://incluir convite individual
+
+                familia = new Familia();
+                convidado = new Convidado();
+                String convidadoId = JOptionPane.showInputDialog("Digite o ID da pessoa para criar convidado:");
+                if (!ValidaInput.string(convidadoId) || !convidadoId.matches("^\\d+$")) { // Verifica se contem somente numero na string
+                    return;
+                }
+                pessoa = pessoasDatabase.getById(Integer.parseInt(convidadoId));
+                if (pessoa == null) {
+                    JOptionPane.showMessageDialog(null, "Pessoa com ID " + convidadoId + " não encontrada.");
+                    return;
+                }
+                if (convidadosDatabase.getById(Integer.parseInt(convidadoId)) != null) {
+                    JOptionPane.showMessageDialog(null, "Pessoa com ID " + convidadoId + " já tem convite vinculado.");
+                    return;
+                }
+                convidado.setPessoa(pessoa);
+                familia.setNomeFamilia("individual");
+                String acessoI = "ci" + familia.getDataCriacao();
+                String acessoFormatadoI = acessoI.substring(acessoI.length() - 6);
+                familia.setAcesso(acessoFormatadoI); //definir como os convidados vao acessar 
+                convidado.setFamilia(familia);
+                String parentesco = JOptionPane.showInputDialog("Digite o parentesco do convidado (Pai, Mãe, Avô, etc...):");
+                if (!ValidaInput.string(parentesco)) {
+                    return; // Volta ao menu se cancelar ou fechar
+                }
+                convidado.setParentesco(parentesco);
+
+                // Criar usuário no banco de dados
+                convidadosDatabase.create(convidado);
+
+                JOptionPane.showMessageDialog(null, "Convidado incluído com sucesso!");
+                return;
+
+            case 1: //incluir convite familia
+                familia = new Familia();
+                String nomeFamilia = JOptionPane.showInputDialog("Digite o nome da família:");
+                if (!ValidaInput.string(nomeFamilia)) {
+                    return; // Volta ao menu se cancelar ou fechar
+                }
+                familia.setNomeFamilia(nomeFamilia);
+
+                // Vincula várias pessoas à família até que o usuário cancele
+                while (true) {
+                    String pessoaId = JOptionPane.showInputDialog("Digite o ID da pessoa para vincular à família (ou clique Cancelar para terminar):");
+                    if (!ValidaInput.string(pessoaId) || !pessoaId.matches("^\\d+$")) {
+                        break; // Sai do loop se o usuário cancelar ou o ID não for válido
+                    }
+
+                    pessoa = pessoasDatabase.getById(Integer.parseInt(pessoaId));
+                    if (pessoa == null) {
+                        JOptionPane.showMessageDialog(null, "Pessoa com ID " + pessoaId + " não encontrada.");
+                        continue; // Pede outro ID se a pessoa não for encontrada
+                    }
+
+                    if (convidadosDatabase.getById(Integer.parseInt(pessoaId)) != null) {
+                        JOptionPane.showMessageDialog(null, "Pessoa com ID " + pessoaId + " já tem convite vinculado.");
+                        continue; // Pede outro ID se a pessoa já for um convidado
+                    }
+                    // Cria um novo convidado e associa à família
+                    convidado = new Convidado();
+                    convidado.setPessoa(pessoa);
+                    convidado.setFamilia(familia);
+                    parentesco = "familia" + familia.getNomeFamilia();
+                    convidado.setParentesco(parentesco);
+                    String acessoF = "cf" + familia.getDataCriacao();
+                    String acessoFormatadoF = acessoF.substring(acessoF.length() - 6);
+                    familia.setAcesso(acessoFormatadoF);
+                    familia.setAcesso("conviteFamilia"); //definir metodo de acesso da familia
+                    // Salva o convidado no banco de dados
+                    convidadosDatabase.create(convidado);
+                }
+                JOptionPane.showMessageDialog(null, "Convidados familiares incluídos com sucesso!");
+                return;
+
+            case 2: //remover por ID
+                String idRemover = JOptionPane.showInputDialog("Digite o ID do convidado:");
+                if (!ValidaInput.string(idRemover) || !idRemover.matches("^\\d+$")) { // Verifica se contem somente numero na string
+                    return;
+                }
+                convidado = convidadosDatabase.getById(Integer.parseInt(idRemover));
+                if (convidado != null) {
+                    int confirmacao = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja remover o convidado com ID " + idRemover + "?", "Confirmação", JOptionPane.YES_NO_OPTION);
+                    if (confirmacao == JOptionPane.YES_OPTION) {
+                        convidadosDatabase.delete(Integer.parseInt(idRemover));
+                        JOptionPane.showMessageDialog(null, "Convidado removido com sucesso!");
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Remoção cancelada.");
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(null, "Convidado com ID " + idRemover + " não encontrada.");
+                }
+                return;
+            case 4:
+                // Visualizar concidado pelo ID
+                String idVisualizar = JOptionPane.showInputDialog("Digite o ID do Convidado que deseja visualizar:");
+                if (!ValidaInput.string(idVisualizar) || !idVisualizar.matches("^\\d+$")) {
+                    return;
+                }
+                convidado = convidadosDatabase.getById(Integer.parseInt(idVisualizar));
+                if (convidado != null) {
+                    JOptionPane.showMessageDialog(null, convidado.toString());
+                } else {
+                    JOptionPane.showMessageDialog(null, "Usuário com ID " + idVisualizar + " não encontrado.");
                 }
         }
     }
