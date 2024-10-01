@@ -64,74 +64,13 @@ public class MenuInicio {
         return escolha;
     }
 
-    public void menuGerenciarCalendario() {
-        while (true) {
-            String[] opcoes = {"Adicionar Evento", "Visualizar Calendário", "Voltar"};
+    public int menuGerenciarCalendario() {
+ 
+            String[] opcoes = {"Adicionar Evento", "Remover Evento", "Visualizar Calendário", "Voltar"};
             int escolha = JOptionPane.showOptionDialog(null, "Gerenciamento de Calendário", "Calendário", JOptionPane.DEFAULT_OPTION,
                     JOptionPane.INFORMATION_MESSAGE, null, opcoes, opcoes[0]);
+            return escolha;
 
-            switch (escolha) {
-                case 0:
-                    adicionarEvento();
-                    break;
-                case 1:
-                    visualizarCalendario();
-                    break;
-                case 2:
-                    return; // Volta ao menu anterior
-                default:
-                    JOptionPane.showMessageDialog(null, "Opção inválida.");
-            }
-        }
-    }
-
-    // Lista para armazenar eventos
-    //static List<String> eventos = new ArrayList<>();
-    public void adicionarEvento() {
-        String dataEvento = JOptionPane.showInputDialog("Digite a data do evento (dd/mm/yyyy):");
-        String descricaoEvento = JOptionPane.showInputDialog(null, "Digite a descrição do evento (até 4000 caracteres):",
-                "Adicionar Evento", JOptionPane.PLAIN_MESSAGE);
-
-        // Limitar a descrição a 4000 caracteres
-        if (descricaoEvento.length() > 4000) {
-            descricaoEvento = descricaoEvento.substring(0, 4000); // Trunca o texto para 4000 caracteres
-        }
-
-        // Armazena o evento em formato adequado
-        String evento = "Data: " + dataEvento + " - Descrição: " + descricaoEvento;
-        //eventos.add(evento);
-
-        JOptionPane.showMessageDialog(null, "Evento adicionado com sucesso!\n" + evento);
-    }
-
-    public void visualizarCalendario() {
-        StringBuilder calendarioCompleto = new StringBuilder("Calendário Completo:\n");
-
-        // Adiciona os eventos anotados
-        /*if (!eventos.isEmpty()) {
-                calendarioCompleto.append("Eventos:\n");
-                for (String evento : eventos) {
-                    calendarioCompleto.append(evento).append("\n");
-                }
-            } else {
-                calendarioCompleto.append("Nenhum evento anotado.\n");
-            }*/
-        // Simulação de pagamentos feitos e agendados
-        // Aqui você pode utilizar as listas ou estruturas que você já tenha para armazenar pagamentos e agendamentos
-        calendarioCompleto.append("\nPagamentos Feitos:\n");
-        // Exemplo: listaPagamentosFeitos (lista fictícia)
-        // for (Pagamento p : listaPagamentosFeitos) {
-        //     calendarioCompleto.append(p).append("\n");
-        // }
-
-        calendarioCompleto.append("\nPagamentos Agendados:\n");
-        // Exemplo: listaPagamentosAgendados (lista fictícia)
-        // for (Pagamento p : listaPagamentosAgendados) {
-        //     calendarioCompleto.append(p).append("\n");
-        // }
-
-        // Exibe o calendário completo
-        JOptionPane.showMessageDialog(null, calendarioCompleto.toString(), "Visualizar Calendário", JOptionPane.INFORMATION_MESSAGE);
     }
 //FIM MENU ADMINISTRADOR
 
