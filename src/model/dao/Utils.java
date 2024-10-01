@@ -18,11 +18,7 @@ public class Utils {
 
     //formato dd-MM-yy
     public LocalDate formatDate(String data) throws Exception {
-//        try {
             this.data = LocalDate.parse(data, formatter);
-////        } catch (Exception e) {
-//            System.out.println("ERROR: " + e.getMessage());
-//        }
         return this.data;
     }
 

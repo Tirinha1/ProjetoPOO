@@ -17,8 +17,6 @@ public class Fornecedor extends Identifiable {
     private String cpfCnpj;
     private String telefone;
     private Pessoa pessoa;
-    private double valorAPagar;
-    private int parcelas;
     private boolean estadoPagamento;
     private LocalDateTime dataCriacao;
     private LocalDateTime dataModificacao;
@@ -59,22 +57,6 @@ public class Fornecedor extends Identifiable {
         this.pessoa = pessoa;
     }
 
-    public void setValorAPagar(double valorAPagar) {
-        this.valorAPagar = valorAPagar;
-    }
-
-    public double getValorAPagar() {
-        return this.valorAPagar;
-    }
-
-    public void setParcelas(int parcelas) {
-        this.parcelas = parcelas;
-    }
-
-    public int getParcelas() {
-        return this.parcelas;
-    }
-
     public void setEstadoPagamento(boolean estadoPagamento) {
         this.estadoPagamento = estadoPagamento;
     }
@@ -98,7 +80,7 @@ public class Fornecedor extends Identifiable {
     @Override
     public String toString() {
         return "Fornecedor{" + "razaoSocial=" + razaoSocial + ", cpfCnpj=" + cpfCnpj + ", telefone=" + telefone + ", dataCriacao=" + dataCriacao + ", dataModificacao=" + dataModificacao + "\n"
-                + "valorAPagar=" + valorAPagar + ", parcelas=" + parcelas + ", estadoPagamento=" + estadoPagamento + "\n"
+                + "estadoPagamento=" + estadoPagamento + "\n"
                 + pessoa.toString() + '}';
     }
     

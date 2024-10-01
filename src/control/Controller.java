@@ -531,6 +531,13 @@ public class Controller {
                     return;
                 }
                 fornecedor = fornecedoresDatabase.getById(Integer.parseInt(idRemover));
+                todosPagamentos = pagamentosDatabase.getAll();
+                for (Pagamento p : todosPagamentos) {
+                    if (p.getFornecedor() == fornecedor) {
+                        JOptionPane.showMessageDialog(null, "Existe pagamento para o fornecedor de ID " + idRemover + ", para deletar, remova o pagamento.");
+                        return;
+                    }
+                }
                 if (fornecedor != null) {
                     int confirmacao = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja remover o usuário com ID " + idRemover + "?", "Confirmação", JOptionPane.YES_NO_OPTION);
                     if (confirmacao == JOptionPane.YES_OPTION) {
@@ -802,6 +809,7 @@ public class Controller {
 
                 pagamentosDatabase.create(pagamento);
                 JOptionPane.showMessageDialog(null, "Pagamento incluído com sucesso!");
+                return;
 
             case 1://alterar pagamento  
 
@@ -810,8 +818,8 @@ public class Controller {
                     return;
                 }
                 pagamento = pagamentosDatabase.getById(Integer.parseInt(idAlterar));
-                if (pagamento == null){
-                    JOptionPane.showMessageDialog(null, "Pagamento com ID "+idAlterar+" não encontrado");
+                if (pagamento == null) {
+                    JOptionPane.showMessageDialog(null, "Pagamento com ID " + idAlterar + " não encontrado");
                     return;
                 }
                 fornecedor = pagamento.getFornecedor();
@@ -834,7 +842,7 @@ public class Controller {
                     return;
                 }
                 pagamento.setValor(Double.parseDouble(novoValorPagamentoFormat));
-                String novoTipo = JOptionPane.showInputDialog("Digite o tipo do pagamento:\n1 - A VISTA\n2 - PARCELADO", pagamento.getTipo());
+                String novoTipo = JOptionPane.showInputDialog("Digite o novo tipo do pagamento:\n1 - A VISTA\n2 - PARCELADO", pagamento.getTipo());
                 if (!ValidaInput.string(novoTipo) || !ValidaInput.stringEhInt(novoTipo)) {
                     return;
                 }
@@ -848,7 +856,7 @@ public class Controller {
                     }
                     pagamento.setParcela(Integer.parseInt(novaQtdParc));
                 }
-                String novaDescricao = JOptionPane.showInputDialog("Digite a descrição do pagamento (Obrigatório mais de 15 caracteres na descrição):");
+                String novaDescricao = JOptionPane.showInputDialog("Digite a descrição do pagamento (Obrigatório mais de 15 caracteres na descrição):", pagamento.getDescricao());
                 if (!ValidaInput.string(novaDescricao)) {
                     return;
                 }
@@ -868,24 +876,53 @@ public class Controller {
                     JOptionPane.showMessageDialog(null, "Data inválida");
                     return;
                 }
-
+                
+                pagamento.setDataModificacao();
                 pagamentosDatabase.update(pagamento);
                 JOptionPane.showMessageDialog(null, "Pagamento atualizado com sucesso!");
+                return;
 
             case 2://remover pagamento ID
-//                Calendar hoje = Calendar.getInstance();
-//                if (calendario.get(Calendar.DAY_OF_YEAR) == hoje.get(Calendar.DAY_OF_YEAR)
-//                        && calendario.get(Calendar.YEAR) == hoje.get(Calendar.YEAR)) {
-//                    JOptionPane.showMessageDialog(null, "Você tem pagamentos agendados para hoje.");
-//                    // Lógica para alterar o estado dos fornecedores
-//                } else {
-//                    JOptionPane.showMessageDialog(null, "Não há pagamentos agendados para hoje.");
-//                }
-//                break;
-//            case 3:
-//                return; // Volta ao menu anterior
-//            default:
-//                JOptionPane.showMessageDialog(null, "Opção inválida.");
+                String idRemover = JOptionPane.showInputDialog("Digite o ID do pagmento:");
+                if (!ValidaInput.string(idRemover) || !ValidaInput.stringEhInt(idRemover)) { // Verifica se contem somente numero na string
+                    return;
+                }
+                pagamento = pagamentosDatabase.getById(Integer.parseInt(idRemover));
+                if (pagamento != null) {
+                    int confirmacao = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja remover o pagamento com ID " + idRemover + "?", "Confirmação", JOptionPane.YES_NO_OPTION);
+                    if (confirmacao == JOptionPane.YES_OPTION) {
+                        pagamentosDatabase.delete(Integer.parseInt(idRemover));
+                        JOptionPane.showMessageDialog(null, "Pagamento removido com sucesso!");
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Remoção cancelada.");
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(null, "Pagamento com ID " + idRemover + " não encontrada.");
+                }
+            case 3:
+                // Visualizar pagamento pelo ID
+                String idVisualizar = JOptionPane.showInputDialog("Digite o ID do Pagamento que deseja visualizar:");
+                if (!ValidaInput.string(idVisualizar) || !ValidaInput.stringEhInt(idVisualizar)) {
+                    return;
+                }
+                pagamento = pagamentosDatabase.getById(Integer.parseInt(idVisualizar));
+                if (pagamento != null) {
+                    JOptionPane.showMessageDialog(null, pagamento.toString());
+                } else {
+                    JOptionPane.showMessageDialog(null, "Pagamento com ID " + idVisualizar + " não encontrado.");
+                }
+                return;
+            case 4:
+                todosPagamentos = pagamentosDatabase.getAll();
+                if (todosPagamentos.length > 0) {
+                    String strPagamentos = "";
+                    for (Pagamento p : todosPagamentos) {
+                        strPagamentos += p.toString() + "\n";
+                    }
+                    JOptionPane.showMessageDialog(null, strPagamentos);
+                } else {
+                    JOptionPane.showMessageDialog(null, "Nenhum convidado cadastrado.");
+                }
         }
 
     }
