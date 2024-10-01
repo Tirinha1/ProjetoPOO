@@ -11,17 +11,18 @@ import model.dao.Identifiable;
  *
  * @author Gabriel
  */
-public class Pagamentos extends Identifiable{
+public class Pagamento extends Identifiable{
     private LocalDate data;
-    private Pessoa pessoa;
-    private String descricao;
+    //private Pessoa pessoa;
     private Fornecedor fornecedor;
     private double valor;
+    private int tipo;
     private int parcela;
+    private String descricao;
     private LocalDateTime dataCriacao;
     private LocalDateTime dataModificacao;
     
-    public Pagamentos(){
+    public Pagamento(){
         this.dataCriacao = LocalDateTime.now();
     }
     
@@ -32,7 +33,7 @@ public class Pagamentos extends Identifiable{
     public LocalDate getData() {
         return this.data;
     }
-    
+   /* 
     public void setPessoa(Pessoa pessoa) {
         this.pessoa = pessoa;
     }
@@ -40,7 +41,7 @@ public class Pagamentos extends Identifiable{
     public Pessoa getPessoa() {
         return this.pessoa;
     }
-    
+    */
     public void setDescricao(String descricao) {
         this.descricao = descricao;
     }
@@ -82,4 +83,14 @@ public class Pagamentos extends Identifiable{
     public LocalDateTime getDataModificacao() {
         return this.dataModificacao;
     }
+
+    public int getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(int tipo) {
+        this.tipo = tipo;
+    }
+    
+    
 }

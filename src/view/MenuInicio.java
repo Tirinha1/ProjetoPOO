@@ -57,59 +57,11 @@ public class MenuInicio {
         return escolha;
     }
 
-    public void menuGerenciarPagamentos() {
-        while (true) {
-            String[] opcoes = {"Pagamento à Vista", "Pagamento Agendado", "Verificar Pagamentos Agendados", "Voltar"};
-            int escolha = JOptionPane.showOptionDialog(null, "Menu de Pagamentos", "Pagamentos", JOptionPane.DEFAULT_OPTION,
-                    JOptionPane.INFORMATION_MESSAGE, null, opcoes, opcoes[0]);
-
-            switch (escolha) {
-                case 0:
-                    pagamentoAVista();
-                    break;
-                case 1:
-                    agendarPagamento();
-                    break;
-                case 2:
-                    verificarPagamentosAgendados();
-                    break;
-                case 3:
-                    return; // Volta ao menu anterior
-                default:
-                    JOptionPane.showMessageDialog(null, "Opção inválida.");
-            }
-        }
-    }
-
-    public void pagamentoAVista() {
-        String idFornecedor = JOptionPane.showInputDialog("Digite o ID do fornecedor:");
-        String valorPagamento = JOptionPane.showInputDialog("Digite o valor do pagamento:");
-        String dataPagamento = JOptionPane.showInputDialog("Digite a data do pagamento (dd/mm/yyyy):");
-
-        // Aqui você pode adicionar a lógica para registrar o pagamento à vista
-        JOptionPane.showMessageDialog(null, "Pagamento à vista registrado:\nFornecedor ID: " + idFornecedor
-                + "\nValor: R$ " + valorPagamento + "\nData: " + dataPagamento);
-    }
-
-    public void agendarPagamento() {
-        String idFornecedor = JOptionPane.showInputDialog("Digite o ID do fornecedor:");
-        String valorPagamento = JOptionPane.showInputDialog("Digite o valor do pagamento:");
-        String dataVencimento = JOptionPane.showInputDialog("Digite a data de vencimento do pagamento (dd/mm/yyyy):");
-
-        // Aqui você pode adicionar a lógica para agendar o pagamento
-        JOptionPane.showMessageDialog(null, "Pagamento agendado:\nFornecedor ID: " + idFornecedor
-                + "\nValor: R$ " + valorPagamento + "\nData de Vencimento: " + dataVencimento);
-    }
-
-    public void verificarPagamentosAgendados() {
-        Calendar hoje = Calendar.getInstance();
-        if (calendario.get(Calendar.DAY_OF_YEAR) == hoje.get(Calendar.DAY_OF_YEAR)
-                && calendario.get(Calendar.YEAR) == hoje.get(Calendar.YEAR)) {
-            JOptionPane.showMessageDialog(null, "Você tem pagamentos agendados para hoje.");
-            // Lógica para alterar o estado dos fornecedores
-        } else {
-            JOptionPane.showMessageDialog(null, "Não há pagamentos agendados para hoje.");
-        }
+    public int menuGerenciarPagamentos() {
+        String[] opcoes = {"Incluir Pagamento", "Alterar Pagamento", "Remover Pagamento", "Verificar Pagamentos ID", "Verificar Todos os Pagamentos", "Voltar"};
+        int escolha = JOptionPane.showOptionDialog(null, "Menu de Pagamentos", "Pagamentos", JOptionPane.DEFAULT_OPTION,
+                JOptionPane.INFORMATION_MESSAGE, null, opcoes, opcoes[0]);
+        return escolha;
     }
 
     public void menuGerenciarCalendario() {

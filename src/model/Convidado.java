@@ -74,8 +74,8 @@ public class Convidado extends Identifiable{
 
     @Override
     public String toString() {
-        return "Convidado{" + "pessoa=" + pessoa.toString() + "\n"
-                + ", parentesco=" + parentesco + ", confirmado=" + confirmado + ", dataCriacao=" + dataCriacao + ", dataModificacao=" + dataModificacao + "\n"
+        return "\nConvidado{" + pessoa.toString() + "\n"
+                + "parentesco=" + parentesco + ", confirmado=" + confirmado + ", dataCriacao=" + dataCriacao + ", dataModificacao=" + dataModificacao + "\n"
                 + familia.toString() + '}';
     }
     

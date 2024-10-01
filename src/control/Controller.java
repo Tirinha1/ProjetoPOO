@@ -4,14 +4,13 @@
  */
 package control;
 
-import static control.ValidaInput.*;
-import java.time.LocalDate;
 import javax.swing.JOptionPane;
 import model.Pessoa;
 import model.Usuario;
 import model.Fornecedor;
 import model.Convidado;
 import model.Familia;
+import model.Pagamento;
 import model.dao.Database;
 import model.dao.Utils;
 import view.MenuInicio;
@@ -32,18 +31,21 @@ public class Controller {
     Fornecedor fornecedor;
     Convidado convidado;
     Familia familia;
+    Pagamento pagamento;
     Pessoa[] todasPessoas;
     Usuario[] todosUsuarios;
     Fornecedor[] todosFornecedores;
+    Convidado[] todosConvidados;
+    Pagamento[] todosPagamentos;
     Database<Pessoa> pessoasDatabase = new Database<>(new Pessoa[0]);
     Database<Usuario> usuariosDatabase = new Database<>(new Usuario[0]);
     Database<Fornecedor> fornecedoresDatabase = new Database<>(new Fornecedor[0]);
     Database<Convidado> convidadosDatabase = new Database<>(new Convidado[0]);
+    Database<Pagamento> pagamentosDatabase = new Database<>(new Pagamento[0]);
     Utils utils = new Utils();
     Gerador gerador = new Gerador();
 
     public void main(String[] args) {
-
         while (true) {
             escolha = menuInicio.menuInicial(); // Chamando o menu inicial
             if (escolha == 3 || escolha == -1) {
@@ -157,7 +159,12 @@ public class Controller {
                     controlForm = true;
                     return;
                 case 4:
-                    menuInicio.menuGerenciarPagamentos();
+                    while (controlForm) {
+                        int escolhaPagamento = menuInicio.menuGerenciarPagamentos();
+                        perfilGerenciarPagamento(escolhaPagamento);
+
+                    }
+                    controlForm = true;
                     return;
                 case 5:
                     menuInicio.menuGerenciarCalendario();
@@ -195,8 +202,12 @@ public class Controller {
                 if (!ValidaInput.string(nascimento)) {
                     return; // Volta ao menu se cancelar ou fechar
                 }
-                pessoa.setNascimento(utils.formatDate(nascimento));
-
+                try {
+                    pessoa.setNascimento(utils.formatDate(nascimento));
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(null, "Data inválida");
+                    return;
+                }
                 pessoasDatabase.create(pessoa);
                 JOptionPane.showMessageDialog(null, "Pessoa incluída com sucesso!");
                 return;
@@ -204,7 +215,7 @@ public class Controller {
             case 1: // alterar
                 // ID da pessoa a ser alterada
                 String idAlterar = JOptionPane.showInputDialog("Digite o ID da pessoa que deseja alterar:");
-                if (!ValidaInput.string(idAlterar) || !idAlterar.matches("^\\d+$")) { // Verifica se contem somente numero na string
+                if (!ValidaInput.string(idAlterar) || !ValidaInput.stringEhInt(idAlterar)) { // Verifica se contem somente numero na string
                     return;
                 }
                 pessoa = pessoasDatabase.getById(Integer.parseInt(idAlterar));
@@ -228,7 +239,12 @@ public class Controller {
                     if (!ValidaInput.string(novoNascimento)) {
                         return; // Volta ao menu se cancelar ou fechar
                     }
-                    pessoa.setNascimento(utils.formatDate(novoNascimento));
+                    try {
+                        pessoa.setNascimento(utils.formatDate(novoNascimento));
+                    } catch (Exception e) {
+                        JOptionPane.showMessageDialog(null, "Data inválida");
+                        return;
+                    }
 
                     pessoa.setDataModificacao();
                     pessoasDatabase.update(pessoa);
@@ -241,7 +257,7 @@ public class Controller {
             case 2: // remover
                 // Confirmação de remoção
                 String idRemover = JOptionPane.showInputDialog("Digite o ID da pessoa que deseja remover:");
-                if (!ValidaInput.string(idRemover) || !idRemover.matches("^\\d+$")) {
+                if (!ValidaInput.string(idRemover) || !ValidaInput.stringEhInt(idRemover)) {
                     return;
                 }
                 pessoa = pessoasDatabase.getById(Integer.parseInt(idRemover));
@@ -269,7 +285,7 @@ public class Controller {
             case 3: // visualizar
                 // Visualizar pessoa pelo ID
                 String idVisualizar = JOptionPane.showInputDialog("Digite o ID da pessoa que deseja visualizar:");
-                if (!ValidaInput.string(idVisualizar) || !idVisualizar.matches("^\\d+$")) {
+                if (!ValidaInput.string(idVisualizar) || !ValidaInput.stringEhInt(idVisualizar)) {
                     return;
                 }
                 pessoa = pessoasDatabase.getById(Integer.parseInt(idVisualizar));
@@ -304,7 +320,7 @@ public class Controller {
             case 0: // incluir
                 usuario = new Usuario();
                 String pessoaId = JOptionPane.showInputDialog("Digite o ID da pessoa para criar usuário:");
-                if (!ValidaInput.string(pessoaId) || !pessoaId.matches("^\\d+$")) { // Verifica se contem somente numero na string
+                if (!ValidaInput.string(pessoaId) || !ValidaInput.stringEhInt(pessoaId)) { // Verifica se contem somente numero na string
                     return;
                 }
                 pessoa = pessoasDatabase.getById(Integer.parseInt(pessoaId));
@@ -344,7 +360,7 @@ public class Controller {
 
             case 1: // alterar
                 String idAlterar = JOptionPane.showInputDialog("Digite o ID do usuário:");
-                if (!ValidaInput.string(idAlterar) || !idAlterar.matches("^\\d+$")) { // Verifica se contem somente numero na string
+                if (!ValidaInput.string(idAlterar) || !ValidaInput.stringEhInt(idAlterar)) { // Verifica se contem somente numero na string
                     return;
                 }
                 usuario = usuariosDatabase.getById(Integer.parseInt(idAlterar));
@@ -378,7 +394,7 @@ public class Controller {
 
             case 2: // remover
                 String idRemover = JOptionPane.showInputDialog("Digite o ID do usuário:");
-                if (!ValidaInput.string(idRemover) || !idRemover.matches("^\\d+$")) { // Verifica se contem somente numero na string
+                if (!ValidaInput.string(idRemover) || !ValidaInput.stringEhInt(idRemover)) { // Verifica se contem somente numero na string
                     return;
                 }
                 usuario = usuariosDatabase.getById(Integer.parseInt(idRemover));
@@ -398,7 +414,7 @@ public class Controller {
             case 3: // visualizar
                 // Visualizar pessoa pelo ID
                 String idVisualizar = JOptionPane.showInputDialog("Digite o ID do usuário que deseja visualizar:");
-                if (!ValidaInput.string(idVisualizar) || !idVisualizar.matches("^\\d+$")) {
+                if (!ValidaInput.string(idVisualizar) || !ValidaInput.stringEhInt(idVisualizar)) {
                     return;
                 }
                 usuario = usuariosDatabase.getById(Integer.parseInt(idVisualizar));
@@ -434,7 +450,7 @@ public class Controller {
 
                 fornecedor = new Fornecedor();
                 String fornecedorId = JOptionPane.showInputDialog("Digite o ID da pessoa para criar fornecedor:");
-                if (!ValidaInput.string(fornecedorId) || !fornecedorId.matches("^\\d+$")) { // Verifica se contem somente numero na string
+                if (!ValidaInput.string(fornecedorId) || !ValidaInput.stringEhInt(fornecedorId)) { // Verifica se contem somente numero na string
                     return;
                 }
                 pessoa = pessoasDatabase.getById(Integer.parseInt(fornecedorId));
@@ -456,7 +472,7 @@ public class Controller {
                 fornecedor.setRazaoSocial(razaoSocial);
 
                 String cnpj = JOptionPane.showInputDialog("Digite o CNPJ/CPF do fornecedor (Somente números | 0 - se nao tem.):");
-                if (!ValidaInput.string(cnpj) || !cnpj.matches("^\\d+$")) {
+                if (!ValidaInput.string(cnpj) || !ValidaInput.stringEhInt(cnpj)) {
                     return; // Volta ao menu se cancelar ou fechar
                 }
                 fornecedor.setCpfCnpj(cnpj);
@@ -476,7 +492,7 @@ public class Controller {
             case 1: //alterar
 
                 String idAlterar = JOptionPane.showInputDialog("Digite o ID do fornecedor:");
-                if (!ValidaInput.string(idAlterar) || !idAlterar.matches("^\\d+$")) { // Verifica se contem somente numero na string
+                if (!ValidaInput.string(idAlterar) || !ValidaInput.stringEhInt(idAlterar)) { // Verifica se contem somente numero na string
                     return;
                 }
                 fornecedor = fornecedoresDatabase.getById(Integer.parseInt(idAlterar));
@@ -488,7 +504,7 @@ public class Controller {
                     fornecedor.setRazaoSocial(novaRazaoSocial);
 
                     String novoCpfCnpj = JOptionPane.showInputDialog("Digite o CNPJ/CPF do fornecedor (Somente números | 0 - se nao tem.):", fornecedor.getcpfCnpj());
-                    if (!ValidaInput.string(novoCpfCnpj) || !novoCpfCnpj.matches("^\\d+$")) {
+                    if (!ValidaInput.string(novoCpfCnpj) || !ValidaInput.stringEhInt(novoCpfCnpj)) {
                         return; // Volta ao menu se cancelar ou fechar
                     }
                     fornecedor.setCpfCnpj(novoCpfCnpj);
@@ -511,7 +527,7 @@ public class Controller {
 
             case 2: // remover
                 String idRemover = JOptionPane.showInputDialog("Digite o ID do fornecedor:");
-                if (!ValidaInput.string(idRemover) || !idRemover.matches("^\\d+$")) { // Verifica se contem somente numero na string
+                if (!ValidaInput.string(idRemover) || !ValidaInput.stringEhInt(idRemover)) { // Verifica se contem somente numero na string
                     return;
                 }
                 fornecedor = fornecedoresDatabase.getById(Integer.parseInt(idRemover));
@@ -531,7 +547,7 @@ public class Controller {
             case 3: // visualizar
                 // Visualizar pessoa pelo ID
                 String idVisualizar = JOptionPane.showInputDialog("Digite o ID do fornecedor que deseja visualizar:");
-                if (!ValidaInput.string(idVisualizar) || !idVisualizar.matches("^\\d+$")) {
+                if (!ValidaInput.string(idVisualizar) || !ValidaInput.stringEhInt(idVisualizar)) {
                     return;
                 }
                 fornecedor = fornecedoresDatabase.getById(Integer.parseInt(idVisualizar));
@@ -551,7 +567,7 @@ public class Controller {
                     }
                     JOptionPane.showMessageDialog(null, strFornecedores);
                 } else {
-                    JOptionPane.showMessageDialog(null, "Nenhum usuário cadastrado.");
+                    JOptionPane.showMessageDialog(null, "Nenhum fornecedor cadastrado.");
                 }
         }
     }
@@ -568,7 +584,7 @@ public class Controller {
                 familia = new Familia();
                 convidado = new Convidado();
                 String convidadoId = JOptionPane.showInputDialog("Digite o ID da pessoa para criar convidado:");
-                if (!ValidaInput.string(convidadoId) || !convidadoId.matches("^\\d+$")) { // Verifica se contem somente numero na string
+                if (!ValidaInput.string(convidadoId) || !ValidaInput.stringEhInt(convidadoId)) { // Verifica se contem somente numero na string
                     return;
                 }
                 pessoa = pessoasDatabase.getById(Integer.parseInt(convidadoId));
@@ -609,7 +625,7 @@ public class Controller {
                 // Vincula várias pessoas à família até que o usuário cancele
                 while (true) {
                     String pessoaId = JOptionPane.showInputDialog("Digite o ID da pessoa para vincular à família (ou clique Cancelar para terminar):");
-                    if (!ValidaInput.string(pessoaId) || !pessoaId.matches("^\\d+$")) {
+                    if (!ValidaInput.string(pessoaId) || !ValidaInput.stringEhInt(pessoaId)) {
                         break; // Sai do loop se o usuário cancelar ou o ID não for válido
                     }
 
@@ -641,7 +657,7 @@ public class Controller {
 
             case 2: //remover por ID
                 String idRemover = JOptionPane.showInputDialog("Digite o ID do convidado:");
-                if (!ValidaInput.string(idRemover) || !idRemover.matches("^\\d+$")) { // Verifica se contem somente numero na string
+                if (!ValidaInput.string(idRemover) || !ValidaInput.stringEhInt(idRemover)) { // Verifica se contem somente numero na string
                     return;
                 }
                 convidado = convidadosDatabase.getById(Integer.parseInt(idRemover));
@@ -657,10 +673,46 @@ public class Controller {
                     JOptionPane.showMessageDialog(null, "Convidado com ID " + idRemover + " não encontrada.");
                 }
                 return;
+            case 3: //remover por convite familia
+                String familiaRemover = JOptionPane.showInputDialog(null, "Digite nome da familia que deseja remover os convites:");
+                if (!ValidaInput.string(familiaRemover)) {
+                    return;
+                }
+                todosConvidados = convidadosDatabase.getAll();
+                Familia f;
+                int qtdConvites = 0;
+                int qtdRemovidos = 0;
+                for (Convidado c : todosConvidados) {
+                    f = c.getFamilia();
+                    if (familiaRemover.equals(f.getNomeFamilia())) {
+                        qtdConvites++;
+                    }
+                }
+                if (qtdConvites == 0) {
+                    JOptionPane.showMessageDialog(null, "Não encontrado convite para família " + familiaRemover);
+                } else {
+                    for (Convidado c : todosConvidados) {
+                        f = c.getFamilia();
+                        if (familiaRemover.equals(f.getNomeFamilia())) {
+                            int confirmacao = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja remover o convidado com ID " + c.getID() + "?", "Confirmação", JOptionPane.YES_NO_OPTION);
+                            if (confirmacao == JOptionPane.YES_OPTION) {
+                                convidadosDatabase.delete(c.getID());
+                                qtdRemovidos++;
+                                JOptionPane.showMessageDialog(null, "Convidado removido com sucesso!");
+                            } else {
+                                JOptionPane.showMessageDialog(null, "Remoção cancelada.");
+                            }
+                        }
+                    }
+                    if (qtdRemovidos > 0) {
+                        JOptionPane.showMessageDialog(null, "Foram removidos " + qtdRemovidos + " convites da família " + familiaRemover + " de um total de " + qtdConvites + " convites.");
+                    }
+                }
+                return;
             case 4:
-                // Visualizar concidado pelo ID
+                // Visualizar convidado pelo ID
                 String idVisualizar = JOptionPane.showInputDialog("Digite o ID do Convidado que deseja visualizar:");
-                if (!ValidaInput.string(idVisualizar) || !idVisualizar.matches("^\\d+$")) {
+                if (!ValidaInput.string(idVisualizar) || !ValidaInput.stringEhInt(idVisualizar)) {
                     return;
                 }
                 convidado = convidadosDatabase.getById(Integer.parseInt(idVisualizar));
@@ -669,7 +721,173 @@ public class Controller {
                 } else {
                     JOptionPane.showMessageDialog(null, "Usuário com ID " + idVisualizar + " não encontrado.");
                 }
+            case 5:
+                todosConvidados = convidadosDatabase.getAll();
+                if (todosConvidados.length > 0) {
+                    String strConvidados = "";
+                    for (Convidado c : todosConvidados) {
+                        strConvidados += c.toString() + "\n";
+                    }
+                    JOptionPane.showMessageDialog(null, strConvidados);
+                } else {
+                    JOptionPane.showMessageDialog(null, "Nenhum convidado cadastrado.");
+                }
         }
+    }
+
+    public void perfilGerenciarPagamento(int escolhaPagamento) {
+        if (escolhaPagamento == 5 || escolhaPagamento == -1) {
+            controlForm = false;
+            return;
+        }
+
+        switch (escolhaPagamento) {
+            case 0: //incluir pagamento
+
+                pagamento = new Pagamento();
+                fornecedor = new Fornecedor();
+                String fornecedorId = JOptionPane.showInputDialog("Digite o ID do fornecedor:");
+                if (!ValidaInput.string(fornecedorId) || !ValidaInput.stringEhInt(fornecedorId)) { // Verifica se contem somente numero na string
+                    return;
+                }
+                fornecedor = fornecedoresDatabase.getById(Integer.parseInt(fornecedorId));
+                if (fornecedor == null) {
+                    JOptionPane.showMessageDialog(null, "Fornecedor com ID " + fornecedorId + " não encontrado.");
+                    return;
+                }
+                pagamento.setFornecedor(fornecedor);
+                String valorPagamento = JOptionPane.showInputDialog("Digite o valor do pagamento:");
+                if (!ValidaInput.string(valorPagamento) || !ValidaInput.stringEhDouble(valorPagamento)) { // Verifica se contem somente numero na string com virgula
+                    return;
+                }
+                String valorPagamentoFormat = Utils.formatDouble(valorPagamento);
+                if (!ValidaInput.string(valorPagamentoFormat)) { // Verifica se contem somente numero na string com virgula
+                    return;
+                }
+                pagamento.setValor(Double.parseDouble(valorPagamentoFormat));
+                String tipo = JOptionPane.showInputDialog("Digite o tipo do pagamento:\n1 - A VISTA\n2 - PARCELADO");
+                if (!ValidaInput.string(tipo) || !ValidaInput.stringEhInt(tipo)) {
+                    return;
+                }
+                pagamento.setTipo(Integer.parseInt(tipo));
+                if (pagamento.getTipo() == 1) {
+                    pagamento.setParcela(0);
+                } else {
+                    String qtdParc = JOptionPane.showInputDialog("Digite quantas parcelas:");
+                    if (!ValidaInput.string(qtdParc) || !ValidaInput.stringEhInt(qtdParc)) {
+                        return;
+                    }
+                    pagamento.setParcela(Integer.parseInt(qtdParc));
+                }
+                String descricao = JOptionPane.showInputDialog("Digite a descrição do pagamento (Obrigatório mais de 15 caracteres na descrição):");
+                if (!ValidaInput.string(descricao)) {
+                    return;
+                }
+                if (descricao.length() < 15) {
+                    JOptionPane.showMessageDialog(null, "Obrigatório mais de 15 caracteres na descrição");
+                    return;
+                } else {
+                    pagamento.setDescricao(descricao);
+                }
+                String dataPagamento = JOptionPane.showInputDialog("Digite a data do pagamento (dd/mm/yyyy):");
+                if (!ValidaInput.string(dataPagamento)) {
+                    return;
+                }
+                try {
+                    pagamento.setData(utils.formatDate(dataPagamento));
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(null, "Data inválida");
+                    return;
+                }
+
+                pagamentosDatabase.create(pagamento);
+                JOptionPane.showMessageDialog(null, "Pagamento incluído com sucesso!");
+
+            case 1://alterar pagamento  
+
+                String idAlterar = JOptionPane.showInputDialog("Digite o ID do pagamento para alterar");
+                if (!ValidaInput.string(idAlterar) || !ValidaInput.stringEhInt(idAlterar)) {
+                    return;
+                }
+                pagamento = pagamentosDatabase.getById(Integer.parseInt(idAlterar));
+                if (pagamento == null){
+                    JOptionPane.showMessageDialog(null, "Pagamento com ID "+idAlterar+" não encontrado");
+                    return;
+                }
+                fornecedor = pagamento.getFornecedor();
+                String novoFornecedorId = JOptionPane.showInputDialog("Digite o novo ID do fornecedor:", fornecedor.getID());
+                if (!ValidaInput.string(novoFornecedorId) || !ValidaInput.stringEhInt(novoFornecedorId)) { // Verifica se contem somente numero na string
+                    return;
+                }
+                fornecedor = fornecedoresDatabase.getById(Integer.parseInt(novoFornecedorId));
+                if (fornecedor == null) {
+                    JOptionPane.showMessageDialog(null, "Fornecedor com ID " + novoFornecedorId + " não encontrado.");
+                    return;
+                }
+                pagamento.setFornecedor(fornecedor);
+                String novoValorPagamento = JOptionPane.showInputDialog("Digite o novo valor do pagamento:", pagamento.getValor());
+                if (!ValidaInput.string(novoValorPagamento) || !ValidaInput.stringEhDouble(novoValorPagamento)) { // Verifica se contem somente numero na string com virgula
+                    return;
+                }
+                String novoValorPagamentoFormat = Utils.formatDouble(novoValorPagamento);
+                if (!ValidaInput.string(novoValorPagamentoFormat)) { // Verifica se contem somente numero na string com virgula
+                    return;
+                }
+                pagamento.setValor(Double.parseDouble(novoValorPagamentoFormat));
+                String novoTipo = JOptionPane.showInputDialog("Digite o tipo do pagamento:\n1 - A VISTA\n2 - PARCELADO", pagamento.getTipo());
+                if (!ValidaInput.string(novoTipo) || !ValidaInput.stringEhInt(novoTipo)) {
+                    return;
+                }
+                pagamento.setTipo(Integer.parseInt(novoTipo));
+                if (pagamento.getTipo() == 1) {
+                    pagamento.setParcela(0);
+                } else {
+                    String novaQtdParc = JOptionPane.showInputDialog("Digite quantas parcelas:", pagamento.getParcela());
+                    if (!ValidaInput.string(novaQtdParc) || !ValidaInput.stringEhInt(novaQtdParc)) {
+                        return;
+                    }
+                    pagamento.setParcela(Integer.parseInt(novaQtdParc));
+                }
+                String novaDescricao = JOptionPane.showInputDialog("Digite a descrição do pagamento (Obrigatório mais de 15 caracteres na descrição):");
+                if (!ValidaInput.string(novaDescricao)) {
+                    return;
+                }
+                if (novaDescricao.length() < 15) {
+                    JOptionPane.showMessageDialog(null, "Obrigatório mais de 15 caracteres na descrição");
+                    return;
+                } else {
+                    pagamento.setDescricao(novaDescricao);
+                }
+                String novaDataPagamento = JOptionPane.showInputDialog("Digite a nova data do pagamento (dd/mm/yyyy):", pagamento.getData());
+                if (!ValidaInput.string(novaDataPagamento)) {
+                    return;
+                }
+                try {
+                    pagamento.setData(utils.formatDate(novaDataPagamento));
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(null, "Data inválida");
+                    return;
+                }
+
+                pagamentosDatabase.update(pagamento);
+                JOptionPane.showMessageDialog(null, "Pagamento atualizado com sucesso!");
+
+            case 2://remover pagamento ID
+//                Calendar hoje = Calendar.getInstance();
+//                if (calendario.get(Calendar.DAY_OF_YEAR) == hoje.get(Calendar.DAY_OF_YEAR)
+//                        && calendario.get(Calendar.YEAR) == hoje.get(Calendar.YEAR)) {
+//                    JOptionPane.showMessageDialog(null, "Você tem pagamentos agendados para hoje.");
+//                    // Lógica para alterar o estado dos fornecedores
+//                } else {
+//                    JOptionPane.showMessageDialog(null, "Não há pagamentos agendados para hoje.");
+//                }
+//                break;
+//            case 3:
+//                return; // Volta ao menu anterior
+//            default:
+//                JOptionPane.showMessageDialog(null, "Opção inválida.");
+        }
+
     }
 
     public void perfilConvidado(int escolhaConvidado) {
