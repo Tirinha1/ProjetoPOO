@@ -45,7 +45,7 @@ public class Controller {
     Database<Fornecedor> fornecedoresDatabase = new Database<>(new Fornecedor[0]);
     Database<Convidado> convidadosDatabase = new Database<>(new Convidado[0]);
     Database<Pagamento> pagamentosDatabase = new Database<>(new Pagamento[0]);
-    Database<Calendario> calendariosDatabse = new Database<>(new Calendario[0]);
+    Database<Calendario> calendariosDatabase = new Database<>(new Calendario[0]);
     Utils utils = new Utils();
     Gerador gerador = new Gerador();
 
@@ -951,51 +951,43 @@ public class Controller {
                     }
                 
                 String tituloEvento = JOptionPane.showInputDialog("Digite o titulo do evento:");
+                if(!ValidaInput.string(tituloEvento)){
+                    return;
+                }
+                calendario.setTitulo(tituloEvento);
                 String descricaoEvento = JOptionPane.showInputDialog(null, "Digite a descrição do evento (até 4000 caracteres):",
                         "Adicionar Evento", JOptionPane.PLAIN_MESSAGE);
-
                 // Limitar a descrição a 4000 caracteres
+               if(!ValidaInput.string(tituloEvento)){
+                    return;
+                }
                 if (descricaoEvento.length() > 4000) {
                     descricaoEvento = descricaoEvento.substring(0, 4000); // Trunca o texto para 4000 caracteres
                 }
+                calendario.setDescricao(descricaoEvento);
+                calendariosDatabase.create(calendario);
 
-                // Armazena o evento em formato adequado
-                String evento = "Data: " + dataEvento + " - Descrição: " + descricaoEvento;
-                //eventos.add(evento);
-
-                JOptionPane.showMessageDialog(null, "Evento adicionado com sucesso!\n" + evento);
+                JOptionPane.showMessageDialog(null, "Evento adicionado com sucesso!\n");
                 return;
 
             case 1://remover evento
-                StringBuilder calendarioCompleto = new StringBuilder("Calendário Completo:\n");
-
-                // Adiciona os eventos anotados
-                /*if (!eventos.isEmpty()) {
-                calendarioCompleto.append("Eventos:\n");
-                for (String evento : eventos) {
-                    calendarioCompleto.append(evento).append("\n");
+                String idRemover = JOptionPane.showInputDialog("Digite o ID do evento que deseja excluir:");
+                if(!ValidaInput.string(idRemover) || !ValidaInput.stringEhInt(idRemover)){
+                    return;
                 }
-            } else {
-                calendarioCompleto.append("Nenhum evento anotado.\n");
-            }*/
-                // Simulação de pagamentos feitos e agendados
-                // Aqui você pode utilizar as listas ou estruturas que você já tenha para armazenar pagamentos e agendamentos
-                calendarioCompleto.append("\nPagamentos Feitos:\n");
-                // Exemplo: listaPagamentosFeitos (lista fictícia)
-                // for (Pagamento p : listaPagamentosFeitos) {
-                //     calendarioCompleto.append(p).append("\n");
-                // }
-
-                calendarioCompleto.append("\nPagamentos Agendados:\n");
-                // Exemplo: listaPagamentosAgendados (lista fictícia)
-                // for (Pagamento p : listaPagamentosAgendados) {
-                //     calendarioCompleto.append(p).append("\n");
-                // }
-
-                // Exibe o calendário completo
-                JOptionPane.showMessageDialog(null, calendarioCompleto.toString(), "Visualizar Calendário", JOptionPane.INFORMATION_MESSAGE);
+                calendario = calendariosDatabase.getById(Integer.parseInt(idRemover));
+                if (calendario != null) {
+                    int confirmacao = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja remover o evento com ID " + idRemover + "?", "Confirmação", JOptionPane.YES_NO_OPTION);
+                    if (confirmacao == JOptionPane.YES_OPTION) {
+                        calendariosDatabase.delete(Integer.parseInt(idRemover));
+                        JOptionPane.showMessageDialog(null, "Evento removido com sucesso!");
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Remoção cancelada.");
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(null, "Evento com ID " + idRemover + " não encontrado.");
+                }
                 return;
-
             case 2://visualizar calendario
                 return; // Volta ao menu anterior
         }
