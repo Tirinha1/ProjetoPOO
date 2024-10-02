@@ -11,6 +11,7 @@ import model.Fornecedor;
 import model.Convidado;
 import model.Familia;
 import model.Pagamento;
+import model.Calendario;
 import model.dao.Database;
 import model.dao.Utils;
 import view.MenuInicio;
@@ -32,16 +33,19 @@ public class Controller {
     Convidado convidado;
     Familia familia;
     Pagamento pagamento;
+    Calendario calendario;
     Pessoa[] todasPessoas;
     Usuario[] todosUsuarios;
     Fornecedor[] todosFornecedores;
     Convidado[] todosConvidados;
     Pagamento[] todosPagamentos;
+    Calendario[] todosCalendarios;
     Database<Pessoa> pessoasDatabase = new Database<>(new Pessoa[0]);
     Database<Usuario> usuariosDatabase = new Database<>(new Usuario[0]);
     Database<Fornecedor> fornecedoresDatabase = new Database<>(new Fornecedor[0]);
     Database<Convidado> convidadosDatabase = new Database<>(new Convidado[0]);
     Database<Pagamento> pagamentosDatabase = new Database<>(new Pagamento[0]);
+    Database<Calendario> calendariosDatabse = new Database<>(new Calendario[0]);
     Utils utils = new Utils();
     Gerador gerador = new Gerador();
 
@@ -934,7 +938,19 @@ public class Controller {
     public void perfilGerenciarCalendario(int escolhaCalendario) {
         switch (escolha) {
             case 0://adicionar evento
+                calendario = new Calendario();
                 String dataEvento = JOptionPane.showInputDialog("Digite a data do evento (dd/mm/yyyy):");
+                if(!ValidaInput.string(dataEvento)){
+                    return;
+                }
+                try {
+                        calendario.setData(utils.formatDate(dataEvento));
+                    } catch (Exception e) {
+                        JOptionPane.showMessageDialog(null, "Data inválida");
+                        return;
+                    }
+                
+                String tituloEvento = JOptionPane.showInputDialog("Digite o titulo do evento:");
                 String descricaoEvento = JOptionPane.showInputDialog(null, "Digite a descrição do evento (até 4000 caracteres):",
                         "Adicionar Evento", JOptionPane.PLAIN_MESSAGE);
 
