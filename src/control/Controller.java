@@ -4,6 +4,7 @@
  */
 package control;
 
+import java.time.LocalDate;
 import javax.swing.JOptionPane;
 import model.Pessoa;
 import model.Usuario;
@@ -172,8 +173,8 @@ public class Controller {
                     return;
                 case 5:
                     while (controlForm) {
-                        int escolhaPagamento = menuInicio.menuGerenciarCalendario();
-                        perfilGerenciarCalendario(escolhaPagamento);
+                        int escolhaCalendario = menuInicio.menuGerenciarCalendario();
+                        perfilGerenciarCalendario(escolhaCalendario);
                     }
                     controlForm = true;
                     return;
@@ -936,29 +937,32 @@ public class Controller {
     }
 
     public void perfilGerenciarCalendario(int escolhaCalendario) {
-        switch (escolha) {
+        if (escolhaCalendario == 5 || escolhaCalendario == -1) {
+            controlForm = false;
+            return;
+        }
+        switch (escolhaCalendario) {
             case 0://adicionar evento
                 calendario = new Calendario();
                 String dataEvento = JOptionPane.showInputDialog("Digite a data do evento (dd/mm/yyyy):");
-                if(!ValidaInput.string(dataEvento)){
+                if (!ValidaInput.string(dataEvento)) {
                     return;
                 }
                 try {
-                        calendario.setData(utils.formatDate(dataEvento));
-                    } catch (Exception e) {
-                        JOptionPane.showMessageDialog(null, "Data inválida");
-                        return;
-                    }
-                
+                    calendario.setData(utils.formatDate(dataEvento));
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(null, "Data inválida");
+                    return;
+                }
+                //calendario.setDataEventoFormat(utils.formatDateToString(calendario.getData())); //modifica a data para string de format pattern
                 String tituloEvento = JOptionPane.showInputDialog("Digite o titulo do evento:");
-                if(!ValidaInput.string(tituloEvento)){
+                if (!ValidaInput.string(tituloEvento)) {
                     return;
                 }
                 calendario.setTitulo(tituloEvento);
-                String descricaoEvento = JOptionPane.showInputDialog(null, "Digite a descrição do evento (até 4000 caracteres):",
-                        "Adicionar Evento", JOptionPane.PLAIN_MESSAGE);
+                String descricaoEvento = JOptionPane.showInputDialog(null, "Digite a descrição do evento (até 4000 caracteres):");
                 // Limitar a descrição a 4000 caracteres
-               if(!ValidaInput.string(tituloEvento)){
+                if (!ValidaInput.string(tituloEvento)) {
                     return;
                 }
                 if (descricaoEvento.length() > 4000) {
@@ -970,9 +974,46 @@ public class Controller {
                 JOptionPane.showMessageDialog(null, "Evento adicionado com sucesso!\n");
                 return;
 
-            case 1://remover evento
+            case 1://alterar evento
+                String idAlterar = JOptionPane.showInputDialog("Digite o ID da data do evento:");
+                if (!ValidaInput.string(idAlterar) || !ValidaInput.stringEhInt(idAlterar)) {
+                    return;
+                }
+                calendario = calendariosDatabase.getById(Integer.parseInt(idAlterar));
+                String novoDataEvento = JOptionPane.showInputDialog("Digite a data do evento (dd/mm/yyyy):", calendario.getData());
+                if (!ValidaInput.string(novoDataEvento)) {
+                    return;
+                }
+                try {
+                    calendario.setData(utils.formatDate(novoDataEvento));
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(null, "Data inválida");
+                    return;
+                }
+                //calendario.setDataEventoFormat(utils.formatDateToString(calendario.getData())); //modifica a data para string de format pattern
+                String novoTituloEvento = JOptionPane.showInputDialog("Digite o titulo do evento:", calendario.getTitulo());
+                if (!ValidaInput.string(novoTituloEvento)) {
+                    return;
+                }
+                calendario.setTitulo(novoTituloEvento);
+                String novoDescricaoEvento = JOptionPane.showInputDialog(null, "Digite a descrição do evento (até 4000 caracteres):", calendario.getDescricao());
+                // Limitar a descrição a 4000 caracteres
+                if (!ValidaInput.string(novoDescricaoEvento)) {
+                    return;
+                }
+                if (novoDescricaoEvento.length() > 4000) {
+                    novoDescricaoEvento = novoDescricaoEvento.substring(0, 4000); // Trunca o texto para 4000 caracteres
+                }
+                calendario.setDescricao(novoDescricaoEvento);
+                calendario.setDataModificacao();
+                calendariosDatabase.update(calendario);
+
+                JOptionPane.showMessageDialog(null, "Evento Alterado com sucesso!\n");
+                return;
+
+            case 2://remover evento
                 String idRemover = JOptionPane.showInputDialog("Digite o ID do evento que deseja excluir:");
-                if(!ValidaInput.string(idRemover) || !ValidaInput.stringEhInt(idRemover)){
+                if (!ValidaInput.string(idRemover) || !ValidaInput.stringEhInt(idRemover)) {
                     return;
                 }
                 calendario = calendariosDatabase.getById(Integer.parseInt(idRemover));
@@ -988,10 +1029,43 @@ public class Controller {
                     JOptionPane.showMessageDialog(null, "Evento com ID " + idRemover + " não encontrado.");
                 }
                 return;
-            case 2://visualizar calendario
-                return; // Volta ao menu anterior
+            case 3: //visualizar compromissos hoje
+                todosCalendarios = calendariosDatabase.getAll();
+                 LocalDate dH;
+                //calendario = new Calendario();
+                String dataHoje = JOptionPane.showInputDialog("Digite a data do evento (dd/mm/yyyy):");
+                if (!ValidaInput.string(dataHoje)) {
+                    return;
+                }
+                try {
+                    dH = utils.formatDate(dataHoje);
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(null, "Data inválida");
+                    return;
+                }
+                if (todosCalendarios.length > 0) {
+                    String strCalendarios = "";
+                    for (Calendario c : todosCalendarios) {
+                        if (dH.isEqual(c.getData()) )
+                        strCalendarios += c.toString() + "\n";
+                    }
+                    JOptionPane.showMessageDialog(null, strCalendarios);
+                } else {
+                    JOptionPane.showMessageDialog(null, "Nenhum evento para hoje.");
+                }
+                return;
+            case 4://visualizar calendario
+                todosCalendarios = calendariosDatabase.getAll();
+                if (todosCalendarios.length > 0) {
+                    String strCalendarios = "";
+                    for (Calendario c : todosCalendarios) {
+                        strCalendarios += c.toString() + "\n";
+                    }
+                    JOptionPane.showMessageDialog(null, strCalendarios);
+                } else {
+                    JOptionPane.showMessageDialog(null, "Nenhum evento cadastrado.");
+                }
         }
-
     }
 
     public void perfilConvidado(int escolhaConvidado) {

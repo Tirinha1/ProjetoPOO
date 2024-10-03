@@ -20,6 +20,7 @@ public class Pagamento extends Identifiable {
     private int tipo;
     private int parcela;
     private String descricao;
+    private Calendario calendario;
     private LocalDateTime dataCriacao;
     private LocalDateTime dataModificacao;
 
@@ -85,6 +86,8 @@ public class Pagamento extends Identifiable {
     public void setTipo(int tipo) {
         this.tipo = tipo;
     }
+    
+    
 
     @Override
     public String toString() {

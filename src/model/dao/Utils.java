@@ -6,20 +6,26 @@ package model.dao;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Locale;
 
 /**
  *
  * @author IFTM
  */
-public class Utils {
+public class Utils extends Identifiable{
 
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
     LocalDate data;
+    
 
     //formato dd-MM-yy
     public LocalDate formatDate(String data) throws Exception {
             this.data = LocalDate.parse(data, formatter);
         return this.data;
+    }
+    
+    public String formatDateToString(LocalDate data){
+        return data.format(formatter);
     }
 
     // Valida se a string contém apenas números e uma única vírgula

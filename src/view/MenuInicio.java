@@ -66,7 +66,7 @@ public class MenuInicio {
 
     public int menuGerenciarCalendario() {
  
-            String[] opcoes = {"Adicionar Evento", "Remover Evento", "Visualizar Calendário", "Voltar"};
+            String[] opcoes = {"Adicionar Evento", "Alterar Evento", "Remover Evento", "Visualizar Eventos Hoje", "Visualizar Calendário", "Voltar"};
             int escolha = JOptionPane.showOptionDialog(null, "Gerenciamento de Calendário", "Calendário", JOptionPane.DEFAULT_OPTION,
                     JOptionPane.INFORMATION_MESSAGE, null, opcoes, opcoes[0]);
             return escolha;
